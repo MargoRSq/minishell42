@@ -1,0 +1,5 @@
+# MAIN
+MAIN	= main.c
+# end MAIN
+
+SRCS = ${MAIN}
