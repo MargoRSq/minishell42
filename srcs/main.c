@@ -1,25 +1,6 @@
 #include "minishell.h"
 
 
-void	start_input_loop()
-{
-
-}
-
-/*
-	env info
-*/
-
-/*
-	shell info
-*/
-typedef struct s_sh
-{
-	int					key;
-	char				*value;
-	t_env				*env;
-}	t_sh;
-
 typedef struct s_entity
 {
 	int					code;
@@ -43,20 +24,16 @@ int main(int ac, char **av, char **envp)
 	t_env *env;
 	t_sh sh;
 
-
-	(void)ac; (void)av; (void)envp;
-
 	if (ac !=1)
 		return 1;
 
 	env = parse_envp(envp);
-	envlst_print(env);
+	// envlst_print(env);
 
-	// int i = -1;
-		// printf("%s\n", envp[i]);
-	
-	// env = parse_env(envp);
-	// set_sh_level(env, sh)
+	init_shell(&sh, env);
+	start_shell(&sh);
+	// set_sh_level(env, sh);
+	// printf("%s\n", get_env_value("SHLVL", env));
 	// start_shell(&env, &sh, envp);
 	// clear();
 
@@ -65,11 +42,5 @@ int main(int ac, char **av, char **envp)
 	return (1);
 	// return (sh.status);
 
-	// while(1)
-	// {
-	// 	line = readline("\e[1;34mmaybach$ \e[0;37m");
-	// 	printf("---%s---\n", line);
-	// 	add_history(line);
-	// }
 	// return (0);
 }

@@ -1,1 +1,7 @@
 *.DS_Store
+objs/
+.minishell_history
+minishell
+
+kek
+lol

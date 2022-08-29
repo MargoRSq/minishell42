@@ -3,7 +3,12 @@ MAIN	= main.c
 # end MAIN
 
 # ENV
-ENV_PARSER = env/utils.c env/parse.c
+ENV_PARSER = env/envlst_utils.c env/parse.c env/env_utils.c
 # end ENV
 
-SRCS = ${MAIN} ${ENV_PARSER}
+# LINE
+LINE = line/input.c
+
+# end LINE
+
+SRCS = ${MAIN} ${ENV_PARSER} ${LINE}
