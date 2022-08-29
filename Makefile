@@ -3,7 +3,6 @@ include makefile.srcs
 NAME			= minishell
 
 SRCS_DIR		= srcs
-
 OBJS_DIR		= objs
 
 OBJS			= ${addprefix ${OBJS_DIR}/, ${SRCS:.c=.o}}
@@ -35,7 +34,7 @@ OS_NAME			:= $(shell uname -s)
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= # -Wall -Wextra -Werror
 
 OPTFLAGS	= -MMD -MP -g
 

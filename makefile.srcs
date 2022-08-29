@@ -2,4 +2,8 @@
 MAIN	= main.c
 # end MAIN
 
-SRCS = ${MAIN}
+# ENV
+ENV_PARSER = env/utils.c env/parse.c
+# end ENV
+
+SRCS = ${MAIN} ${ENV_PARSER}
