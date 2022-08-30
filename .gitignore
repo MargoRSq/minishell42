@@ -2,6 +2,7 @@
 objs/
 .minishell_history
 minishell
-
+*.o 
+*.a
 kek
 lol

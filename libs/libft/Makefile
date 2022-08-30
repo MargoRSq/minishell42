@@ -15,7 +15,7 @@ BONUS_OBJS		=	$(BONUS:.c=.o)
 
 OBJS = ${SRCS:.c=.o}
 
-CC		= gcc
+CC		= cc
 RM		= rm -f
 
 HEADER = libft.h
