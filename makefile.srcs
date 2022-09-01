@@ -7,7 +7,7 @@ ENV_PARSER = env/envlst_utils.c env/parse.c env/env_utils.c
 # end ENV
 
 # LINE
-LINE = line/input.c
+LINE = parse/input.c parse/lex_finder.c parse/lexer.c parse/parser.c parse/tokenlst_utils.c
 
 BUILTIN = builtin/pwd.c builtin/env.c
 # end LINE

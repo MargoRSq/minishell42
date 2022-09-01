@@ -32,6 +32,7 @@ void	envlst_clear(t_env **lst)
 	}
 	*lst = NULL;
 }
+
 t_env	*envlst_last(t_env *lst)
 {
 	if (!lst)

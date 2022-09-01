@@ -8,6 +8,8 @@
 #include <readline/history.h>
 #include "libft.h"
 
+#include "enums.h"
+
 # define HISTORY_FILE	".minishell_history"
 
 # define CYAN "\e[46m"
@@ -52,5 +54,25 @@ void	start_shell(t_sh *sh);
 // builtins
 void	execute_pwd(t_sh *sh);
 void	execute_env(t_sh *sh);
+
+/*
+	lexer
+*/
+typedef struct s_token
+{
+	char			*start;
+	int				len;
+	enum 			e_tokens code;
+	struct			s_token *next;
+}	t_token;
+
+
+t_token		*tokenlst_last(t_token *lst);
+t_token		*tokenlst_new(char *start, int len, int code);
+void		tokenlst_add_back(t_token **lst, t_token *new);
+void		tokenlst_clear(t_token **lst);
+void		tokenlst_print(t_token *lst);
+int	find_end(char *ptr);
+t_token	*lex_line(char *line);
 
 #endif
