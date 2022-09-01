@@ -3,6 +3,7 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libft.h"
@@ -47,5 +48,9 @@ typedef struct s_sh
 
 void	init_shell(t_sh *sh, t_env *env);
 void	start_shell(t_sh *sh);
+
+// builtins
+void	execute_pwd(t_sh *sh);
+void	execute_env(t_sh *sh);
 
 #endif

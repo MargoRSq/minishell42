@@ -9,6 +9,7 @@ ENV_PARSER = env/envlst_utils.c env/parse.c env/env_utils.c
 # LINE
 LINE = line/input.c
 
+BUILTIN = builtin/pwd.c builtin/env.c
 # end LINE
 
-SRCS = ${MAIN} ${ENV_PARSER} ${LINE}
+SRCS = ${MAIN} ${ENV_PARSER} ${LINE} ${BUILTIN}
