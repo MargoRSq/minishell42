@@ -28,10 +28,11 @@ int main(int ac, char **av, char **envp)
 		return 1;
 
 	env = parse_envp(envp);
-	// envlst_print(env);
+	envlst_print(env);
 
 	init_shell(&sh, env);
 	start_shell(&sh);
+	// do_pwd(&sh)
 	// set_sh_level(env, sh);
 	// printf("%s\n", get_env_value("SHLVL", env));
 	// start_shell(&env, &sh, envp);

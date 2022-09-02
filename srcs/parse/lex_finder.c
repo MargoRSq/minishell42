@@ -36,7 +36,7 @@ int	find_end(char *ptr)
 	if (*ptr == s_quote)
 		return (find_symbol(ptr + 1, s_quote));
 	else if (*ptr == d_quote)
-		return (find_symbol(ptr + 1, d_quote));
+		return (find_symbol(ptr + 1, d_quote) + 1);
 	else if (*ptr == r_corner || *ptr == l_corner)
 	{
 		d = find_separator(ptr);

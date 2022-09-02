@@ -32,6 +32,8 @@ t_token	*lex_line(char *line)
 	len = 0;
 	while (++i < until - 1)
 	{
+		while (&line[i] == space)
+			i++;
 		len = find_end(&line[i]);
 		code = get_code(line[i], len);
 		tokenlst_add_back(&tokens, tokenlst_new(&line[i], len, code));
