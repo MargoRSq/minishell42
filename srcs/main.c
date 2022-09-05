@@ -16,8 +16,6 @@ typedef struct s_global
 }	t_global;
 
 
-
-
 int main(int ac, char **av, char **envp)
 {
 	char *line;
@@ -28,7 +26,7 @@ int main(int ac, char **av, char **envp)
 		return 1;
 
 	env = parse_envp(envp);
-	envlst_print(env);
+	// envlst_print(env);
 
 	init_shell(&sh, env);
 	start_shell(&sh);

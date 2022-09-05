@@ -2,12 +2,15 @@
 
 void	init_shell(t_sh *sh, t_env *env)
 {
-	int	cur_level;
+	char	*cur_level;
 
 	sh->env = env;
 	sh->exit_status = 0;
-	cur_level = ft_atoi(get_env_value("SHLVL", sh->env));
-	sh->level = cur_level + 1;
+	cur_level = get_env_value("SHLVL", sh->env);
+	if (cur_level)
+		sh->level = ft_atoi(cur_level) + 1;
+	else
+		sh->level = 1;
 	read_history(HISTORY_FILE);
 }
 
