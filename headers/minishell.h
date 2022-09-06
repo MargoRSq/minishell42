@@ -25,16 +25,19 @@ typedef struct s_env
 	struct s_env		*next;
 }	t_env;
 
+
 t_env	*envlst_new(char *key, char *value);
 t_env	*envlst_last(t_env *lst);
 void	envlst_add_back(t_env **lst, t_env *new);
 void	envlst_clear(t_env **lst);
 void	envlst_print(t_env *lst);
+void	envlst_delete_elem(char *key, t_env **lst);
 
 t_env	*parse_envp(char **envp);
 char	*get_env_value(char *key, t_env *env);
 t_env	*append_env_var(char *key, char *value);
 t_env	*update_env_value(char *key, char *value);
+
 
 /*
 	main shell parameters
@@ -46,11 +49,19 @@ typedef struct s_sh
 	t_env				*env;
 }	t_sh;
 
+typedef struct s_cmd
+{
+	char			*name;
+	char			**args;
+	struct s_cmd	*next;
+}	t_cmd;
+
 void	init_shell(t_sh *sh, t_env *env);
 void	start_shell(t_sh *sh);
 
 // builtins
 void	execute_pwd(t_sh *sh);
 void	execute_env(t_sh *sh);
+void	execute_unset(t_cmd *cmd, t_sh *sh);
 
 #endif
