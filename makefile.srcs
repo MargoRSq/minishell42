@@ -1,15 +1,12 @@
-# MAIN
-MAIN	= main.c
-# end MAIN
+MAIN	= main.c errors.c
 
-# ENV
-ENV_PARSER = env/envlst_utils.c env/parse.c env/env_utils.c
-# end ENV
+ENV_PARSER_FILES = envlst_utils.c parse.c env_utils.c
+ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 
-# LINE
-LINE = line/input.c
+LINE_FILES = input.c lex_finder.c lexer.c parser.c tokenlst_utils.c
+LINE = $(addprefix parse/, ${LINE_FILES})
 
-BUILTIN = builtin/pwd.c builtin/env.c
-# end LINE
+BUILTIN_FILES = pwd.c env.c
+BUILTIN = $(addprefix builtin/, ${BUILTIN_FILES})
 
 SRCS = ${MAIN} ${ENV_PARSER} ${LINE} ${BUILTIN}

@@ -10,6 +10,13 @@
         "string_view": "c",
         "vector": "c",
         "ranges": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "__bit_reference": "c",
+        "__string": "c",
+        "algorithm": "c",
+        "deque": "c",
+        "ios": "c",
+        "type_traits": "c",
+        "errors.h": "c"
     }
 }

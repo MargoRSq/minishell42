@@ -8,40 +8,21 @@
 #include <readline/history.h>
 #include "libft.h"
 
-# define HISTORY_FILE	".minishell_history"
+#include "enums.h"
+#include "env.h"
+#include "lexer.h"
+#include "errors.h"
+#include "utils.h"
 
-# define CYAN "\e[46m"
-# define DEFAULT_PREFIX "\e[1;34mmaybach$ \e[0;37m\e[1;32m~"
-# define DOLLAR "\e[1;34m$ \e[0;37m"
 
-
-/*
-	environment
-*/
-typedef struct s_env
+typedef struct s_status
 {
-	char				*key;
-	char				*value;
-	struct s_env		*next;
-}	t_env;
+	int			exit_code;
+	char		*exit_msg;
+	short		interrupt;
 
+}	t_status;
 
-t_env	*envlst_new(char *key, char *value);
-t_env	*envlst_last(t_env *lst);
-void	envlst_add_back(t_env **lst, t_env *new);
-void	envlst_clear(t_env **lst);
-void	envlst_print(t_env *lst);
-void	envlst_delete_elem(char *key, t_env **lst);
-
-t_env	*parse_envp(char **envp);
-char	*get_env_value(char *key, t_env *env);
-t_env	*append_env_var(char *key, char *value);
-t_env	*update_env_value(char *key, char *value);
-
-
-/*
-	main shell parameters
-*/
 typedef struct s_sh
 {
 	int					level;
@@ -56,12 +37,8 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+
 void	init_shell(t_sh *sh, t_env *env);
 void	start_shell(t_sh *sh);
-
-// builtins
-void	execute_pwd(t_sh *sh);
-void	execute_env(t_sh *sh);
-void	execute_unset(t_cmd *cmd, t_sh *sh);
 
 #endif

@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [{
         "label": "make",
-        "command": "make fclean && make", // Could be any other shell command
+        "command": "make", // Could be any other shell command
         "args": [],
         "type": "shell"
     }]
