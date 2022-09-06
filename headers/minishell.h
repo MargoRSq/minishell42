@@ -23,7 +23,6 @@ typedef struct s_status
 
 }	t_status;
 
-
 typedef struct s_sh
 {
 	int					level;
@@ -31,7 +30,14 @@ typedef struct s_sh
 	t_env				*env;
 }	t_sh;
 
-t_status	g_status;
+typedef struct s_cmd
+{
+	char			*name;
+	char			**args;
+	struct s_cmd	*next;
+}	t_cmd;
+
+t_status g_status;
 
 void	init_shell(t_sh *sh, t_env *env);
 void	start_shell(t_sh *sh);

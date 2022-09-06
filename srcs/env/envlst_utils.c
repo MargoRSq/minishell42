@@ -72,3 +72,35 @@ void	envlst_print(t_env *lst)
 			return ;
 	}
 }
+
+void envlst_delete_elem(char *key, t_env **lst)
+{
+	t_env *tmp;
+	t_env *to_delete;
+
+	if (!lst || !(*lst))
+		return ;
+	if(!strcmp(key, (*lst)->key))
+	{
+		to_delete = (*lst);
+		*lst = (*lst)->next;
+		free(to_delete->value);
+		free(to_delete->key);
+		free(to_delete);
+		return ;
+	}
+	tmp = (*lst);
+	while(tmp->next)
+	{
+		if(!strcmp(key, tmp->next->key))
+		{
+			to_delete = tmp->next;
+			tmp->next = tmp->next->next;
+			free(to_delete->value);
+			free(to_delete->key);
+			free(to_delete);
+			return ;
+		}
+		tmp = tmp->next;
+	}
+}
