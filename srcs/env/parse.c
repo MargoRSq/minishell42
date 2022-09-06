@@ -23,12 +23,17 @@ t_env	*parse_envp(char **envp)
 	env = NULL;
 	i = -1;
 	eq = 0;
-	while (envp[++i])
+	if (envp)
 	{
-		eq = find_equals_sign(envp[i]);
-		key = ft_substr(envp[i], 0, eq);
-		value = ft_substr(envp[i], eq + 1, ft_strlen(envp[i]));
-		envlst_add_back(&env, envlst_new(key, value));
+		while (envp[++i])
+		{
+			eq = find_equals_sign(envp[i]);
+			key = ft_substr(envp[i], 0, eq);
+			value = ft_substr(envp[i], eq + 1, ft_strlen(envp[i]));
+			if (!key || !value || eq == -1)
+				return (NULL); // need to signal this error
+			envlst_add_back(&env, envlst_new(key, value));
+		}
 	}
 	return (env);
 }

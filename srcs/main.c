@@ -1,22 +1,20 @@
 #include "minishell.h"
 
-
-typedef struct s_entity
+static int	exit_with_message()
 {
-	int					code;
-	int					len;
-	char				*start;
-	struct s_entity			*next;
+	if (g_status.exit_msg)
+		printf("%s", g_status.exit_msg);
+	else
+		printf("Goodbye!\n");
+	return (g_status.exit_code);
+}
 
-}	t_entity;
-
-typedef struct s_global
+static void	init_status()
 {
-	
-}	t_global;
-
-
-
+	g_status.exit_code = 0;
+	g_status.exit_msg = NULL;
+	g_status.interrupt = 0;
+}
 
 int main(int ac, char **av, char **envp)
 {
@@ -24,24 +22,15 @@ int main(int ac, char **av, char **envp)
 	t_env *env;
 	t_sh sh;
 
-	if (ac !=1)
+	if (ac != 1)
 		return 1;
 
+	init_status();
 	env = parse_envp(envp);
-	envlst_print(env);
+	// envlst_print(env);
 
 	init_shell(&sh, env);
 	start_shell(&sh);
-	// do_pwd(&sh)
-	// set_sh_level(env, sh);
-	// printf("%s\n", get_env_value("SHLVL", env));
-	// start_shell(&env, &sh, envp);
-	// clear();
 
-	// printf("%s\n", getenv("PWD"));
-
-	return (1);
-	// return (sh.status);
-
-	// return (0);
+	return (exit_with_message());
 }
