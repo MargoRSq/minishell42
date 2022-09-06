@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	get_code(int sy, int len)
+static int	get_code(int sy, int len)
 {
 	if (sy == s_quote)
 		return (s_quote_str);
@@ -29,13 +29,10 @@ t_token	*lex_line(char *line)
 	int		i;
 	int		len;
 	int		code;
-	int		until;
 	t_token	*tokens;
 
 	i = 0;
 	tokens = NULL;
-	until = ft_strlen(line);
-	len = 0;
 	while (line[i])
 	{
 		if (line[i] == space)
@@ -43,10 +40,13 @@ t_token	*lex_line(char *line)
 		else
 		{
 			len = find_end(&line[i]);
+			if (len == -1)
+				return (NULL);
 			code = get_code((int)line[i], len);
 			tokenlst_add_back(&tokens, tokenlst_new(&line[i], len, code));
 			i += get_skip_distance(line[i], len);
 		}
 	}
 	tokenlst_print(tokens);
+	return (tokens);
 }

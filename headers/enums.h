@@ -35,3 +35,11 @@ enum e_tokens
 	heredoc = 6,
 	word = 7
 };
+
+enum e_exits
+{
+	all_ok = 0,
+	malloc_error = 1,
+	env_error = 2,
+	unclosed_quote_error = 3
+};

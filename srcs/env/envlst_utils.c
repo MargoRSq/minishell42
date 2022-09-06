@@ -4,6 +4,8 @@ void	envlst_add_back(t_env **lst, t_env *new)
 {
 	t_env	*lst_elem;
 
+	if (!new)
+		return ;
 	if (!*lst)
 	{
 		(*lst) = new;
@@ -48,7 +50,7 @@ t_env	*envlst_new(char *key, char *value)
 
 	elem = (t_env *)malloc(sizeof(t_env));
 	if (!elem)
-		return (NULL);
+		return trigger_malloc_error();
 	elem->key = key;
 	elem->value = value;
 	elem->next = NULL;

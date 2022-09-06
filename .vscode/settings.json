@@ -16,6 +16,7 @@
         "algorithm": "c",
         "deque": "c",
         "ios": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "errors.h": "c"
     }
 }

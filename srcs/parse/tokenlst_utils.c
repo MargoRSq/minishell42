@@ -47,7 +47,7 @@ t_token	*tokenlst_new(char *start, int len, int code)
 
 	elem = (t_token *)malloc(sizeof(t_token));
 	if (!elem)
-		return (NULL);
+		return trigger_malloc_error();
 	elem->start = start;
 	elem->len = len;
 	elem->code = code;
