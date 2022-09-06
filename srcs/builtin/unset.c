@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int check_valid(char *str)
+static inline int check_valid(char *str)
 {
 	if (!ft_isalpha(*str) && *str != '_')
 		return (1);
@@ -26,7 +26,7 @@ int check_valid(char *str)
 	return (0);
 }
 
-void execute_unset(t_cmd *cmd, t_sh *sh)
+void execute_unset(t_env *env, char **cmd_argv)
 {
 	int  i;
 

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void execute_echo(t_cmd *cmd)
+void execute_echo(char **cmd_argv)
 {
 	int i;
 	

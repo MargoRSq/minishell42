@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-void execute_pwd(t_sh *sh)
+void execute_pwd(t_env *env)
 {
 	char *cur_dir;
 
 	cur_dir = getcwd(NULL, 0);
 	if (cur_dir == NULL)
-		cur_dir = get_env_value("PWD", sh->env);
+		cur_dir = get_env_value("PWD", env);
 	if (!cur_dir)
-		printf("error");
+		trigger_env_error();
 	write(0, cur_dir, ft_strlen(cur_dir));
 	write(0, "\n", 1);
 	free(cur_dir);
