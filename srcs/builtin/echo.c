@@ -12,25 +12,25 @@
 
 #include "minishell.h"
 
-void execute_echo(char **cmd_argv)
-{
-	int i;
+// void execute_echo(char **cmd_argv)
+// {
+// 	int i;
 	
-	if (!cmd->args[1])
-	{
-		printf("\n");
-		return ;
-	}
-	while (cmd->args[i] && !ft_strncmp(cmd->args[i], "-n",
-			ft_strlen(cmd->args[i])))
-		i++;
-	while (cmd->args[i])
-	{
-		printf("%s", cmd->args[i]);
-		if (cmd->args[i + 1])
-			printf(" ");
-		i++;
-	}
-	if (ft_strncmp(cmd->args[1], "-n", ft_strlen(cmd->args[1])))
-	printf("\n");
-}
+// 	if (!cmd->args[1])
+// 	{
+// 		printf("\n");
+// 		return ;
+// 	}
+// 	while (cmd->args[i] && !ft_strncmp(cmd->args[i], "-n",
+// 			ft_strlen(cmd->args[i])))
+// 		i++;
+// 	while (cmd->args[i])
+// 	{
+// 		printf("%s", cmd->args[i]);
+// 		if (cmd->args[i + 1])
+// 			printf(" ");
+// 		i++;
+// 	}
+// 	if (ft_strncmp(cmd->args[1], "-n", ft_strlen(cmd->args[1])))
+// 	printf("\n");
+// }

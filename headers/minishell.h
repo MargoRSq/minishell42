@@ -21,20 +21,13 @@ typedef struct s_status
 	int			exit_code;
 	char		*exit_msg;
 	short		interrupt;
+	short		shell_level;
 
 }	t_status;
 
-typedef struct s_sh
-{
-	int					level;
-	int					exit_status;
-	t_env				*env;
-}	t_sh;
-
-
 t_status g_status;
 
-void	init_shell(t_sh *sh, t_env *env);
-void	start_shell(t_sh *sh);
+void	init_shell(t_env *env);
+void	start_shell(t_env *env);
 
 #endif

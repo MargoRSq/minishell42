@@ -20,7 +20,6 @@ int main(int ac, char **av, char **envp)
 {
 	char *line;
 	t_env *env;
-	t_sh sh;
 
 	if (ac != 1)
 		return 1;
@@ -29,8 +28,8 @@ int main(int ac, char **av, char **envp)
 	env = parse_envp(envp);
 	// envlst_print(env);
 
-	init_shell(&sh, env);
-	start_shell(&sh);
+	init_shell(env);
+	start_shell(env);
 
 	return (exit_with_message());
 }
