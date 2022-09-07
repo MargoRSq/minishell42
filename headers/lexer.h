@@ -4,7 +4,7 @@ typedef struct s_token
 {
 	char			*start;
 	int				len;
-	enum 			e_tokens code;
+	t_token_type	code;
 	struct			s_token *next;
 }	t_token;
 

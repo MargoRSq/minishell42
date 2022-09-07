@@ -14,6 +14,7 @@
 #include "errors.h"
 #include "utils.h"
 #include "builtins.h"
+#include "cmd.h"
 
 
 typedef struct s_status

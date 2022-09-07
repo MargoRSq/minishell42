@@ -46,6 +46,7 @@ void	start_shell(t_env *env)
 {
 	char		*line;
 	t_token		*tokens;
+	t_cmd		*cmds;
 
 	while(1)
 	{
@@ -55,5 +56,6 @@ void	start_shell(t_env *env)
 		tokens = lex_line(line);
 		if (g_status.interrupt)
 			break ;
+		cmds = create_commands(tokens);
 	}
 }

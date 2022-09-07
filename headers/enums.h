@@ -25,16 +25,17 @@ enum e_controls
 	ends			= (int)'\0',
 };
 
-enum e_tokens
+typedef enum e_tokens
 {
 	d_quote_str = 1,
-	s_quote_str = 2,
-	r_in = 3,
-	r_out = 4,
-	r_append = 5,
-	heredoc = 6,
-	word = 7
-};
+	s_quote_str,
+	r_in,
+	r_out,
+	r_append,
+	heredoc,
+	word,
+	lpipe
+}	t_token_type;
 
 enum e_exits
 {
