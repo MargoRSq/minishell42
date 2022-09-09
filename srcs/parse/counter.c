@@ -18,7 +18,8 @@ static int inline count_in_files(t_token *tokens)
 			else
 				break;
 		}
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 	return (counter);
 }

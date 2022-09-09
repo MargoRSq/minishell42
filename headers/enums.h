@@ -1,4 +1,4 @@
-enum e_controls
+typedef enum e_controls
 {
 	d_quote			= (int)'"',
 	s_quote         = (int)'\'',
@@ -23,7 +23,7 @@ enum e_controls
 	vtab			= (int)'\v',
 	cr				= (int)'\r',
 	ends			= (int)'\0',
-};
+}	t_symbols;
 
 typedef enum e_tokens
 {
