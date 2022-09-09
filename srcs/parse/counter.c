@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 
-static int inline count_in_files(t_token *tokens)
+static int inline count_redirs(t_token *tokens, int token_code)
 {
 	int		counter;
 	t_token	*tmp;
@@ -10,7 +10,7 @@ static int inline count_in_files(t_token *tokens)
 	tmp = tokens;
 	while (tmp && tmp->code != lpipe)
 	{
-		if (tmp->code == r_in)
+		if (tmp->code == token_code)
 		{
 			counter++;
 			if (tmp->next && tmp->next->next)
@@ -20,28 +20,6 @@ static int inline count_in_files(t_token *tokens)
 		}
 		else
 			tmp = tmp->next;
-	}
-	return (counter);
-}
-
-static int inline	count_out_files(t_token *tokens)
-{
-	int		counter;
-	t_token	*tmp;
-
-	counter = 0;
-	tmp = tokens;
-	while (tmp && tmp->code != lpipe)
-	{
-		if (tmp->code == r_out || tmp->code == r_append)
-		{
-			counter++;
-			if (tmp->next && tmp->next->next)
-				tmp = tmp->next->next;
-			else
-				break;
-		}
-		tmp = tmp->next;
 	}
 	return (counter);
 }
@@ -75,8 +53,8 @@ t_count	count_entities(t_token *tokens)
 {
 	t_count	counter;
 
-	counter.in = count_in_files(tokens);
-	counter.out = count_out_files(tokens);
+	counter.in = count_redirs(tokens, r_in);
+	counter.out = count_redirs(tokens, r_out);
 	counter.words = count_words(tokens);
 	return (counter);
 }
