@@ -13,6 +13,7 @@
 #include "lexer.h"
 #include "errors.h"
 #include "utils.h"
+#include "builtins.h"
 
 
 typedef struct s_status
@@ -30,12 +31,6 @@ typedef struct s_sh
 	t_env				*env;
 }	t_sh;
 
-typedef struct s_cmd
-{
-	char			*name;
-	char			**args;
-	struct s_cmd	*next;
-}	t_cmd;
 
 t_status g_status;
 

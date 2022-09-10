@@ -27,6 +27,7 @@ int		trigger_unclosed_quote_error(char q_type)
 	return (-1);
 }
 
+
 int		trigger_too_many_redirects_error()
 {
 	g_status.interrupt = 1;
@@ -34,3 +35,27 @@ int		trigger_too_many_redirects_error()
 	g_status.exit_code = unclosed_quote_error;
 	return (-1);
 }
+
+int		trigger_home_error()
+{
+	g_status.interrupt = 1;
+	g_status.exit_msg = MSG_ERR_HOME;
+	g_status.exit_code = home_error;
+	return(-1);
+}
+
+int 	trigger_pwd_error()
+{
+	g_status.interrupt = 1;
+	g_status.exit_msg = MSG_ERR_PWD;
+	g_status.exit_code = pwd_error;
+	return(-1);
+}
+
+// int 	trigger_сd_error()
+// {
+// 	g_status.interrupt = 1;
+// 	g_status.exit_msg = MSG_ERR_CD;
+// 	g_status.exit_code = pwd_error;
+// 	return(-1);
+// }
