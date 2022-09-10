@@ -56,6 +56,8 @@ void	start_shell(t_env *env)
 		tokens = lex_line(line);
 		if (g_status.interrupt)
 			break ;
-		cmds = create_commands(tokens);
+		// cmds = create_commands(tokens);
+		// if (!ft_strcmp(cmds->name, "env"))
+		// execute_env(env);
 	}
 }

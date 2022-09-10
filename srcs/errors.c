@@ -36,12 +36,12 @@ int		trigger_too_many_redirects_error()
 	return (-1);
 }
 
-int		trigger_home_error()
+char		*trigger_home_error()
 {
 	g_status.interrupt = 1;
 	g_status.exit_msg = MSG_ERR_HOME;
 	g_status.exit_code = home_error;
-	return(-1);
+	return(NULL);
 }
 
 int 	trigger_pwd_error()

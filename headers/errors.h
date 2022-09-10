@@ -5,7 +5,7 @@ void	*trigger_malloc_error();
 void	*trigger_env_error();
 int		trigger_unclosed_quote_error(char q_type);
 int		trigger_too_many_redirects_error();
-int		trigger_home_error();
+char	*trigger_home_error();
 int		trigger_pwd_error();
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
