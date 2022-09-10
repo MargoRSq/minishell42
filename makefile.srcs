@@ -6,7 +6,7 @@ ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 LINE_FILES = input.c lex_finder.c lexer.c parser.c tokenlst_utils.c
 LINE = $(addprefix parse/, ${LINE_FILES})
 
-BUILTIN_FILES = pwd.c env.c echo.c unset.c
+BUILTIN_FILES = pwd.c env.c echo.c unset.c builtin_utils.c
 BUILTIN = $(addprefix builtin/, ${BUILTIN_FILES})
 
 SRCS = ${MAIN} ${ENV_PARSER} ${LINE} ${BUILTIN}

@@ -41,5 +41,7 @@ enum e_exits
 	all_ok = 0,
 	malloc_error = 1,
 	env_error = 2,
-	unclosed_quote_error = 3
+	unclosed_quote_error = 3,
+	home_error = 4,
+	pwd_error = 5
 };
