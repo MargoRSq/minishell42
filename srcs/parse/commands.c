@@ -1,9 +1,17 @@
 #include "minishell.h"
 
+
 t_cmd	*create_commands(t_token *tokens)
 {
 	t_count counter;
+	t_cmd	*cmds;
 
-	counter = count_entities(tokens);
-	printf("in=%d out=%d words=%d\n", counter.in, counter.out, counter.words);
+	cmds = NULL;
+	// while (tokens)
+	// {
+	cmdlst_add_back(&cmds, cmdlst_new(tokens));
+		// while (tokens && tokens->code != lpipe)
+		// 	tokens = tokens->next;
+		// tokens = tokens->next;
+	// }
 }

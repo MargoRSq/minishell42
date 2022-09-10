@@ -14,6 +14,8 @@ static int	get_code(int sy, int len)
 		return (r_out);
 	else if (sy == r_corner && len == 2)
 		return (r_append);
+	else if (sy == pipes)
+		return (lpipe);
 	return (word);
 }
 
@@ -56,6 +58,6 @@ t_token	*lex_line(char *line)
 			i += get_skip_distance(&line[i], len);
 		}
 	}
-	tokenlst_print(tokens);
+	// tokenlst_print(tokens);
 	return (tokens);
 }
