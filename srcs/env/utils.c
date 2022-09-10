@@ -11,7 +11,7 @@ char	*get_env_value(char *key, t_env *env)
 			return (tmp->value);
 		tmp = tmp->next;
 	}
-	return (trigger_env_error());
+	return (NULL);
 }
 
 t_env	*update_env_value(char *key, char *value)

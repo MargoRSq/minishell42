@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:48:55 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/01 13:56:40 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/09/06 15:13:10 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void execute_env(t_env *env)
 {
 	if(env == NULL)
-		printf("error");
+		trigger_env_error();
 	envlst_print(env);
 }

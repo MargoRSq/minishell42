@@ -9,7 +9,7 @@ ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 PARSE_FILES = input.c lex_finder.c lexer.c counter.c commands.c
 PARSE = $(addprefix parse/, ${PARSE_FILES})
 
-BUILTIN_FILES = pwd.c env.c echo.c unset.c
+BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c builtin_utils.c
 BUILTIN = $(addprefix builtin/, ${BUILTIN_FILES})
 
 SRCS = ${MAIN} ${ENV_PARSER} ${PARSE} ${BUILTIN} ${LST_UTILS}
