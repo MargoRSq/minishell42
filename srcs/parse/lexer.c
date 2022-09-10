@@ -79,6 +79,6 @@ t_token	*lex_line(char *line)
 			i += get_skip_distance(&line[i], len);
 		}
 	}
-	// tokenlst_print(tokens);
+	tokenlst_print(tokens);
 	return (tokens);
 }
