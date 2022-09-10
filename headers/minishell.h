@@ -7,6 +7,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libft.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include "enums.h"
 #include "env.h"
@@ -14,6 +17,7 @@
 #include "errors.h"
 #include "utils.h"
 #include "builtins.h"
+#include "cmd.h"
 
 
 typedef struct s_status
@@ -21,20 +25,13 @@ typedef struct s_status
 	int			exit_code;
 	char		*exit_msg;
 	short		interrupt;
+	short		shell_level;
 
 }	t_status;
 
-typedef struct s_sh
-{
-	int					level;
-	int					exit_status;
-	t_env				*env;
-}	t_sh;
-
-
 t_status g_status;
 
-void	init_shell(t_sh *sh, t_env *env);
-void	start_shell(t_sh *sh);
+void	init_shell(t_env *env);
+void	start_shell(t_env *env);
 
 #endif

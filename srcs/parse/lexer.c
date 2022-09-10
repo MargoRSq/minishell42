@@ -14,13 +14,45 @@ static int	get_code(int sy, int len)
 		return (r_out);
 	else if (sy == r_corner && len == 2)
 		return (r_append);
+	else if (sy == pipes)
+		return (lpipe);
 	return (word);
+	// if ((int)sy == s_quote)
+	// else if ((int)sy == d_quote)
+	// 	return (d_quote_str);
+	// else if ((int)sy == l_corner && len == 1)
+	// else if ((int)sy == l_corner && len == 2)
+	// 	return (heredoc);
+	// else if ((int)sy == r_corner && len == 1)
+	// 	return (r_out);
+	// else if ((int)sy == r_corner && len == 2)
+	// 	return (r_append);
 }
 
-static inline int	get_skip_distance(int sy, int len)
+static inline int	move(char sy, int len)
 {
-	if (sy == s_quote || sy == d_quote)
+	switch ((int)sy)
+	{
+	case s_quote: case d_quote:
+		return (len + 1);
+	default:
+		return (len);
+	}
+}
+
+static inline int	get_skip_distance(char *sy, int len)
+{
+	char	*tmp;
+
+	tmp = sy;
+	if (*tmp == s_quote || *tmp == d_quote)
 		return (len + 2);
+	else if (*tmp == l_corner || *tmp == r_corner)
+	{
+		if (*tmp == *(tmp + 1))
+			return (2);
+		return (1);
+	}
 	return (len);
 }
 
@@ -44,9 +76,9 @@ t_token	*lex_line(char *line)
 				return (NULL);
 			code = get_code((int)line[i], len);
 			tokenlst_add_back(&tokens, tokenlst_new(&line[i], len, code));
-			i += get_skip_distance(line[i], len);
+			i += get_skip_distance(&line[i], len);
 		}
 	}
-	tokenlst_print(tokens);
+	// tokenlst_print(tokens);
 	return (tokens);
 }
