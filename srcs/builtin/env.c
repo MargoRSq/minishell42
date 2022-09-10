@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-void execute_env(t_sh *sh)
+void execute_env(t_env *env)
 {
-	if(sh->env == NULL)
+	if(env == NULL)
 		printf("error");
-	envlst_print(sh->env);
+	envlst_print(env);
 }

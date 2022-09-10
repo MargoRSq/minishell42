@@ -8,13 +8,13 @@ static int	find_symbol(char *ptr, char sy)
 	while (ptr[++distance])
 		if (ptr[distance] == sy)
 			return (distance);
-	return (-1);
+	return (trigger_unclosed_quote_error(sy));
 }
 
 static int	find_separator(char *ptr)
 {
 	int		distance;
-	int	cur;
+	int		cur;
 
 	distance = 0;
 	while (ptr[distance++])
@@ -39,10 +39,13 @@ int	find_end(char *ptr)
 		return (find_symbol(ptr + 1, d_quote));
 	else if (*ptr == r_corner || *ptr == l_corner)
 	{
-		d = find_separator(ptr);
-		if (d > 2)
-			return (-1);
-		return (d);
+		if (*ptr == *(ptr + 1))
+			return (2);
+		return (1);
+		// d = find_separator(ptr);
+		// if (d > 2)
+		// 	return (trigger_too_many_redirects_error());
+		// return (d);
 	}
 	return (find_separator(ptr));
 }
