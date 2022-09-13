@@ -18,4 +18,5 @@ t_cmd	*create_commands(t_token *tokens)
 			break;
 	}
 	cmdlst_print(cmds);
+	return (cmds);
 }

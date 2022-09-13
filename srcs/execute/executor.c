@@ -1,10 +1,5 @@
 #include "minishell.h"
 
-// enum funcs
-// {
-// 	cd = execute_cd;
-// }
-
 static int try_builtin(t_cmd *cmds, t_env *env)
 {
 	if (!ft_strcmp(cmds->name, "cd"))
@@ -15,6 +10,8 @@ static int try_builtin(t_cmd *cmds, t_env *env)
 		execute_pwd(env);
 	else if (!ft_strcmp(cmds->name, "env"))
 		execute_env(env);
+	else if (!ft_strcmp(cmds->name, "unset"))
+		execute_unset(env, cmds->argv);
 	return (1);	
 
 }
@@ -23,12 +20,7 @@ void	execute(t_env *env, t_cmd *cmds)
 {
 	while (cmds != NULL)
 	{
-		// if (try_builtin(cmds, env))
-			// cmds = cmds->next;
-		// else
 		try_builtin(cmds, env);
 		cmds = cmds->next;
-		// // else
-		// // 	launch_external();
 	}
 }
