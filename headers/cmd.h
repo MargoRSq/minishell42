@@ -31,3 +31,4 @@ void	cmdlst_print(t_cmd *lst);
 
 t_count	count_entities(t_token *tokens);
 t_cmd	*create_commands(t_token *tokens);
+void	execute(t_env *env, t_cmd *cmds);

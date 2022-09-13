@@ -18,8 +18,13 @@ static char	*launch_readline(t_env *env)
 	char	*tmp;
 	char	*prefix;
 	char	*line;
+	char	*pwd;
 
-	prefix = ft_strjoin(DEFAULT_PREFIX, get_env_value("PWD", env));
+
+	pwd = get_cur_dir(env);
+	if (!pwd)
+		return (NULL);
+	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
 	if (!prefix)
 		return (trigger_malloc_error());
 	tmp = prefix;
@@ -56,8 +61,9 @@ void	start_shell(t_env *env)
 		tokens = lex_line(line);
 		if (g_status.interrupt)
 			break ;
-		// cmds = create_commands(tokens);
-		// if (!ft_strcmp(cmds->name, "env"))
-		// execute_env(env);
+		cmds = create_commands(tokens);
+		if (g_status.interrupt)
+			break ;
+		execute(env, cmds);
 	}
 }

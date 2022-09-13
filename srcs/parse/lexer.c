@@ -17,16 +17,6 @@ static int	get_code(int sy, int len)
 	else if (sy == pipes)
 		return (lpipe);
 	return (word);
-	// if ((int)sy == s_quote)
-	// else if ((int)sy == d_quote)
-	// 	return (d_quote_str);
-	// else if ((int)sy == l_corner && len == 1)
-	// else if ((int)sy == l_corner && len == 2)
-	// 	return (heredoc);
-	// else if ((int)sy == r_corner && len == 1)
-	// 	return (r_out);
-	// else if ((int)sy == r_corner && len == 2)
-	// 	return (r_append);
 }
 
 static inline int	move(char sy, int len)
