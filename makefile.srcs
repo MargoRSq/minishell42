@@ -10,6 +10,9 @@ PARSE_FILES = input.c lex_finder.c lexer.c counter.c commands.c
 PARSE = $(addprefix parse/, ${PARSE_FILES})
 
 BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c builtin_utils.c
-BUILTIN = $(addprefix builtin/, ${BUILTIN_FILES})
+BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 
-SRCS = ${MAIN} ${ENV_PARSER} ${PARSE} ${BUILTIN} ${LST_UTILS}
+EXECUTE_FILES = executor.c
+EXECUTE = $(addprefix execute/, ${EXECUTE_FILES})
+
+SRCS = ${MAIN} ${ENV_PARSER} ${PARSE} ${EXECUTE} ${BUILTIN} ${LST_UTILS}

@@ -1,3 +1,4 @@
+
 typedef enum e_controls
 {
 	d_quote			= (int)'"',
@@ -46,3 +47,9 @@ enum e_exits
 	home_error = 4,
 	pwd_error = 5
 };
+
+// enum e_builtins
+// {
+// 	cd = execute_cd,
+// 	echo = execute_echo
+// };
