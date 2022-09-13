@@ -78,10 +78,11 @@ static void	fill_params(t_token *tokens, t_cmd *cmd)
 		{
 			if (!is_cmd)
 			{
+				//тут проверка на команду сразу выкидывать ошибку
 				is_cmd = 1;
 				cmd->name = ft_substr(tmp->start, 0, (size_t)tmp->len);
 			}
-			else
+			else // тут раскрытие долларов, двойных и одинарных скобок
 				cmd->argv[++k] = ft_substr(tmp->start, 0, (size_t)tmp->len);
 		tmp = tmp->next;
 		}
