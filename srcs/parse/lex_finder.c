@@ -5,6 +5,7 @@ static int	find_symbol(char *ptr, char sy)
 	int	distance;
 
 	distance = -1;
+	// добавить обработку не той ковычки
 	while (ptr[++distance])
 		if (ptr[distance] == sy)
 			return (distance);

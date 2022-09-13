@@ -28,9 +28,6 @@ int main(int ac, char **av, char **envp)
 	env = parse_envp(envp);
 	// envlst_print(env);
 
-	// execute_cd(env, (char *[]){"cd", "../"});
-	// execute_echo((char *[]){"lol", "lol"});
-
 	init_shell(env);
 	start_shell(env);
 

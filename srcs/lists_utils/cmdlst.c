@@ -41,7 +41,7 @@ t_cmd	*cmdlst_last(t_cmd *lst)
 	return (lst);
 }
 
-static void	fill_params(t_token *tokens, t_cmd *cmd)
+static void fill_params(t_token *tokens, t_cmd *cmd)
 {
 	int		i;
 	int		j;
@@ -88,7 +88,6 @@ static void	fill_params(t_token *tokens, t_cmd *cmd)
 		}
 	}
 }
-
 
 t_cmd	*cmdlst_new(t_token *tokens)
 {

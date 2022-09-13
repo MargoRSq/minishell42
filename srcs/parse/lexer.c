@@ -46,8 +46,11 @@ static inline int	get_skip_distance(char *sy, int len)
 	return (len);
 }
 
-static t_token	*parse_quotes(t_token *last, char *line, int i)
+static t_token	*unpack_string(char *start, int len)
 {
+	int	dollars;
+
+	dollars = count_len_dollars(start, len);
 	
 }
 
@@ -71,6 +74,9 @@ t_token	*lex_line(char *line)
 			if (len == -1)
 				return (NULL);
 			code = get_code((int)line[i], len);
+			if (code == word)
+				token = unpack_string(&line[i], len);
+			// else if (code == s_quote_str)
 			if (code == d_quote_str || code == s_quote_str)
 				token = parse_quotes(tokenlst_last(tokens), line, i);
 			else 
@@ -79,6 +85,6 @@ t_token	*lex_line(char *line)
 			i += get_skip_distance(&line[i], len);
 		}
 	}
-	// tokenlst_print(tokens);
+	tokenlst_print(tokens);
 	return (tokens);
 }
