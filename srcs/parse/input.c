@@ -58,7 +58,7 @@ void	start_shell(t_env *env)
 		line = get_entered_line(env);
 		if (g_status.interrupt)
 			break ;
-		tokens = lex_line(line);
+		tokens = lex_line(line, env);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);

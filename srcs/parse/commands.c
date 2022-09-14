@@ -17,6 +17,6 @@ t_cmd	*create_commands(t_token *tokens)
 		else
 			break;
 	}
-	cmdlst_print(cmds);
+	// cmdlst_print(cmds);
 	return (cmds);
 }

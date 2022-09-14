@@ -4,6 +4,7 @@ typedef struct s_token
 {
 	char			*start;
 	int				len;
+	short			after_sep;
 	t_token_type	code;
 	struct			s_token *next;
 }	t_token;
@@ -15,4 +16,4 @@ void		tokenlst_clear(t_token **lst);
 void		tokenlst_print(t_token *lst);
 
 int			find_end(char *ptr);
-t_token		*lex_line(char *line);
+t_token		*lex_line(char *line, t_env *env);
