@@ -8,6 +8,8 @@ int		trigger_too_many_redirects_error();
 char	*trigger_home_error();
 int		trigger_pwd_error();
 
+int error_msg_return_minus(char *msg, int code, short interrupt);
+
 # define ERR_ARGC				"minishell: There should be no arguments\n"
 # define MSG_ERR_MEM			"minishell: Memory allocation failed\n"
 # define MSG_ERR_PWD			"minishell: No pwd value\n"
@@ -36,7 +38,7 @@ int		trigger_pwd_error();
 # define MSG_ERR_PIPE			"minishell: Pipes creation fail\n"
 # define MSG_ERR_INVRDTYPE		"minishell: Invalid redirect type\n"
 # define MSG_ERR_EXIT_NUM\
-	"minishell: exit: %s: Numeric argument required\n"
+	"minishell: exit: Numeric argument required\n"
 # define MSG_ERR_EXIT_ARGS		"minishell: exit: Too many arguments\n"
 # define MSG_ERR_INVAL_HIS_FD	"minishell: Invalid descriptor of history file\n"
 # define MSG_ERR_INVAL_ENVNAME	"minishell: Invalid env name: %s\n"

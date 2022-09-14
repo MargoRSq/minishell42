@@ -46,18 +46,12 @@ static inline int	get_skip_distance(char *sy, int len)
 	return (len);
 }
 
-static t_token	*parse_quotes(t_token *last, char *line, int i)
-{
-	
-}
-
 t_token	*lex_line(char *line)
 {
 	int		i;
 	int		len;
 	int		code;
 	t_token	*tokens;
-	t_token	*token;
 
 	i = 0;
 	tokens = NULL;
@@ -71,11 +65,7 @@ t_token	*lex_line(char *line)
 			if (len == -1)
 				return (NULL);
 			code = get_code((int)line[i], len);
-			if (code == d_quote_str || code == s_quote_str)
-				token = parse_quotes(tokenlst_last(tokens), line, i);
-			else 
-				token = tokenlst_new(&line[i], len, code);
-			tokenlst_add_back(&tokens, token);
+			tokenlst_add_back(&tokens, tokenlst_new(&line[i], len, code));
 			i += get_skip_distance(&line[i], len);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:28:23 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/10 13:14:38 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/09/13 13:42:50 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void execute_pwd(t_env *env)
 	pwd = get_cur_dir(env);
 	if(!pwd)
 		trigger_pwd_error();
-	write(0, pwd, ft_strlen(pwd));
-	write(0, "\n", 1);
+	write(STDOUT_FILENO, pwd, ft_strlen(pwd));
+	write(STDOUT_FILENO, "\n", 1);
 	free(pwd);
 }

@@ -9,7 +9,7 @@ ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 PARSE_FILES = input.c lex_finder.c lexer.c counter.c commands.c
 PARSE = $(addprefix parse/, ${PARSE_FILES})
 
-BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c builtin_utils.c
+BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c builtin_utils.c
 BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 
 EXECUTE_FILES = executor.c

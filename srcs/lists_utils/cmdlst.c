@@ -78,11 +78,10 @@ static void	fill_params(t_token *tokens, t_cmd *cmd)
 		{
 			if (!is_cmd)
 			{
-				//тут проверка на команду сразу выкидывать ошибку
 				is_cmd = 1;
 				cmd->name = ft_substr(tmp->start, 0, (size_t)tmp->len);
 			}
-			else // тут раскрытие долларов, двойных и одинарных скобок
+			else
 				cmd->argv[++k] = ft_substr(tmp->start, 0, (size_t)tmp->len);
 		tmp = tmp->next;
 		}
@@ -101,6 +100,7 @@ t_cmd	*cmdlst_new(t_token *tokens)
 	counter = count_entities(tokens);
 	// printf("in=%d out=%d words=%d\n", counter.in, counter.out, counter.words);
 	elem->argv = (char **)malloc(sizeof(char *) * counter.words);
+	elem->argv[counter.words - 1] = NULL;
 	elem->fns_in = (t_file *)malloc(sizeof(t_file) * (counter.in + 1));
 	elem->fns_out = (t_file *)malloc(sizeof(t_file) * (counter.out + 1));
 	fill_params(tokens, elem);
