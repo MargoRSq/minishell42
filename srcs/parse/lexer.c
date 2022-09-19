@@ -105,6 +105,7 @@ static inline int count_final_len(char *str, int len, short is_dq, t_env *env)
 		{
 			tmp = counter_skip_unpacked_env(&str[i + 1], env);
 			final_len += tmp;
+			i++;
 			while (i < len && str[i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
 				i++;
 		}
@@ -181,23 +182,19 @@ static inline char	*unpack(char *str, int len, int final_len, short is_dq, t_env
 	return (new_start);
 }
 
-static t_token	*unpack_qoutes(char *start, int len, t_env *env)
+static t_token	*unpack_string(char *start, int len, int is_dq, t_env *env)
 {
-	int	dollars;
-	int	i;
-	int	final_len;
+	int		dollars;
+	int		i;
+	int		final_len;
 	char	*new_start;
 
 
-	final_len = count_final_len(start, len, 1, env);
+	final_len = count_final_len(start, len, is_dq, env);
 	printf("%d\n", final_len);
-	new_start = unpack(start, len, final_len, 1, env);
+	new_start = unpack(start, len, final_len, is_dq, env);
 	printf("%s\n", new_start);
-	// dollars = count_len_dollars(start, len);
-
 	return (NULL);
-	       
-	
 }
 
 t_token	*lex_line(char *line, t_env *env)
@@ -222,12 +219,11 @@ t_token	*lex_line(char *line, t_env *env)
 			if (len == -1)
 				return (NULL);
 			code = get_code((int)line[i], len);
-			// if (code == word)
-				// token = unpack_string(&line[i], len);
+			if (code == word)
+				token = unpack_string(&line[i], len, 0, env);
+			else if (code == d_quote_str)
+				token = unpack_string(&line[i + 1], len, 1, env);
 			// else if (code == s_quote_str)
-			if (code == d_quote_str)
-				token = unpack_qoutes(&line[i + 1], len, env);
-			// else 
 			token = tokenlst_new(&line[i], len, code);
 			tokenlst_add_back(&tokens, token);
 			i += get_skip_distance(&line[i], len);
