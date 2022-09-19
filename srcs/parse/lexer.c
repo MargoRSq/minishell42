@@ -149,7 +149,6 @@ static inline char	*unpack(char *str, int len, int final_len, short is_dq, t_env
 	int	tmp;
 	char	*new_start;
 
-	final_len = 0;
 	i = 0;
 	new_start = (char *)malloc(sizeof(char) * len + 1);
 	new_start[len] = '\0';
@@ -182,7 +181,7 @@ static inline char	*unpack(char *str, int len, int final_len, short is_dq, t_env
 	return (new_start);
 }
 
-static t_token	*unpack_string(char *start, int len, int is_dq, t_env *env)
+static t_token	*unpack_tmp_token(t_tmp tkn, t_env *env)
 {
 	int		dollars;
 	int		i;
@@ -190,11 +189,15 @@ static t_token	*unpack_string(char *start, int len, int is_dq, t_env *env)
 	char	*new_start;
 
 
-	final_len = count_final_len(start, len, is_dq, env);
-	printf("%d\n", final_len);
-	new_start = unpack(start, len, final_len, is_dq, env);
-	printf("%s\n", new_start);
-	return (NULL);
+	if (tkn.type < 2)
+	{
+		final_len = count_final_len(tkn.str, tkn.len, tkn.type, env);
+		// printf("%d\n", final_len);
+		new_start = unpack(tkn.str, tkn.len, final_len, tkn.type, env);
+		// printf("%s\n", new_start);
+		return (tokenlst_new(new_start, final_len, word, tkn.sep));
+	}
+	return (tokenlst_new(tkn.str, tkn.len, word, tkn.sep));
 }
 
 t_token	*lex_line(char *line, t_env *env)
@@ -204,6 +207,7 @@ t_token	*lex_line(char *line, t_env *env)
 	int		code;
 	t_token	*tokens;
 	t_token	*token;
+	t_tmp	tkn;
 	int		sep;
 
 	i = 0;
@@ -212,7 +216,10 @@ t_token	*lex_line(char *line, t_env *env)
 	while (line[i])
 	{
 		if (line[i] == space)
+		{
 			i++;
+			sep = 1;
+		}
 		else
 		{
 			len = find_end(&line[i]);
@@ -220,13 +227,17 @@ t_token	*lex_line(char *line, t_env *env)
 				return (NULL);
 			code = get_code((int)line[i], len);
 			if (code == word)
-				token = unpack_string(&line[i], len, 0, env);
+				tkn = (t_tmp){.len=len, .sep=sep, .type=0, .str=&line[i]};
 			else if (code == d_quote_str)
-				token = unpack_string(&line[i + 1], len, 1, env);
+				tkn = (t_tmp){.len=len, .sep=sep, .type=1, .str=&line[i + 1]};
+			else if (code == s_quote_str)
+				tkn = (t_tmp){.len=len, .sep=sep, .type=2, .str=&line[i + 1]};
+			token = unpack_tmp_token(tkn, env);
 			// else if (code == s_quote_str)
-			token = tokenlst_new(&line[i], len, code);
+			// token = tokenlst_new(&line[i], len, code, sep);
 			tokenlst_add_back(&tokens, token);
 			i += get_skip_distance(&line[i], len);
+			sep = 0;
 		}
 	}
 	tokenlst_print(tokens);

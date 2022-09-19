@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+typedef struct s_tmp_token
+{
+	char	*str;
+	int		len;
+	// int		tmp_code;
+	short	type;
+	short	sep;
+}	t_tmp;
+
 typedef struct s_token
 {
 	char			*start;
@@ -10,7 +19,7 @@ typedef struct s_token
 }	t_token;
 
 t_token		*tokenlst_last(t_token *lst);
-t_token		*tokenlst_new(char *start, int len, int code);
+t_token		*tokenlst_new(char *start, int len, int code, int sep);
 void		tokenlst_add_back(t_token **lst, t_token *new_lst);
 void		tokenlst_clear(t_token **lst);
 void		tokenlst_print(t_token *lst);

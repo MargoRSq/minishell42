@@ -41,7 +41,7 @@ t_token	*tokenlst_last(t_token *lst)
 	return (lst);
 }
 
-t_token	*tokenlst_new(char *start, int len, int code)
+t_token	*tokenlst_new(char *start, int len, int code, int sep)
 {
 	t_token	*elem;
 
@@ -49,6 +49,7 @@ t_token	*tokenlst_new(char *start, int len, int code)
 	if (!elem)
 		return trigger_malloc_error();
 	elem->start = start;
+	elem->after_sep = sep;
 	elem->len = len;
 	elem->code = code;
 	elem->next = NULL;
@@ -64,7 +65,7 @@ void	tokenlst_print(t_token *lst)
 		return ;
 	while (tmp != NULL)
 	{
-		printf("{code=%d, len=%d} ", tmp->code, tmp->len);
+		printf("{text=%s, code=%d, len=%d, sep=%d} ", ft_substr(tmp->start, 0, tmp->len), tmp->code, tmp->len, tmp->after_sep);
 		tmp = tmp->next;
 		if (tmp == NULL)
 		{

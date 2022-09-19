@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "algorithm": "c"
+        "algorithm": "c",
+        "locale": "c",
+        "sstream": "c"
     }
 }
