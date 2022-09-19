@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+
+static void	inline skip_arg(char *str, int *iptr)
+{
+
+}
+
 static int	get_code(int sy, int len)
 {
 	if (sy == s_quote)
@@ -59,7 +65,7 @@ static inline int counter_skip_single_quote(char *str)
 	return (len);
 }
 
-static int inline counter_skip_unpacked_env(char *str, t_env *env, int *iptr)
+static int inline counter_skip_unpacked_env(char *str, t_env *env)
 {
 	int		i;
 	int		len;
@@ -68,11 +74,11 @@ static int inline counter_skip_unpacked_env(char *str, t_env *env, int *iptr)
 
 	i = -1;
 	len = 0;
-	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ')
+	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
 		len++;
 	var_key = ft_substr(str, 0, len);
 	var_value = get_env_value(var_key, env);
-	*(iptr) += ft_strlen(var_key);
+	// *(iptr) += ft_strlen(var_key);
 		return (ft_strlen(var_value));	
 	return (0);
 }
@@ -97,8 +103,10 @@ static inline int count_final_len(char *str, int len, short is_dq, t_env *env)
 		}
 		else if (str[i] == '$')
 		{
-			tmp = counter_skip_unpacked_env(&str[i + 1], env, &i);
+			tmp = counter_skip_unpacked_env(&str[i + 1], env);
 			final_len += tmp;
+			while (i < len && str[i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
+				i++;
 		}
 		else
 			final_len++;
@@ -106,16 +114,85 @@ static inline int count_final_len(char *str, int len, short is_dq, t_env *env)
 	return (final_len);
 }
 
+static char	*fetch_envstr(char *str, int pos, t_env *env)
+{
+	int		key_len;
+	int		i;
+	char	*key; // free
+	char	*value; //free
+
+	key_len = 0;
+	i = -1;
+	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
+		key_len++;
+	key = ft_substr(str, 0, key_len);
+	value = get_env_value(key, env);
+	return (value);
+}
+
+static int	ft_envcpy(char *start, int pos, char *new_start, t_env *env)
+{
+	int		elen;
+	char	*evar;
+
+	evar = fetch_envstr(start, pos, env);
+	elen = ft_strlen(evar);
+	if (elen)
+		ft_strlcpy(new_start, evar, elen + 1);
+	return (elen);
+}
+
+static inline char	*unpack(char *str, int len, int final_len, short is_dq, t_env *env)
+{
+	int	i;
+	int	tmp;
+	char	*new_start;
+
+	final_len = 0;
+	i = 0;
+	new_start = (char *)malloc(sizeof(char) * len + 1);
+	new_start[len] = '\0';
+	if (!new_start)
+		return (NULL);
+	int j = 0;
+	while (i < len)
+	{
+		if (str[i] == '\'')
+		{
+			if (is_dq)
+				new_start[j++] = '\'';
+			tmp = counter_skip_single_quote(&str[i + 1]);
+			ft_strlcpy(&new_start[j], &str[i + 1], tmp + 1);
+			i += tmp + 1 + is_dq;
+			j += tmp;
+			if (is_dq)
+				new_start[j++] = '\'';
+		}
+		else if (str[i] == '$')
+		{
+			tmp = ft_envcpy(&str[i + 1], i, &new_start[j], env);
+			j += tmp;
+			while (str[i] != ' ' && i < len)
+				i++;
+		}
+		else
+			new_start[j++] = str[i++];
+	}
+	return (new_start);
+}
+
 static t_token	*unpack_qoutes(char *start, int len, t_env *env)
 {
 	int	dollars;
 	int	i;
 	int	final_len;
+	char	*new_start;
 
 
 	final_len = count_final_len(start, len, 1, env);
 	printf("%d\n", final_len);
-
+	new_start = unpack(start, len, final_len, 1, env);
+	printf("%s\n", new_start);
 	// dollars = count_len_dollars(start, len);
 
 	return (NULL);
