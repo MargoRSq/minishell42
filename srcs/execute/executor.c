@@ -14,6 +14,8 @@ static int try_builtin(t_cmd *cmds, t_env *env)
 		execute_unset(env, cmds->argv);
 	else if (!ft_strcmp(cmds->name, "exit"))
 		execute_exit(env, cmds->argv);
+	else if (!ft_strcmp(cmds->name, "export"))
+		execute_export(env, cmds->argv);
 	return (1);	
 
 }

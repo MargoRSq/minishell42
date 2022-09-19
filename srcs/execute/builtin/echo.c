@@ -6,13 +6,13 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:22:49 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/11 13:51:22 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/09/18 18:28:46 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+static int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned char	*arr1;
 	unsigned char	*arr2;

@@ -104,3 +104,43 @@ void envlst_delete_elem(char *key, t_env **lst)
 		tmp = tmp->next;
 	}
 }
+
+int	envlst_size(t_env *lst)
+{
+	int	count;
+
+	count = 1;
+	if (!lst)
+		return (0);
+	while (lst->next)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
+}
+
+char **envlst_to_arr(t_env *lst)
+{
+	char **arr;
+	t_env *tmp;
+	int i;
+	int len;
+
+	if (!lst)
+		return (NULL);
+	tmp = lst;
+	i = 0;
+	len = envlst_size(lst);
+	arr = (char **)malloc(sizeof(char *) * len);
+	if(!arr)
+		return (NULL);
+	arr[len] = NULL;
+	while(i < len)
+	{
+		arr[i] = ft_strjoin(ft_strjoin(tmp->key, "="), tmp->value);
+		i++;
+		tmp = tmp->next;
+	}
+	return (arr);
+}

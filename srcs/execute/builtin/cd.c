@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/14 16:12:48 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/09/15 21:07:58 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,8 @@ void update_pwd_values(t_env *env, char *old_path, const char *new_path)
 	t_env *updated_old_pwd;
 	t_env *updated_pwd;
 
-	printf("old_path %s\n",old_path);
-	printf("new_path %s\n",new_path);
-
 	updated_old_pwd = envlst_new("OLDPWD", ft_strdup(old_path));
-	printf("updated_old_pwd %s\n", updated_old_pwd->value);
 	updated_pwd =  envlst_new("PWD", ft_strdup(new_path));
-	printf("updated_pwd %s\n", updated_pwd->value);
 	if(!updated_old_pwd)
 		return ; 
 	if(!updated_pwd)
@@ -32,8 +27,6 @@ void update_pwd_values(t_env *env, char *old_path, const char *new_path)
 	envlst_add_back(&env, updated_old_pwd);
 	envlst_delete_elem("PWD", &env);
 	envlst_add_back(&env, updated_pwd);
-	printf("OLDPWD - %s\n", get_env_value("OLDPWD", env));
-	printf("PWD %s\n", get_env_value("PWD", env));
 }
 
 
@@ -46,10 +39,10 @@ static char *go_home(t_env *env)
 	new_path = get_env_value("HOME", env);
 	if(!new_path)
 		return (trigger_home_error());
-	printf("getcwd %s\n", getcwd(NULL, 0));
+	// printf("getcwd %s\n", getcwd(NULL, 0));
 	if(chdir(new_path) == -1)
 		trigger_home_error();
-	printf("getcwd %s\n", getcwd(NULL, 0));
+	// printf("getcwd %s\n", getcwd(NULL, 0));
 	return(new_path);
 }
 
@@ -67,9 +60,9 @@ static const char	*go_oldpwd(t_env *env)
 {
 	char *old_pwd;
 	
-	printf("getcwd %s\n", getcwd(NULL, 0));
+	// printf("getcwd %s\n", getcwd(NULL, 0));
 	old_pwd = get_env_value("OLDPWD", env);
-	printf("old_pwd %s\n", old_pwd);
+	// printf("old_pwd %s\n", old_pwd);
 	if(!old_pwd)
 			return NULL;	
 	else
@@ -77,7 +70,7 @@ static const char	*go_oldpwd(t_env *env)
 		if(chdir(old_pwd) == -1)
 			return NULL; 
 	}
-	printf("getcwd %s\n", getcwd(NULL, 0));
+	// printf("getcwd %s\n", getcwd(NULL, 0));
 	return (old_pwd);
 }
 
@@ -88,10 +81,9 @@ void execute_cd(t_env *env, char **cmd_argv)
 	char *old_pwd;
 	
 	old_pwd = get_env_value("OLDPWD", env);
-	printf("1 old_pwd %s\n", old_pwd);
-	
+	// printf("1 old_pwd %s\n", old_pwd);	
 	pwd_to_change = get_cur_dir(env);
-	printf("1 pwd_to_change %s\n", pwd_to_change);
+	// printf("1 pwd_to_change %s\n", pwd_to_change);
 	
 	if(!cmd_argv[0] || !ft_strcmp(cmd_argv[0], "~"))
 		new_path = go_home(env);
@@ -103,6 +95,6 @@ void execute_cd(t_env *env, char **cmd_argv)
 	if(!pwd_to_change)
 			printf(MSG_ERR_PWD);
 	//not working
-	printf("1 new_path %s\n", new_path);
+	// printf("1 new_path %s\n", new_path);
 	update_pwd_values(env, pwd_to_change, new_path);
 }
