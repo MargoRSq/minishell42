@@ -4,7 +4,7 @@ typedef struct s_tmp_token
 {
 	char	*str;
 	int		len;
-	// int		tmp_code;
+	int		tmp_code;
 	short	type;
 	short	sep;
 }	t_tmp;

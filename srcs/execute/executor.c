@@ -13,14 +13,15 @@ static int try_builtin(t_cmd *cmds, t_env *env)
 	else if (!ft_strcmp(cmds->name, "unset"))
 		execute_unset(env, cmds->argv);
 	return (1);	
-
 }
 
-void	execute(t_env *env, t_cmd *cmds)
+void	execute(t_env *env, t_cmd *cmd)
 {
-	while (cmds != NULL)
+	while (cmd != NULL)
 	{
-		try_builtin(cmds, env);
-		cmds = cmds->next;
+		cmdlst_print(cmd);
+		if (cmd->name)
+			try_builtin(cmd, env);
+		cmd = cmd->next;
 	}
 }

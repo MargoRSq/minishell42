@@ -90,8 +90,8 @@ static inline int count_final_len(char *str, int len, short is_dq, t_env *env)
 	int	tmp;
 
 	final_len = 0;
-	i = -1;
-	while (++i < len)
+	i = 0;
+	while (i < len)
 	{
 		if (str[i] == '\'')
 		{
@@ -110,7 +110,10 @@ static inline int count_final_len(char *str, int len, short is_dq, t_env *env)
 				i++;
 		}
 		else
+		{
+			i++;
 			final_len++;
+		}
 	}
 	return (final_len);
 }
@@ -150,10 +153,10 @@ static inline char	*unpack(char *str, int len, int final_len, short is_dq, t_env
 	char	*new_start;
 
 	i = 0;
-	new_start = (char *)malloc(sizeof(char) * len + 1);
-	new_start[len] = '\0';
+	new_start = (char *)malloc(sizeof(char) * final_len + 1);
 	if (!new_start)
 		return (NULL);
+	new_start[final_len] = '\0';
 	int j = 0;
 	while (i < len)
 	{
@@ -172,7 +175,8 @@ static inline char	*unpack(char *str, int len, int final_len, short is_dq, t_env
 		{
 			tmp = ft_envcpy(&str[i + 1], i, &new_start[j], env);
 			j += tmp;
-			while (str[i] != ' ' && i < len)
+			i++;
+			while (i < len && str[i] != ' ' && str[i] != '$' && str[i] != '\'')
 				i++;
 		}
 		else
@@ -197,7 +201,10 @@ static t_token	*unpack_tmp_token(t_tmp tkn, t_env *env)
 		// printf("%s\n", new_start);
 		return (tokenlst_new(new_start, final_len, word, tkn.sep));
 	}
-	return (tokenlst_new(tkn.str, tkn.len, word, tkn.sep));
+	else if (tkn.type == 2)
+		return (tokenlst_new(tkn.str, tkn.len, word, tkn.sep));
+	else
+		return (tokenlst_new(tkn.str, tkn.len, tkn.tmp_code, tkn.sep));
 }
 
 t_token	*lex_line(char *line, t_env *env)
@@ -232,9 +239,9 @@ t_token	*lex_line(char *line, t_env *env)
 				tkn = (t_tmp){.len=len, .sep=sep, .type=1, .str=&line[i + 1]};
 			else if (code == s_quote_str)
 				tkn = (t_tmp){.len=len, .sep=sep, .type=2, .str=&line[i + 1]};
+			else
+				tkn = (t_tmp){.len=len, .tmp_code=code, .type=3, .str=&line[i]};
 			token = unpack_tmp_token(tkn, env);
-			// else if (code == s_quote_str)
-			// token = tokenlst_new(&line[i], len, code, sep);
 			tokenlst_add_back(&tokens, token);
 			i += get_skip_distance(&line[i], len);
 			sep = 0;
