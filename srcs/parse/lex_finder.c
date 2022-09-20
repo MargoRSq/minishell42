@@ -21,8 +21,8 @@ static int	find_separator(char *ptr)
 	while (ptr[distance++])
 	{
 		cur = ptr[distance];
-		if (cur == tab || cur == endl ||
-			cur == vtab || cur == cr || cur == space)
+		if (cur == tab || cur == endl
+			|| cur == vtab || cur == cr || cur == space)
 			return (distance);
 	}
 	if (distance > 0 && cur == 0)

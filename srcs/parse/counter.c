@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   counter.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 14:35:09 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/09/20 14:35:10 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-
-static int inline count_redirs(t_token *tokens, int token_code)
+static int inline	count_redirs(t_token *tokens, int token_code)
 {
 	int		counter;
 	t_token	*tmp;
@@ -16,7 +27,7 @@ static int inline count_redirs(t_token *tokens, int token_code)
 			if (tmp->next && tmp->next->next)
 				tmp = tmp->next->next;
 			else
-				break;
+				break ;
 		}
 		else
 			tmp = tmp->next;
@@ -24,7 +35,7 @@ static int inline count_redirs(t_token *tokens, int token_code)
 	return (counter);
 }
 
-static int inline count_words(t_token *tokens)
+static int inline	count_words(t_token *tokens)
 {
 	int		counter;
 	t_token	*tmp;
@@ -38,9 +49,9 @@ static int inline count_words(t_token *tokens)
 			if (tmp->next && tmp->next->next)
 				tmp = tmp->next->next;
 			else
-				break;
+				break ;
 		}
-		else 
+		else
 		{
 			counter++;
 			tmp = tmp->next;
@@ -58,4 +69,3 @@ t_count	count_entities(t_token *tokens)
 	counter.words = count_words(tokens);
 	return (counter);
 }
-

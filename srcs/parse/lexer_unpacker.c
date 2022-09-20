@@ -29,79 +29,57 @@ int	ft_envcpy(char *start, int pos, char *new_start, t_env *env)
 	return (elen);
 }
 
-t_tmp	create_tmp_token(int len, int code, short sep, char *line, int pos)
+static void	fill_new_str(int tmp, int len, t_cpy cpy, t_env *env)
 {
-	t_tmp	tkn;
-
-	if (code == word)
-		tkn = (t_tmp){.len=len, .sep=sep, .type=0, .str=&line[pos]};
-	else if (code == d_quote_str)
-		tkn = (t_tmp){.len=len, .sep=sep, .type=1, .str=&line[pos + 1]};
-	else if (code == s_quote_str)
-		tkn = (t_tmp){.len=len, .sep=sep, .type=2, .str=&line[pos + 1]};
-	else
-		tkn = (t_tmp){.len=len, .tmp_code=code, .type=3, .str=&line[pos]};
-	return (tkn);
-}
-
-t_token	*unpack_tmp_token(t_tmp tkn, t_env *env)
-{
-	int		dollars;
-	int		i;
-	int		final_len;
-	char	*new_start;
-
-
-	if (tkn.type < 2)
+	if (cpy.tp == 0)
 	{
-		final_len = count_final_len(tkn.str, tkn.len, tkn.type, env);
-		// printf("%d\n", final_len);
-		new_start = unpack(tkn.str, tkn.len, final_len, tkn.type, env);
-		// printf("%s\n", new_start);
-		return (tokenlst_new(new_start, final_len, word, tkn.sep));
+		if (cpy.is_dq)
+			cpy.dst[(*cpy.jr)++] = '\'';
+		tmp = counter_str_single_quote(&cpy.src[(*cpy.ir) + 1]);
+		ft_strlcpy(&cpy.dst[(*cpy.jr)], &cpy.src[(*cpy.ir) + 1], tmp + 1);
+		(*cpy.ir) += tmp + 1 + cpy.is_dq;
+		(*cpy.jr) += tmp;
+		if (cpy.is_dq)
+			cpy.dst[(*cpy.jr)++] = '\'';
 	}
-	else if (tkn.type == 2)
-		return (tokenlst_new(tkn.str, tkn.len, word, tkn.sep));
+	else if (cpy.tp == 1)
+	{
+		tmp = ft_envcpy(&cpy.src[(*cpy.ir) + 1], (*cpy.jr),
+				&cpy.dst[(*cpy.jr)], env);
+		(*cpy.jr) += tmp;
+		(*cpy.ir)++;
+		while ((*cpy.ir) < len && cpy.src[(*cpy.ir)] != ' '
+			&& cpy.src[(*cpy.ir)] != '$' && cpy.src[(*cpy.ir)] != '\'')
+			(*cpy.ir)++;
+	}
 	else
-		return (tokenlst_new(tkn.str, tkn.len, tkn.tmp_code, tkn.sep));
+		cpy.dst[(*cpy.jr)++] = cpy.src[(*cpy.ir)++];
 }
 
-
-char	*unpack(char *str, int len, int final_len, short is_dq, t_env *env)
+char	*unpack(char *str, t_len lns, short is_dq, t_env *env)
 {
-	int	i;
-	int	tmp;
-	char	*new_start;
+	int		i;
+	int		j;
+	int		tmp;
+	t_cpy	cpy;
+	char	*new;
 
-	i = 0;
-	new_start = (char *)malloc(sizeof(char) * final_len + 1);
-	if (!new_start)
+	new = (char *)malloc(sizeof(char) * lns.final_len + 1);
+	if (!new)
 		return (NULL);
-	new_start[final_len] = '\0';
-	int j = 0;
-	while (i < len)
+	new[lns.final_len] = '\0';
+	i = 0;
+	j = 0;
+	while (i < lns.len)
 	{
 		if (str[i] == '\'')
-		{
-			if (is_dq)
-				new_start[j++] = '\'';
-			tmp = counter_str_single_quote(&str[i + 1]);
-			ft_strlcpy(&new_start[j], &str[i + 1], tmp + 1);
-			i += tmp + 1 + is_dq;
-			j += tmp;
-			if (is_dq)
-				new_start[j++] = '\'';
-		}
+			cpy = (t_cpy){.dst = new, .src = str, .ir = &i, .jr = &j,
+				.is_dq = is_dq, .tp = 0};
 		else if (str[i] == '$')
-		{
-			tmp = ft_envcpy(&str[i + 1], i, &new_start[j], env);
-			j += tmp;
-			i++;
-			while (i < len && str[i] != ' ' && str[i] != '$' && str[i] != '\'')
-				i++;
-		}
+			cpy = (t_cpy){.dst = new, .src = str, .ir = &i, .jr = &j, .tp = 1};
 		else
-			new_start[j++] = str[i++];
+			cpy = (t_cpy){.dst = new, .src = str, .ir = &i, .jr = &j, .tp = 2};
+		fill_new_str(tmp, lns.len, cpy, env);
 	}
-	return (new_start);
+	return (new);
 }

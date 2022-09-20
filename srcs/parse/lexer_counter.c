@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_counter.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 14:35:32 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/09/20 14:35:33 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int inline counter_skip_unpacked_env(char *str, t_env *env)
+int inline	counter_skip_unpacked_env(char *str, t_env *env)
 {
 	int		i;
 	int		len;
@@ -13,12 +25,12 @@ int inline counter_skip_unpacked_env(char *str, t_env *env)
 		len++;
 	var_key = ft_substr(str, 0, len);
 	var_value = get_env_value(var_key, env);
-	// *(iptr) += ft_strlen(var_key);
-		return (ft_strlen(var_value));	
+	if (ft_strlen(var_value))
+		return (ft_strlen(var_value));
 	return (0);
 }
 
-int counter_str_single_quote(char *str)
+int	counter_str_single_quote(char *str)
 {
 	int	i;
 	int	len;
@@ -36,7 +48,7 @@ inline int	skipper_str_single_quote(char *str, int *iptr, short is_dq)
 	int	result;
 
 	result = 0;
-	tmp = counter_str_single_quote(&str[*(iptr) + 1]) ;
+	tmp = counter_str_single_quote(&str[*(iptr) + 1]);
 	result += tmp;
 	if (is_dq)
 		result += 2;
@@ -59,7 +71,7 @@ inline int	skipper_str_with_env(char *str, int *iptr, int len, t_env *env)
 	return (result);
 }
 
-int count_final_len(char *str, int len, short is_dq, t_env *env)
+int	count_final_len(char *str, int len, short is_dq, t_env *env)
 {
 	int	i;
 	int	final_len;

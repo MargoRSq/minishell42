@@ -9,6 +9,22 @@ typedef struct s_tmp_token
 	short	sep;
 }	t_tmp;
 
+typedef struct s_cpy
+{
+	char	*dst;
+	char	*src;
+	int		*ir;
+	int		*jr;
+	int		is_dq;
+	short	tp;
+}	t_cpy;
+
+typedef struct s_len
+{
+	int	len;
+	int	final_len;
+}	t_len;
+
 typedef struct s_token
 {
 	char			*start;
@@ -27,9 +43,9 @@ void		tokenlst_print(t_token *lst);
 int			find_end(char *ptr);
 t_token		*lex_line(char *line, t_env *env);
 
-char		*unpack(char *str, int len, int final_len, short is_dq, t_env *env);
+char		*unpack(char *str, t_len lens, short is_dq, t_env *env);
 t_token		*unpack_tmp_token(t_tmp tkn, t_env *env);
-t_tmp		create_tmp_token(int len, int code, short sep, char *line, int pos);
+t_tmp		create_tmp_token(int len, int code, short sep, char *line);
 char		*fetch_envstr(char *str, int pos, t_env *env);
 int			ft_envcpy(char *start, int pos, char *new_start, t_env *env);
 
