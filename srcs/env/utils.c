@@ -14,12 +14,23 @@ char	*get_env_value(char *key, t_env *env)
 	return (NULL);
 }
 
-t_env	*update_env_value(char *key, char *value)
+// t_env	*update_env_value(char *key, char *value)
+// {
+// 	return (NULL);
+// }
+
+void append_env_var(t_env *env, char *arg)
 {
-	return (NULL);
+	char		**key_value;
+	t_env 		*new_elem;
+
+	key_value = ft_split(arg, '=');
+	if (!key_value)
+		printf("malloc error"); // 
+	new_elem = envlst_new(key_value[0], key_value[1]);
+	if (!new_elem)
+		printf("malloc error"); // 
+	envlst_add_back(&env, new_elem);
+	// free key_value;
 }
 
-t_env	*append_env_var(char *key, char *value)
-{
-	return (NULL);
-}

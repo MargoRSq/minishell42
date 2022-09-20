@@ -52,6 +52,30 @@ int 	trigger_pwd_error()
 	return(-1);
 }
 
+int trigger_exit_error()
+{
+	g_status.interrupt = 1;
+	g_status.exit_msg = MSG_ERR_EXIT_NUM;
+	g_status.exit_code = 1;
+	return(-1);
+}
+
+// int error_msg_return_minus(char *msg, int code)
+// {
+// 	g_status.interrupt = 1;
+// 	g_status.exit_msg = msg;
+// 	g_status.exit_code = code;
+// 	return(-1);
+// }
+
+int error_msg_return_minus(char *msg, int code, short interrupt)
+{
+	g_status.interrupt = interrupt;
+	g_status.exit_msg = msg;
+	g_status.exit_code = code;
+	return(-1);
+}
+
 // int 	trigger_сd_error()
 // {
 // 	g_status.interrupt = 1;
