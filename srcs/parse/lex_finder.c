@@ -5,6 +5,7 @@ static int	find_symbol(char *ptr, char sy)
 	int	distance;
 
 	distance = -1;
+	// добавить обработку не той ковычки
 	while (ptr[++distance])
 		if (ptr[distance] == sy)
 			return (distance);
@@ -20,8 +21,8 @@ static int	find_separator(char *ptr)
 	while (ptr[distance++])
 	{
 		cur = ptr[distance];
-		if (cur == tab || cur == endl ||
-			cur == vtab || cur == cr || cur == space)
+		if (cur == tab || cur == endl
+			|| cur == vtab || cur == cr || cur == space)
 			return (distance);
 	}
 	if (distance > 0 && cur == 0)
@@ -42,10 +43,6 @@ int	find_end(char *ptr)
 		if (*ptr == *(ptr + 1))
 			return (2);
 		return (1);
-		// d = find_separator(ptr);
-		// if (d > 2)
-		// 	return (trigger_too_many_redirects_error());
-		// return (d);
 	}
 	return (find_separator(ptr));
 }

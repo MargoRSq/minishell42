@@ -1,74 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 14:35:21 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/09/20 16:55:47 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int	get_code(int sy, int len)
+static t_token	*create_token(char *line, int len, int sep, t_env *env)
 {
-	if (sy == s_quote)
-		return (s_quote_str);
-	else if (sy == d_quote)
-		return (d_quote_str);
-	else if (sy == l_corner && len == 1)
-		return (r_in);
-	else if (sy == l_corner && len == 2)
-		return (heredoc);
-	else if (sy == r_corner && len == 1)
-		return (r_out);
-	else if (sy == r_corner && len == 2)
-		return (r_append);
-	else if (sy == pipes)
-		return (lpipe);
-	return (word);
-}
-
-static inline int	move(char sy, int len)
-{
-	switch ((int)sy)
-	{
-	case s_quote: case d_quote:
-		return (len + 1);
-	default:
-		return (len);
-	}
-}
-
-static inline int	get_skip_distance(char *sy, int len)
-{
+	t_tmp	tkn;
+	int		code;
 	char	*tmp;
 
-	tmp = sy;
-	if (*tmp == s_quote || *tmp == d_quote)
-		return (len + 2);
-	else if (*tmp == l_corner || *tmp == r_corner)
-	{
-		if (*tmp == *(tmp + 1))
-			return (2);
-		return (1);
-	}
-	return (len);
+	tmp = line;
+	if (len == -1)
+		return (NULL);
+	code = get_code((int)*tmp, len);
+	tkn = create_tmp_token(len, code, sep, line);
+	return (unpack_tmp_token(tkn, env));
 }
 
-t_token	*lex_line(char *line)
+t_token	*lex_line(char *line, t_env *env)
 {
 	int		i;
 	int		len;
-	int		code;
 	t_token	*tokens;
+	int		sep;
 
 	i = 0;
+	sep = 0;
 	tokens = NULL;
 	while (line[i])
 	{
 		if (line[i] == space)
+		{
 			i++;
+			sep = 1;
+		}
 		else
 		{
 			len = find_end(&line[i]);
-			if (len == -1)
-				return (NULL);
-			code = get_code((int)line[i], len);
-			tokenlst_add_back(&tokens, tokenlst_new(&line[i], len, code));
+			tokenlst_add_back(&tokens, create_token(line, len, sep, env));
 			i += get_skip_distance(&line[i], len);
+			sep = 0;
 		}
 	}
-	// tokenlst_print(tokens);
 	return (tokens);
 }
+
+	// tokenlst_print(tokens);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/09/20 14:35:15 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	init_shell(t_env *env)
@@ -19,7 +31,6 @@ static char	*launch_readline(t_env *env)
 	char	*prefix;
 	char	*line;
 	char	*pwd;
-
 
 	pwd = get_cur_dir(env);
 	if (!pwd)
@@ -53,12 +64,12 @@ void	start_shell(t_env *env)
 	t_token		*tokens;
 	t_cmd		*cmds;
 
-	while(1)
+	while (1)
 	{
 		line = get_entered_line(env);
 		if (g_status.interrupt)
 			break ;
-		tokens = lex_line(line);
+		tokens = lex_line(line, env);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);

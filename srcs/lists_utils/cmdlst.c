@@ -41,7 +41,7 @@ t_cmd	*cmdlst_last(t_cmd *lst)
 	return (lst);
 }
 
-static void	fill_params(t_token *tokens, t_cmd *cmd)
+static void fill_params(t_token *tokens, t_cmd *cmd)
 {
 	int		i;
 	int		j;
@@ -78,16 +78,16 @@ static void	fill_params(t_token *tokens, t_cmd *cmd)
 		{
 			if (!is_cmd)
 			{
+				//тут проверка на команду сразу выкидывать ошибку
 				is_cmd = 1;
 				cmd->name = ft_substr(tmp->start, 0, (size_t)tmp->len);
 			}
-			else
+			else // тут раскрытие долларов, двойных и одинарных скобок
 				cmd->argv[++k] = ft_substr(tmp->start, 0, (size_t)tmp->len);
 		tmp = tmp->next;
 		}
 	}
 }
-
 
 t_cmd	*cmdlst_new(t_token *tokens)
 {

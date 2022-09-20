@@ -1,9 +1,20 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   commands.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 14:35:04 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/09/20 14:35:05 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 t_cmd	*create_commands(t_token *tokens)
 {
-	t_count counter;
+	t_count	counter;
 	t_cmd	*cmds;
 
 	cmds = NULL;
@@ -15,8 +26,8 @@ t_cmd	*create_commands(t_token *tokens)
 		if (tokens)
 			tokens = tokens->next;
 		else
-			break;
+			break ;
 	}
-	cmdlst_print(cmds);
+	// cmdlst_print(cmds);
 	return (cmds);
 }
