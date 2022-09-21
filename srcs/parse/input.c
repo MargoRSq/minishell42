@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/20 14:35:15 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/21 14:49:24 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	start_shell(t_env *env)
 	t_token		*tokens;
 	t_cmd		*cmds;
 
-	while (1)
+	while (!g_status.interrupt)
 	{
 		line = get_entered_line(env);
 		if (g_status.interrupt)
