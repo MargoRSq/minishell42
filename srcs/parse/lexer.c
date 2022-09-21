@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:21 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/20 16:55:47 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/21 17:44:55 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ t_token	*lex_line(char *line, t_env *env)
 		else
 		{
 			len = find_end(&line[i]);
-			tokenlst_add_back(&tokens, create_token(line, len, sep, env));
+			tokenlst_add_back(&tokens, create_token(&line[i], len, sep, env));
 			i += get_skip_distance(&line[i], len);
 			sep = 0;
 		}
 	}
+	// tokenlst_print(tokens);
 	return (tokens);
 }
-
-	// tokenlst_print(tokens);

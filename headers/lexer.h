@@ -57,3 +57,5 @@ int counter_skip_unpacked_env(char *str, t_env *env);
 int	skipper_str_single_quote(char *str, int *iptr, short is_dq);
 int	skipper_str_with_env(char *str, int *iptr, int len, t_env *env);
 int			count_final_len(char *str, int len, short is_dq, t_env *env);
+
+void	check_tokens(t_token *token);

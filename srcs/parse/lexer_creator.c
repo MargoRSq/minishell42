@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:23:57 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/20 16:51:29 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/21 15:37:35 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_tmp	create_tmp_token(int len, int code, short sep, char *line)
 
 t_token	*unpack_tmp_token(t_tmp tkn, t_env *env)
 {
-	int		dollars;
 	int		i;
 	int		final_len;
 	char	*new_start;

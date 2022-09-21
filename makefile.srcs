@@ -6,10 +6,10 @@ LST_UTILS = $(addprefix lists_utils/,	${LST_UTILS_FIELS})
 ENV_PARSER_FILES = parse.c utils.c
 ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 
-PARSE_FILES = input.c lexer_creator.c lexer_counter.c lexer_global.c lexer_unpacker.c lex_finder.c lexer.c counter.c commands.c
+PARSE_FILES = input.c lexer_checker.c lexer_creator.c lexer_counter.c lexer_global.c lexer_unpacker.c lex_finder.c lexer.c counter.c commands.c
 PARSE = $(addprefix parse/, ${PARSE_FILES})
 
-BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c export.c arr_utils.c builtin_utils.c
+BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c export.c  builtin_utils.c
 BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 
 EXECUTE_FILES = executor.c

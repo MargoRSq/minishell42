@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:28:23 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/13 13:42:50 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/09/21 17:18:02 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ void execute_pwd(t_env *env)
 		trigger_pwd_error();
 	write(STDOUT_FILENO, pwd, ft_strlen(pwd));
 	write(STDOUT_FILENO, "\n", 1);
-	free(pwd);
 }

@@ -8,7 +8,8 @@ int		trigger_too_many_redirects_error();
 char	*trigger_home_error();
 int		trigger_pwd_error();
 
-int error_msg_return_minus(char *msg, int code, short interrupt);
+int 	error_msg_return_minus(char *msg, int code, short interrupt);
+void	error_msg_return_void(char *msg, int code, short interrupt);
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
 # define MSG_ERR_MEM			"minishell: Memory allocation failed\n"
@@ -25,6 +26,13 @@ int error_msg_return_minus(char *msg, int code, short interrupt);
 	"minishell: Syntax error: command has unclosed \' sign\n"
 # define MSG_ERR_CMD_UDQ\
 	"minishell: Syntax error: command has unclosed \" sign\n"
+
+# define MSG_ERR_PIPE_LOC\
+	"minishell: parse error: pipe at the start or at the end\n"
+# define MSG_ERR_REDIR_PARSE\
+	"minishell: parse error: wrong redir usage\n"
+# define MSG_ERR_FILE_NEXISTS\
+	"minishell: parse error: file not exists\n"
 
 # define MSG_ERR_CMD_EEOF\
 	"minishell: Syntax error: command has escaped EOF\n"

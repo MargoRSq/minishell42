@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/21 14:49:24 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/21 15:01:55 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void	start_shell(t_env *env)
 		if (g_status.interrupt)
 			break ;
 		tokens = lex_line(line, env);
+		if (g_status.interrupt)
+			break ;
+		check_tokens(tokens);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);
