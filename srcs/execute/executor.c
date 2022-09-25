@@ -2,20 +2,19 @@
 
 int try_builtin(t_cmd *cmds, t_env *env)
 {
-	if (!ft_strcmp(cmds->name, "cd") || !ft_strcmp(cmds->name, "CD"))
+	if (!ft_strcmp(cmds->name, "cd"))
 		execute_cd(env, cmds->argv);
-	else if (!ft_strcmp(cmds->name, "echo") || !ft_strcmp(cmds->name, "ECHO"))
+	else if (!ft_strcmp(cmds->name, "echo"))
 		execute_echo(cmds->argv);
-	else if (!ft_strcmp(cmds->name, "pwd") || !ft_strcmp(cmds->name, "PWD"))
+	else if (!ft_strcmp(cmds->name, "pwd"))
 		execute_pwd(env);
-	else if (!ft_strcmp(cmds->name, "env") || !ft_strcmp(cmds->name, "ENV"))
+	else if (!ft_strcmp(cmds->name, "env"))
 		execute_env(env);
-	else if (!ft_strcmp(cmds->name, "unset") || !ft_strcmp(cmds->name, "UNSET"))
+	else if (!ft_strcmp(cmds->name, "unset"))
 		execute_unset(env, cmds->argv);
-	else if (!ft_strcmp(cmds->name, "exit") || !ft_strcmp(cmds->name, "EXIT"))
+	else if (!ft_strcmp(cmds->name, "exit"))
 		execute_exit(env, cmds->argv);
-	else if (!ft_strcmp(cmds->name, "export") || \
-			!ft_strcmp(cmds->name, "EXPORT"))
+	else if (!ft_strcmp(cmds->name, "export"))
 		execute_export(env, cmds->argv);
 	return (1);	
 }

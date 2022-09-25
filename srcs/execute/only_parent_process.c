@@ -2,13 +2,12 @@
 
 static int	check_builtin(char *cmd)
 {
-	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "ECHO") || \
-			!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "CD") || \
-			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "PWD") || \
-			!ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "EXPORT") || \
-			!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "UNSET") || \
-			!ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "ENV") || \
-			!ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "EXIT"))
+	if (cmd)
+		ft_tolower(cmd);
+	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
+			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") ||
+			!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") ||
+			!ft_strcmp(cmd, "exit"))
 		return (1);
 	else
 		return (0);
@@ -44,11 +43,15 @@ void	only_parent_process(t_env *env, t_cmd *cmd)
 	{
 		if (check_builtin(cmd->name))
 			try_builtin(cmd, env);
-		 else
+		else
 		{
 			fd = fork();
 			if (fd == 0)
+			{
 				execve(get_cmd(env, cmd->name), cmd->argv, envlst_to_arr(env));
+				error_msg_return_void(MSG_ERR_EXECVE, execve_error, 0);
+				exit(execve_error);
+			}
 			else
 				wait(0);
 		}

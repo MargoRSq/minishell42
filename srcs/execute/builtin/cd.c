@@ -16,7 +16,7 @@ void update_pwd_values(t_env *env, char *old_path, const char *new_path)
 {
 	t_env *updated_old_pwd;
 	t_env *updated_pwd;
-
+	// дюп писать в переменную и проверять что он не нул :))))  <3
 	updated_old_pwd = envlst_new("OLDPWD", ft_strdup(old_path));
 	updated_pwd =  envlst_new("PWD", ft_strdup(new_path));
 	if(!updated_old_pwd)

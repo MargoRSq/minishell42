@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int c)
+void	ft_tolower(char *str)
 {
-	if (c >= 65 && c <= 90)
-		return (c + 32);
-	else
-		return (c);
+	int i = -1;
+	while (str[++i])
+	{
+		if (str[i] >= 65 && str[i] <= 90)
+			str[i] += 32;
+	}
 }
