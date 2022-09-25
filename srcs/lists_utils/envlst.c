@@ -66,10 +66,13 @@ void	envlst_print(t_env *lst)
 		return ;
 	while (tmp != NULL)
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-		if (tmp == NULL)
-			return ;
+		// if(!ft_strcmp(tmp->value, ""))
+		{
+			printf("%s=%s\n", tmp->key, tmp->value);
+			tmp = tmp->next;
+			if (tmp == NULL)
+				return ;
+		}
 	}
 }
 
@@ -124,6 +127,7 @@ char **envlst_to_arr(t_env *lst)
 {
 	char **arr;
 	t_env *tmp;
+	char *help;
 	int i;
 	int len;
 
@@ -132,15 +136,17 @@ char **envlst_to_arr(t_env *lst)
 	tmp = lst;
 	i = 0;
 	len = envlst_size(lst);
-	arr = (char **)malloc(sizeof(char *) * len);
+	arr = (char **)malloc(sizeof(char *) * (len + 1));
 	if(!arr)
 		return (NULL);
 	arr[len] = NULL;
 	while(i < len)
 	{
-		arr[i] = ft_strjoin(ft_strjoin(tmp->key, "="), tmp->value);
+		help = ft_strjoin(tmp->key, "=");
+		arr[i] = ft_strjoin(help, tmp->value);
 		i++;
 		tmp = tmp->next;
+		free(help);
 	}
 	return (arr);
 }

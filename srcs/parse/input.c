@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/21 15:01:55 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/22 18:31:50 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	start_shell(t_env *env)
 	while (!g_status.interrupt)
 	{
 		line = get_entered_line(env);
-		if (g_status.interrupt)
+		if (
+			g_status.interrupt)
 			break ;
 		tokens = lex_line(line, env);
 		if (g_status.interrupt)

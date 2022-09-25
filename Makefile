@@ -34,7 +34,7 @@ OS_NAME			:= $(shell uname -s)
 
 CC			= cc
 
-CFLAGS		= # -Wall -Wextra -Werror
+CFLAGS		= #-fsanitize=address -g # -Wall -Wextra -Werror
 
 OPTFLAGS	= -MMD -MP -g
 

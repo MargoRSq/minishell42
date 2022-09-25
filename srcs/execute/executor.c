@@ -9,7 +9,7 @@ static int try_builtin(t_cmd *cmds, t_env *env)
 	else if (!ft_strcmp(cmds->name, "pwd"))
 		execute_pwd(env);
 	else if (!ft_strcmp(cmds->name, "env"))
-		execute_env(env);
+		execute_env(env, cmds->argv);
 	else if (!ft_strcmp(cmds->name, "unset"))
 		execute_unset(env, cmds->argv);
 	else if (!ft_strcmp(cmds->name, "exit"))
