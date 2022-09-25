@@ -22,7 +22,7 @@ int try_builtin(t_cmd *cmds, t_env *env)
 
 void	execute(t_env *env, t_cmd *cmd)
 {
-		cmdlst_print(cmd);
+	cmdlst_print(cmd);
 		if (cmd->next == NULL)
 			only_parent_process(env, cmd);
 		else
