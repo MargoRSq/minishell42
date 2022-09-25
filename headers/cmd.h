@@ -32,3 +32,6 @@ void	cmdlst_print(t_cmd *lst);
 t_count	count_entities(t_token *tokens);
 t_cmd	*create_commands(t_token *tokens);
 void	execute(t_env *env, t_cmd *cmds);
+void	only_parent_process(t_env *env, t_cmd *cmd);
+void	multi_pipe_process(t_env *env, t_cmd *cmd);
+int		try_builtin(t_cmd *cmds, t_env *env);
