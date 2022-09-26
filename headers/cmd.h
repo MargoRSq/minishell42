@@ -37,3 +37,6 @@ void	execute(t_env *env, t_cmd *cmds);
 void	only_parent_process(t_env *env, t_cmd *cmd);
 void	multi_pipe_process(t_env *env, t_cmd *cmd);
 int		try_builtin(t_cmd *cmds, t_env *env);
+void	exec_first_cmd(t_env *env, t_cmd *cmd);
+void	exec_middle_cmd(t_env *env, t_cmd *cmd);
+void	exec_last_cmd(t_env *env, t_cmd *cmd);
