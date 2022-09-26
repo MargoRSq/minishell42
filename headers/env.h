@@ -19,6 +19,6 @@ int		envlst_size(t_env *lst);
 t_env	*parse_envp(char **envp);
 
 char	*get_env_value(char *key, t_env *env);
-void	append_env_var(t_env *env, char *arg);
+// void	append_env_var(t_env *env, char *arg);
 
 t_env	*update_env_value(char *key, char *value);

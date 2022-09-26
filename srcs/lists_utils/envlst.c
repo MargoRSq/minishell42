@@ -50,7 +50,7 @@ t_env	*envlst_new(char *key, char *value)
 
 	elem = (t_env *)malloc(sizeof(t_env));
 	if (!elem)
-		return trigger_malloc_error();
+		return (error_msg_return_null(MSG_ERR_MEM, "", malloc_error, 1));
 	elem->key = key;
 	elem->value = value;
 	elem->next = NULL;
@@ -66,7 +66,7 @@ void	envlst_print(t_env *lst)
 		return ;
 	while (tmp != NULL)
 	{
-		// if(!ft_strcmp(tmp->value, ""))
+		if(ft_strcmp(tmp->value, ""))
 		{
 			printf("%s=%s\n", tmp->key, tmp->value);
 			tmp = tmp->next;
@@ -76,20 +76,59 @@ void	envlst_print(t_env *lst)
 	}
 }
 
+
+// void envlst_delete_elem(char *key, t_env **lst)
+// {
+// 	t_env *tmp;
+// 	t_env *to_delete;
+
+// 	if (!lst || !(*lst))
+// 		return ;
+// 	tmp = (*lst);
+// 	if(!strcmp(key, tmp->key))
+// 	{
+// 		to_delete = tmp;
+// 		tmp = tmp->next;
+// 		free(to_delete->value);
+// 		free(to_delete->key);
+// 		free(to_delete);
+// 		return ;
+// 	}
+// 	while(tmp->next)
+// 	{
+// 		if(!strcmp(key, tmp->next->key))
+// 		{
+// 			to_delete = tmp->next;
+// 			tmp->next = tmp->next->next;
+// 			free(to_delete->value);
+// 			free(to_delete->key);
+// 			free(to_delete);
+// 			return ;
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }
+
+
+
 void envlst_delete_elem(char *key, t_env **lst)
 {
 	t_env *tmp;
+	t_env *head;
 	t_env *to_delete;
 
-	if (!lst || !(*lst))
+
+	if (!lst)
 		return ;
 	if(!strcmp(key, (*lst)->key))
 	{
 		to_delete = (*lst);
-		*lst = (*lst)->next;
+		head = (*lst)->next;
+		// *lst = (*lst)->next;
 		free(to_delete->value);
 		free(to_delete->key);
 		free(to_delete);
+		(*lst) = head;
 		return ;
 	}
 	tmp = (*lst);

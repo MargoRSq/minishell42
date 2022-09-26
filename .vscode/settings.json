@@ -2,6 +2,7 @@
     "files.associations": {
         "algorithm": "c",
         "locale": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "random": "c"
     }
 }

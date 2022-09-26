@@ -96,7 +96,7 @@ t_cmd	*cmdlst_new(t_token *tokens)
 
 	elem = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!elem)
-		return trigger_malloc_error();
+		return (error_msg_return_null(MSG_ERR_MEM, "", malloc_error, 1));
 	counter = count_entities(tokens);
 	// printf("in=%d out=%d words=%d\n", counter.in, counter.out, counter.words);
 	elem->argv = (char **)malloc(sizeof(char *) * counter.words);

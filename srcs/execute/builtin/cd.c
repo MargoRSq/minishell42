@@ -6,17 +6,17 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/25 20:57:13 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:28:35 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_old_pwd(t_env **env, char *old_path)
+void	update_old_pwd(t_env *env, char *old_path)
 {
 	t_env	*tmp;
 
-	tmp = (*env);
+	tmp = env;
 	while (tmp)
 	{
 		if (!ft_strcmp("OLDPWD", tmp->key))
@@ -27,13 +27,14 @@ void	update_old_pwd(t_env **env, char *old_path)
 		}
 		tmp = tmp->next;
 	}
+	append_env_var(env, ft_strdup("OLDPWD"), ft_strdup(old_path));
 }
 
-void	update_pwd(t_env **env, const char *new_path)
+void	update_pwd(t_env *env, const char *new_path)
 {
 	t_env	*tmp;
 
-	tmp = (*env);
+	tmp = env;
 	while (tmp)
 	{
 		if (!ft_strcmp("PWD", tmp->key))
@@ -44,6 +45,7 @@ void	update_pwd(t_env **env, const char *new_path)
 		}
 		tmp = tmp->next;
 	}
+	append_env_var(env, ft_strdup("PWD"), ft_strdup(new_path));
 }
 
 static const char	*go_oldpwd(t_env *env) //not working 
@@ -117,8 +119,8 @@ void	execute_cd(t_env *env, char **cmd_argv)
 		return ;
 	if (!pwd_to_change)
 		error_msg_return_void(MSG_ERR_PWD, "", 5, 1);
-	update_old_pwd(&env, pwd_to_change);
-	update_pwd(&env, new_path);
+	update_old_pwd(env, pwd_to_change);
+	update_pwd(env, new_path);
 }
 
 	

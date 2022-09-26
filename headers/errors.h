@@ -1,11 +1,11 @@
 #ifndef ERROR_MSGS_H
 # define ERROR_MSGS_H
 
-void	*trigger_malloc_error();
 int		trigger_unclosed_quote_error(char q_type);
 int		trigger_too_many_redirects_error();
 
 void	error_msg_return_void(char *msg, char *arg, int code, short interrupt);
+void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt);
 
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"

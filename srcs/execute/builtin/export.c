@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/25 20:49:28 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:49:31 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,24 @@ int	equal_sign(char *token)
 	return (0);
 }
 
-void	remove_if_exists(t_env *env, char *argv)
+void	change_or_append(t_env *env, char *new_key, char *new_value)
 {
-	char	**key_value;
 	t_env	*tmp;
 
-	key_value = ft_split(argv, '=');
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strcmp(key_value[0], tmp->key))
+		if (!ft_strcmp(new_key, tmp->key))
 		{
-			envlst_delete_elem(key_value[0], &env);
+			free(tmp->value);
+			tmp->value = ft_strdup(new_value);
 			return ;
 		}
 		tmp = tmp->next;
 	}
+	append_env_var(env,  new_key, new_value);
+	// if(!append_env_var(env,  new_key, new_value))
+	// 	return;	
 }
 
 void	do_export_argv(t_env *env, char **cmd_argv)
@@ -117,10 +119,7 @@ void	do_export_argv(t_env *env, char **cmd_argv)
 			if (!check_valid_env_key(key_value[0]) || (key_value[1] && !check_valid_env_value(key_value[1])))
 				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], 1, 0);
 			else
-			{
-				remove_if_exists(env, cmd_argv[i]);
-				append_env_var(env, cmd_argv[i]);
-			}
+				change_or_append(env, key_value[0], key_value[1]);
 		}
 		i++;
 	}

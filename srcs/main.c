@@ -21,26 +21,13 @@ int main(int ac, char **av, char **envp)
 	char *line;
 	t_env *env;
 
-	// char **arr;
-	// int len;
-	// int i;
-
 	if (ac != 1)
 		return 1;
 	init_status();
 	env = parse_envp(envp);
 
-	// i = 0;
-	// len = envlst_size(env);
-	// arr = envlst_to_arr(env);
-	// while(i < len )
-	// {
-	// 	printf("%s\n", arr[i]);
-	// 	i++;
-	// }
-
 	init_shell(env);
-	start_shell(env);
+	start_shell(&env);
 
 	return (exit_with_message());
 }
