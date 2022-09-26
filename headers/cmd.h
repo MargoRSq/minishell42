@@ -18,6 +18,8 @@ typedef struct s_cmd
 	char			**argv;
 	t_file			*fns_in;
 	t_file			*fns_out;
+	int				fd_in;
+	int				fd_out;
 	t_count			counter;
 	struct s_cmd	*next;
 }	t_cmd;

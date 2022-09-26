@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:21 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/21 17:44:55 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/25 18:49:30 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ t_token	*lex_line(char *line, t_env *env)
 			sep = 0;
 		}
 	}
-	// tokenlst_print(tokens);
+	tokenlst_print(tokens);
 	return (tokens);
 }
