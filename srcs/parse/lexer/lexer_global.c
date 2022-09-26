@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:17 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/20 14:35:18 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/26 14:19:10 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ inline int	get_code(int sy, int len)
 	else if (sy == l_corner && len == 1)
 		return (r_in);
 	else if (sy == l_corner && len == 2)
-		return (heredoc);
+		return (r_heredoc);
 	else if (sy == r_corner && len == 1)
 		return (r_out);
 	else if (sy == r_corner && len == 2)

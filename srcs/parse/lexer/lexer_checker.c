@@ -18,14 +18,14 @@ void	check_tokens(t_token *token, t_env *env)
 	while (token)
 	{
 		if (token->code == r_in || token->code == r_out
-			|| token->code == r_append || token->code == heredoc)
+			|| token->code == r_append || token->code == r_heredoc)
 		{
 			if (!(token->next))
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, 127, 1);
 			else if (token->next->code != word)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, 127, 1);
-			else if (token->code == heredoc)
-				open_heredoc(token->next, env); 
+			else if (token->code == r_heredoc)
+				heredoc(token->next, env); 
 			else if (check_access(token->next) == -1)
 				return error_msg_return_void(MSG_ERR_FILE_NEXISTS, 127, 1);
 		}

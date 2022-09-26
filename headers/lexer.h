@@ -59,4 +59,5 @@ int	skipper_str_with_env(char *str, int *iptr, int len, t_env *env);
 int			count_final_len(char *str, int len, short is_dq, t_env *env);
 
 void	check_tokens(t_token *token, t_env *env);
-int	open_heredoc(t_token *token, t_env *env);
+int	heredoc(t_token *token, t_env *env);
+void	signal_handler_heredoc(void);

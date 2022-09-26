@@ -59,9 +59,9 @@ static void fill_params(t_token *tokens, t_cmd *cmd)
 	{
 		arg = tmp->next;
 		if (tmp->code == r_in || tmp->code == r_out || tmp->code == r_append
-			|| tmp->code == heredoc)
+			|| tmp->code == r_heredoc)
 		{
-			if (tmp->code == r_in || tmp->code == heredoc)
+			if (tmp->code == r_in || tmp->code == r_heredoc)
 				cmd->fns_in[++i] = (t_file){ .name=ft_substr(arg->start, 0, (size_t)arg->len),
 											.type=r_in};
 			else if (tmp->code == r_out)
