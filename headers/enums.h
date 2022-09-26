@@ -33,7 +33,7 @@ typedef enum e_tokens
 	r_in,
 	r_out,
 	r_append,
-	heredoc,
+	r_heredoc,
 	word,
 	lpipe
 }	t_token_type;

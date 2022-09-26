@@ -6,13 +6,19 @@ LST_UTILS = $(addprefix lists_utils/,	${LST_UTILS_FIELS})
 ENV_PARSER_FILES = parse.c utils.c
 ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 
-PARSE_FILES = input.c lexer_checker.c lexer_creator.c lexer_counter.c lexer_global.c lexer_unpacker.c lex_finder.c lexer.c counter.c commands.c
+PARSE_FILES = main_loop.c get_next_line.c get_next_line_utils.c \
+			  heredoc.c heredoc_signals.c counter.c commands.c
 PARSE = $(addprefix parse/, ${PARSE_FILES})
 
-BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c export.c  builtin_utils.c
+LEXER_FILES = lexer_checker.c lexer_creator.c \
+			  lexer_counter.c lexer_global.c lexer_unpacker.c \
+			  lex_finder.c lexer.c 
+LEXER = $(addprefix parse/lexer/, ${LEXER_FILES})
+
+BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c export.c builtin_utils.c
 BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 
 EXECUTE_FILES = executor.c only_parent_process.c multi_pipe_process.c exec_first_cmd.c exec_middle_cmd.c exec_last_cmd.c
 EXECUTE = $(addprefix execute/, ${EXECUTE_FILES})
 
-SRCS = ${MAIN} ${ENV_PARSER} ${PARSE} ${EXECUTE} ${BUILTIN} ${LST_UTILS}
+SRCS = ${MAIN} ${ENV_PARSER} ${LEXER} ${PARSE} ${EXECUTE} ${BUILTIN} ${LST_UTILS}

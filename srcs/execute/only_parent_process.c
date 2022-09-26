@@ -79,6 +79,7 @@ void	only_parent_process(t_env *env, t_cmd *cmd)
 				error_msg_return_void(MSG_ERR_EXECVE, execve_error, 0);
 //				printf("here\n");//this message we can't see after fatal in
 //				execve!
+
 				exit(execve_error);
 			}
 			else
