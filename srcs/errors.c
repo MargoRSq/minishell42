@@ -80,6 +80,7 @@ void	error_msg_return_void(char *msg, int code, short interrupt)
 {
 	g_status.interrupt = interrupt;
 	g_status.exit_msg = msg;
+	// printf(msg, arg);
 	g_status.exit_code = code;
 }
 

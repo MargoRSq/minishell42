@@ -20,6 +20,7 @@ char	*error_msg_return_charz(char *msg, int code, short interrupt);
 # define MSG_ERR_CD_ARGS		"minishell: cd: too many arguments\n"
 # define MSG_ERR_ENV			"minishell: ENV error .\n"
 # define MSG_ERR_SYNATX			"minishell: Syntax error\n"
+# define MSG_ERR_EXECVE			"minishell: EXECVE error .\n"
 
 # define MSG_ERR_CMD_TMR\
 	"minishell: parse error\n"

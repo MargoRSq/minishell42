@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int try_builtin(t_cmd *cmds, t_env *env)
+int try_builtin(t_cmd *cmds, t_env *env)
 {
 	if (!ft_strcmp(cmds->name, "cd"))
 		execute_cd(env, cmds->argv);
@@ -21,11 +21,9 @@ static int try_builtin(t_cmd *cmds, t_env *env)
 
 void	execute(t_env *env, t_cmd *cmd)
 {
-	while (cmd != NULL)
-	{
-		cmdlst_print(cmd);
-		if (cmd->name)
-			try_builtin(cmd, env);
-		cmd = cmd->next;
-	}
+	cmdlst_print(cmd);
+		if (cmd->next == NULL)
+			only_parent_process(env, cmd);
+		else
+			multi_pipe_process(env, cmd);
 }
