@@ -29,7 +29,7 @@ int		ft_isascii(int n);
 int		ft_isprint(int n);
 int		ft_strlen(const char *str);
 int		ft_toupper(int c);
-int		ft_tolower(int c);
+void	ft_tolower(char *str);
 int		ft_atoi(const char *str);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_memcmp(const void *str1, const void *str2, size_t n);

@@ -48,7 +48,7 @@ void	update_pwd(t_env *env, const char *new_path)
 	append_env_var(env, ft_strdup("PWD"), ft_strdup(new_path));
 }
 
-static const char	*go_oldpwd(t_env *env) //not working 
+static const char	*go_oldpwd(t_env *env) //not working
 {
 	const char	*old_pwd;
 
@@ -123,4 +123,3 @@ void	execute_cd(t_env *env, char **cmd_argv)
 	update_pwd(env, new_path);
 }
 
-	

@@ -58,9 +58,10 @@ static void fill_params(t_token *tokens, t_cmd *cmd)
 	while (tmp && tmp->code != lpipe)
 	{
 		arg = tmp->next;
-		if (tmp->code == r_in || tmp->code == r_out || tmp->code == r_append)
+		if (tmp->code == r_in || tmp->code == r_out || tmp->code == r_append
+			|| tmp->code == r_heredoc)
 		{
-			if (tmp->code == r_in)
+			if (tmp->code == r_in || tmp->code == r_heredoc)
 				cmd->fns_in[++i] = (t_file){ .name=ft_substr(arg->start, 0, (size_t)arg->len),
 											.type=r_in};
 			else if (tmp->code == r_out)
@@ -78,11 +79,11 @@ static void fill_params(t_token *tokens, t_cmd *cmd)
 		{
 			if (!is_cmd)
 			{
-				//тут проверка на команду сразу выкидывать ошибку
 				is_cmd = 1;
 				cmd->name = ft_substr(tmp->start, 0, (size_t)tmp->len);
+				cmd->argv[++k] = ft_substr(tmp->start, 0, (size_t)tmp->len);
 			}
-			else // тут раскрытие долларов, двойных и одинарных скобок
+			else
 				cmd->argv[++k] = ft_substr(tmp->start, 0, (size_t)tmp->len);
 		tmp = tmp->next;
 		}
@@ -99,8 +100,8 @@ t_cmd	*cmdlst_new(t_token *tokens)
 		return (error_msg_return_null(MSG_ERR_MEM, "", malloc_error, 1));
 	counter = count_entities(tokens);
 	// printf("in=%d out=%d words=%d\n", counter.in, counter.out, counter.words);
-	elem->argv = (char **)malloc(sizeof(char *) * counter.words);
-	elem->argv[counter.words - 1] = NULL;
+	elem->argv = (char **)malloc(sizeof(char *) * (counter.words + 1));
+	elem->argv[counter.words] = NULL;
 	elem->fns_in = (t_file *)malloc(sizeof(t_file) * (counter.in + 1));
 	elem->fns_out = (t_file *)malloc(sizeof(t_file) * (counter.out + 1));
 	fill_params(tokens, elem);
@@ -119,7 +120,7 @@ void	cmdlst_print(t_cmd *lst)
 	while (tmp != NULL)
 	{
 		printf("{cmd=%s, args=%d, in=%d, out=%d} ",
-			tmp->name, tmp->counter.words - 1, tmp->counter.in, tmp->counter.out);
+			tmp->name, tmp->counter.words, tmp->counter.in, tmp->counter.out);
 		tmp = tmp->next;
 		if (tmp == NULL)
 		{

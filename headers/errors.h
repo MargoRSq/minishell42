@@ -6,7 +6,7 @@ int		trigger_too_many_redirects_error();
 
 void	error_msg_return_void(char *msg, char *arg, int code, short interrupt);
 void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt);
-
+char	*error_msg_return_charz(char *msg, int code, short interrupt);
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
 # define MSG_ERR_MEM			"minishell: Memory allocation failed\n"
@@ -16,6 +16,7 @@ void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt);
 # define MSG_ERR_CD_ARGS		"minishell: cd: too many arguments\n"
 # define MSG_ERR_ENV			"minishell: ENV error .\n"
 # define MSG_ERR_SYNATX			"minishell: Syntax error\n"
+# define MSG_ERR_EXECVE			"minishell: EXECVE error .\n"
 
 # define MSG_ERR_CMD_TMR\
 	"minishell: parse error\n"

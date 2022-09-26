@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/26 18:37:34 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:18:39 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static char	*launch_readline(t_env *env)
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
 	if (!prefix)
-		return (error_msg_return_null(MSG_ERR_MEM, "", malloc_error, 1));
+		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
 	tmp = prefix;
 	prefix = ft_strjoin(tmp, DOLLAR);
 	if (!prefix)
-		return (error_msg_return_null(MSG_ERR_MEM, "", malloc_error, 1));
+		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
 	free(tmp);
 	line = readline(prefix);
 	free(prefix);
@@ -72,7 +72,7 @@ void	start_shell(t_env **env)
 		tokens = lex_line(line, *env);
 		if (g_status.interrupt)
 			break ;
-		check_tokens(tokens);
+		check_tokens(tokens, *env);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);

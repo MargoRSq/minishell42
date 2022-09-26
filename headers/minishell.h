@@ -18,6 +18,7 @@
 #include "utils.h"
 #include "builtins.h"
 #include "cmd.h"
+#include "get_next_line.h"
 
 
 typedef struct s_status

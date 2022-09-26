@@ -33,7 +33,7 @@ typedef enum e_tokens
 	r_in,
 	r_out,
 	r_append,
-	heredoc,
+	r_heredoc,
 	word,
 	lpipe
 }	t_token_type;
@@ -44,8 +44,9 @@ enum e_exits
 	malloc_error = 1,
 	env_error = 2,
 	unclosed_quote_error = 3,
-	home_error = 4,
-	pwd_error = 5
+	home_error,
+	pwd_error,
+	execve_error
 };
 
 // enum e_builtins
