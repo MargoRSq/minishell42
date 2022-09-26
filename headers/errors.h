@@ -10,6 +10,7 @@ int		trigger_pwd_error();
 
 int 	error_msg_return_minus(char *msg, int code, short interrupt);
 void	error_msg_return_void(char *msg, int code, short interrupt);
+char	*error_msg_return_charz(char *msg, int code, short interrupt);
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
 # define MSG_ERR_MEM			"minishell: Memory allocation failed\n"

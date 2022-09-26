@@ -11,7 +11,7 @@ static int	check_access(t_token *word_token)
 	return (result);
 }
 
-void	check_tokens(t_token *token)
+void	check_tokens(t_token *token, t_env *env)
 {
 	if (token->code == lpipe || tokenlst_last(token)->code == lpipe)
 		return error_msg_return_void(MSG_ERR_PIPE_LOC, 127, 1);
@@ -24,6 +24,8 @@ void	check_tokens(t_token *token)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, 127, 1);
 			else if (token->next->code != word)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, 127, 1);
+			else if (token->code == heredoc)
+				open_heredoc(token->next, env); 
 			else if (check_access(token->next) == -1)
 				return error_msg_return_void(MSG_ERR_FILE_NEXISTS, 127, 1);
 		}
