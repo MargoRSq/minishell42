@@ -105,7 +105,7 @@ int	heredoc(t_token *token, t_env *env)
 	// signal_handler_heredoc();
 	filename = create_tmp_filename(env);
 	if (!filename)
-		return (error_msg_return_minus(MSG_ERR_MEM, malloc_error, 1));
+		return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error, 1));
 	if (launch_heredoc(filename, token))
 	{
 		free(filename);

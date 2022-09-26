@@ -14,8 +14,8 @@
 
 void execute_env(t_env *env,  char **cmd_argv)
 {
-	if(cmd_argv[0])
-		return(error_msg_return_void(MSG_ERR_ENV_ARGS, cmd_argv[0], 127, 0));
+	if(cmd_argv[1])
+		return(error_msg_return_void(MSG_ERR_ENV_ARGS, cmd_argv[1], 127, 0));
 	if(env == NULL)
 		error_msg_return_void(MSG_ERR_ENV, "", 2, 1);
 	envlst_print(env);

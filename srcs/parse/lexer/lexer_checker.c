@@ -24,7 +24,6 @@ void	check_tokens(t_token *token, t_env *env)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, NULL, 127, 1);
 			else if (token->next->code != word)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, NULL, 127, 1);
-				return error_msg_return_void(MSG_ERR_REDIR_PARSE, 127, 1);
 			else if (token->code == r_heredoc)
 				heredoc(token->next, env);
 			else if (check_access(token->next) == -1)

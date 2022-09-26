@@ -16,7 +16,7 @@ void	execute_unset(t_env **env, char **cmd_argv)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (cmd_argv[i])
 	{
 		if (!check_valid_env_key(cmd_argv[i]))

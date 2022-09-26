@@ -60,7 +60,7 @@ char	*get_cmd(t_env *env, char *cmd)
 	return (NULL);
 }
 
-void	only_parent_process(t_env *env, t_cmd *cmd)
+void	only_parent_process(t_env **env, t_cmd *cmd)
 {
 	int		fd;
 
@@ -73,10 +73,10 @@ void	only_parent_process(t_env *env, t_cmd *cmd)
 			fd = fork();
 			if (fd == 0)
 			{
-				execve(get_cmd(env, cmd->name), cmd->argv,
-					   envlst_to_arr(env));
+				execve(get_cmd(*env, cmd->name), cmd->argv,
+					   envlst_to_arr(*env));
 //				printf("error: %s\n", strerror(errno));
-				error_msg_return_void(MSG_ERR_EXECVE, execve_error, 0);
+				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);
 //				printf("here\n");//this message we can't see after fatal in
 //				execve!
 

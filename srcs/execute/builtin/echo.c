@@ -40,10 +40,10 @@ void execute_echo(char **cmd_argv)
 	int i;
 	int flag;
 
-	i = 0;
+	i = 1;
 	flag = 0;
 
-	if (!cmd_argv[0])
+	if (!cmd_argv[1])
 	{
 		printf("\n");
 		return ;

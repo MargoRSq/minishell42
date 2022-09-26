@@ -84,17 +84,17 @@ static const char	*go_cd_argv(char **cmd_argv, t_env *env)
 	const char	*new_path;
 	char		*tmp;
 
-	if (!ft_strcmp(cmd_argv[0], "..") || cmd_argv[0][0] == '/')
-		path_to_go = ft_strdup(cmd_argv[0]);
+	if (!ft_strcmp(cmd_argv[1], "..") || cmd_argv[1][0] == '/')
+		path_to_go = ft_strdup(cmd_argv[1]);
 	else
 	{
 		tmp = ft_strjoin(get_cur_dir(env), "/");
-		path_to_go = ft_strjoin(tmp, cmd_argv[0]);
+		path_to_go = ft_strjoin(tmp, cmd_argv[1]);
 		free(tmp);
 	}
 	if (chdir(path_to_go) == -1)
 	{
-		error_msg_return_void(MSG_ERR_CD_NO, cmd_argv[0], 1, 0);
+		error_msg_return_void(MSG_ERR_CD_NO, cmd_argv[1], 1, 0);
 		free(path_to_go);
 		return (NULL);
 	}
@@ -109,11 +109,11 @@ void	execute_cd(t_env *env, char **cmd_argv)
 	const char	*new_path;
 
 	pwd_to_change = get_cur_dir(env);
-	if (!cmd_argv[0] || !ft_strcmp(cmd_argv[0], "~"))
+	if (!cmd_argv[1] || !ft_strcmp(cmd_argv[1], "~"))
 		new_path = go_home(env);
-	else if (!ft_strcmp(cmd_argv[0], "-"))
+	else if (!ft_strcmp(cmd_argv[1], "-"))
 		new_path = go_oldpwd(env);
-	else if (cmd_argv[0])
+	else if (cmd_argv[1])
 		new_path = go_cd_argv(cmd_argv, env);
 	if (!new_path)
 		return ;

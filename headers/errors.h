@@ -7,6 +7,7 @@ int		trigger_too_many_redirects_error();
 void	error_msg_return_void(char *msg, char *arg, int code, short interrupt);
 void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt);
 char	*error_msg_return_charz(char *msg, int code, short interrupt);
+int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
 # define MSG_ERR_MEM			"minishell: Memory allocation failed\n"

@@ -103,7 +103,7 @@ void	do_export_argv(t_env *env, char **cmd_argv)
 	int		i;
 	char	**key_value;
 
-	i = 0;
+	i = 1;
 	while (cmd_argv[i])
 	{
 		if (!equal_sign(cmd_argv[i]))
@@ -127,7 +127,7 @@ void	do_export_argv(t_env *env, char **cmd_argv)
 
 void	execute_export(t_env *env, char **cmd_argv)
 {
-	if (!cmd_argv[0]) 
+	if (!cmd_argv[1])
 		print_sorted_env(env);
 	else
 		do_export_argv(env, cmd_argv);

@@ -19,6 +19,15 @@ void	error_msg_return_void(char *msg, char *arg, int code, short interrupt)
 	g_status.exit_code = code;
 }
 
+int	error_msg_return_int(char *msg, char *arg, int code, short interrupt)
+{
+	g_status.interrupt = interrupt;
+	printf(msg, arg);
+	g_status.exit_code = code;
+	return (-1);
+}
+
+
 void *error_msg_return_null(char *msg, char *arg, int code, short interrupt)
 {
 	g_status.interrupt = interrupt;

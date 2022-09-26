@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int try_builtin(t_cmd *cmds, t_env **env)
+int try_builtin(t_cmd *cmds, t_env **env)
 {
 	if (!ft_strcmp(cmds->name, "cd"))
 		execute_cd(*env, cmds->argv);
