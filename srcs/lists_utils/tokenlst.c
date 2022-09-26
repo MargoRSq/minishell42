@@ -50,8 +50,8 @@ t_token	*tokenlst_new(char *start, int len, int code, int sep)
 		return trigger_malloc_error();
 	elem->start = start;
 	elem->after_sep = sep;
-	elem->len = len;
 	elem->code = code;
+	elem->len = len;
 	elem->next = NULL;
 	return (elem);
 }

@@ -84,6 +84,14 @@ void	error_msg_return_void(char *msg, int code, short interrupt)
 	g_status.exit_code = code;
 }
 
+char	*error_msg_return_charz(char *msg, int code, short interrupt)
+{
+	g_status.interrupt = interrupt;
+	g_status.exit_msg = msg;
+	g_status.exit_code = code;
+	return (NULL);
+}
+
 // int 	trigger_сd_error()
 // {
 // 	g_status.interrupt = 1;
