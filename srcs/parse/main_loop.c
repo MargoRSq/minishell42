@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
 /*   Updated: 2022/09/25 18:18:39 by svyatoslav       ###   ########.fr       */
@@ -18,12 +18,10 @@ void	init_shell(t_env *env)
 
 	env = env;
 	cur_level = get_env_value("SHLVL", env);
-
 	if (cur_level)
 		g_status.shell_level = ft_atoi(cur_level) + 1;
 	else
 		g_status.shell_level = 1;
-	printf("lvl=%d\n", g_status.shell_level);
 	read_history(HISTORY_FILE);
 }
 
@@ -39,11 +37,11 @@ static char	*launch_readline(t_env *env)
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
 	if (!prefix)
-		return (trigger_malloc_error());
+		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
 	tmp = prefix;
 	prefix = ft_strjoin(tmp, DOLLAR);
 	if (!prefix)
-		return (trigger_malloc_error());
+		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
 	free(tmp);
 	line = readline(prefix);
 	free(prefix);
@@ -60,23 +58,21 @@ static char	*get_entered_line(t_env *env)
 	return (entered_line);
 }
 
-void	start_shell(t_env *env)
+void	start_shell(t_env **env)
 {
 	char		*line;
 	t_token		*tokens;
 	t_cmd		*cmds;
 
-
-
 	while (!g_status.interrupt)
 	{
-		line = get_entered_line(env);
+		line = get_entered_line(*env);
 		if (g_status.interrupt)
 			break ;
-		tokens = lex_line(line, env);
+		tokens = lex_line(line, *env);
 		if (g_status.interrupt)
 			break ;
-		check_tokens(tokens, env);
+		check_tokens(tokens, *env);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);

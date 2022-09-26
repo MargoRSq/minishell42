@@ -1,30 +1,13 @@
 {
-    // Use IntelliSense to learn about possible attributes.
+	// Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "name": "Debug att",
-            "type": "lldb",
-            "request": "attach",
-            "program": "${workspaceFolder}/minishell",
-            // "cwd": "${workspaceFolder}",
-            "pid": "${command:pickMyProcess}",
-            // "processId":"${command:pickProcess}",
-            // "MIMode": "gdb",
-            // "setupCommands": [{
-                //     "description": "asda",
-                //     "text": "-enable-pretty-printing",
-                //     "ignoreFailures": true
-                //     }]
-                
-            },
             {
                 "name": "Debug",
                 "type": "lldb",
                 "request": "launch",
-                "externalConsole": false,
                 // "postRunCommands": ["Debug att"],
                 "program": "${workspaceFolder}/minishell",
                 // "args": ["5", "300000", "500", "500"],

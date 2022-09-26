@@ -1,15 +1,11 @@
 #ifndef ERROR_MSGS_H
 # define ERROR_MSGS_H
 
-void	*trigger_malloc_error();
-void	*trigger_env_error();
 int		trigger_unclosed_quote_error(char q_type);
 int		trigger_too_many_redirects_error();
-char	*trigger_home_error();
-int		trigger_pwd_error();
 
-int 	error_msg_return_minus(char *msg, int code, short interrupt);
-void	error_msg_return_void(char *msg, int code, short interrupt);
+void	error_msg_return_void(char *msg, char *arg, int code, short interrupt);
+void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt);
 char	*error_msg_return_charz(char *msg, int code, short interrupt);
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
@@ -48,10 +44,16 @@ char	*error_msg_return_charz(char *msg, int code, short interrupt);
 # define MSG_ERR_PIPE			"minishell: Pipes creation fail\n"
 # define MSG_ERR_INVRDTYPE		"minishell: Invalid redirect type\n"
 # define MSG_ERR_EXIT_NUM\
-	"minishell: exit: Numeric argument required\n"
+	"minishell: exit: %s: Numeric argument required\n"
 # define MSG_ERR_EXIT_ARGS		"minishell: exit: Too many arguments\n"
 # define MSG_ERR_INVAL_HIS_FD	"minishell: Invalid descriptor of history file\n"
 # define MSG_ERR_INVAL_ENVNAME	"minishell: Invalid env name: %s\n"
 # define MSG_ERR_HEREDOC\
 	"minishell: warning: here-document delimited by end-of-file (wanted `%s\')\n"
+
+
+# define MSG_ERR_ENV_ARGS		"minishell: %s: No such file or directory\n"
+# define MSG_ERR_EXPORT_KEY		"minishell: export: `%s': not a valid identifier\n"
+# define MSG_ERR_UNSET_KEY		"minishell: unset: `%s': not a valid identifier\n"
+# define MSG_ERR_CD_NO			"minishell: cd: %s: No such file or directory\n"
 #endif
