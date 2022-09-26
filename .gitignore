@@ -1,9 +1,10 @@
 *.DS_Store
 objs/
-.minishell_history
+.minishell_history*
 .minishell_heredoc_*
 minishell
 *.o 
 *.a
 kek
 lol
+.idea
