@@ -18,10 +18,12 @@ void	init_shell(t_env *env)
 
 	env = env;
 	cur_level = get_env_value("SHLVL", env);
+
 	if (cur_level)
 		g_status.shell_level = ft_atoi(cur_level) + 1;
 	else
 		g_status.shell_level = 1;
+	printf("lvl=%d\n", g_status.shell_level);
 	read_history(HISTORY_FILE);
 }
 
@@ -63,6 +65,8 @@ void	start_shell(t_env *env)
 	char		*line;
 	t_token		*tokens;
 	t_cmd		*cmds;
+
+
 
 	while (!g_status.interrupt)
 	{

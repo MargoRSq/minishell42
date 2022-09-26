@@ -18,7 +18,7 @@ LEXER = $(addprefix parse/lexer/, ${LEXER_FILES})
 BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c export.c builtin_utils.c
 BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 
-EXECUTE_FILES = executor.c only_parent_process.c multi_pipe_process.c
+EXECUTE_FILES = executor.c only_parent_process.c multi_pipe_process.c exec_first_cmd.c exec_middle_cmd.c exec_last_cmd.c
 EXECUTE = $(addprefix execute/, ${EXECUTE_FILES})
 
 SRCS = ${MAIN} ${ENV_PARSER} ${LEXER} ${PARSE} ${EXECUTE} ${BUILTIN} ${LST_UTILS}

@@ -13,15 +13,40 @@ static int	check_builtin(char *cmd)
 		return (0);
 }
 
+char	*get_path(t_env *env)
+{
+	char	*result;
+	char	*ways;
+	char	*ways_with_dot;
+	char	*cur_dir;
+
+	ways = NULL;
+	ways_with_dot = NULL;
+	cur_dir = NULL;
+	result = NULL;
+	ways = get_env_value("PATH", env);
+	ways_with_dot = ft_strjoin(ways, ":");
+	cur_dir = get_cur_dir(env);
+	result = ft_strjoin(ways_with_dot, cur_dir);
+	free(ways);
+	free(ways_with_dot);
+	free(cur_dir);
+	return (result);
+}
+
 char	*get_cmd(t_env *env, char *cmd)
 {
 	char	*command;
+	char	*ways;
 	char	**paths;
 	char	*tmp;
 	int		i;
 
 	i = 0;
-	paths = ft_split(get_env_value("PATH", env), ':');
+	ways = get_path(env);
+//	printf("PWD: %s\n", ways);
+//	if (ways)
+		paths = ft_split(ways, ':');
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
@@ -48,8 +73,13 @@ void	only_parent_process(t_env *env, t_cmd *cmd)
 			fd = fork();
 			if (fd == 0)
 			{
-				execve(get_cmd(env, cmd->name), cmd->argv, envlst_to_arr(env));
+				execve(get_cmd(env, cmd->name), cmd->argv,
+					   envlst_to_arr(env));
+//				printf("error: %s\n", strerror(errno));
 				error_msg_return_void(MSG_ERR_EXECVE, execve_error, 0);
+//				printf("here\n");//this message we can't see after fatal in
+//				execve!
+
 				exit(execve_error);
 			}
 			else
