@@ -30,12 +30,12 @@ static void fill_params(t_list *tokenlst, t_cmd *cmd)
 		if (token->code == r_in || token->code == r_out || token->code == r_append
 			|| token->code == r_heredoc)
 		{
-			if (token->code == r_in || token->code == r_heredoc)
-				ft_lstadd_back(&(cmd->fns_in), 
-					ft_lstnew(new_redir(tokenlst->next, token->code)));
-			else if (token->code == r_out || token->code == r_append)
-				ft_lstadd_back(&(cmd->fns_out),
-					ft_lstnew(new_redir(tokenlst->next, token->code)));
+			// if (token->code == r_in || token->code == r_heredoc)
+			// 	ft_lstadd_back(&(cmd->fns_in), 
+			// 		ft_lstnew(new_redir(tokenlst->next, token->code)));
+			// else if (token->code == r_out || token->code == r_append)
+			// 	ft_lstadd_back(&(cmd->fns_out),
+			// 		ft_lstnew(new_redir(tokenlst->next, token->code)));
 			if (tokenlst->next && tokenlst->next->next)
 				tokenlst = tokenlst->next->next;
 			else
@@ -51,6 +51,50 @@ static void fill_params(t_list *tokenlst, t_cmd *cmd)
 	}
 }
 
+static t_file	*fetch_last_file(t_list	*tokenlst, short type)
+{
+	t_token	*last;
+	t_file	*file;
+	t_token_type	code;
+	
+	last = NULL;
+	file = NULL;
+	if (type == 1)
+	{
+		while (tokenlst)
+		{
+			if (((t_token *)(tokenlst->content))->code == r_in
+				|| ((t_token *)(tokenlst->content))->code == r_append)
+				{
+					last = (t_token *)(tokenlst->next->content);
+					code = ((t_token *)(tokenlst->content))->code;
+				}
+			tokenlst = tokenlst->next;
+		}
+	}
+	else
+	{
+		while (tokenlst)
+		{
+			if (((t_token *)(tokenlst->content))->code == r_out)
+				{
+					last = (t_token *)(tokenlst->next->content);
+					code = ((t_token *)(tokenlst->content))->code;
+				}
+			tokenlst = tokenlst->next;
+		}
+	}
+	if (last)
+	{
+		file = (t_file *)malloc(sizeof(t_file));
+		if (!file)
+			return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+		file->name = last->start;
+		file->type = code;
+	}
+	return (file);
+}
+
 t_cmd	*cmdlst_new(t_list *tokenlst)
 {
 	t_cmd	*elem;
@@ -62,8 +106,8 @@ t_cmd	*cmdlst_new(t_list *tokenlst)
 	counter = count_entities(tokenlst);
 	elem->argv = (char **)malloc(sizeof(char *) * (counter.words + 1));
 	elem->argv[counter.words] = NULL;
-	elem->fns_in = NULL;
-	elem->fns_out = NULL;
+	elem->infile = fetch_last_file(tokenlst, 1);
+	elem->outfile = fetch_last_file(tokenlst, 0);
 	fill_params(tokenlst, elem);
 	elem->counter = counter;
 	return (elem);
