@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/28 20:19:01 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/29 14:09:52 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,12 @@ void	start_shell(t_env **env)
 		tokens = lex_line(line, *env);
 		if (g_status.interrupt)
 			break ;
-		// t_token *tmp = (t_token *)tokens;
 		check_tokens(tokens, *env);
 		if (g_status.interrupt)
 			break ;
-		// tmp = (t_token *)tokens;
 		cmds = create_commands(tokens);
-		// printf("%s", ((t_cmd *)cmds)->argv[0]);
-		// ft_lstiter(cmds, print_cmds);
 		if (g_status.interrupt)
 			break ;
-		// execute(env, cmds);
-		// finish(tokens, env, cmds);
+		execute(env, cmds);
 	}
 }

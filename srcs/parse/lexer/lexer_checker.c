@@ -29,7 +29,7 @@ void	check_tokens(t_list *tokenlst, t_env *env)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, NULL, 127, 1);
 			else if (((t_token *)tokenlst->next->content)->code != word)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, NULL, 127, 1);
-			else if (((t_token *)(tokenlst->next))->code == r_heredoc)
+			else if (token->code == r_heredoc)
 				heredoc(tokenlst->next->content, env);
 			// else if (check_access(tokenlst->next->content) == -1)
 			// 	return error_msg_return_void(MSG_ERR_FILE_NEXISTS, NULL, 127,

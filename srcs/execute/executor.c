@@ -25,15 +25,16 @@ int try_builtin(t_cmd *cmds, t_env **env)
 	return (1);	
 }
 
-void	execute(t_env **env, t_list *cmd)
+void	execute(t_env **env, t_list *cmds)
 {
-	t_cmd *curr;
-	t_cmd *next;
+	t_cmd	*command;
+	t_list	*next;
 
-	curr = (t_cmd *)cmd;
-	// cmdlst_print(cmd);
+	next = cmds->next;
+	if (cmds->content)
+		command = (t_cmd *)(cmds->content);
 	if (next == NULL)
-		only_parent_process(env, curr);
+		only_parent_process(env, command);
 	else
-		multi_pipe_process(env, curr);
+		multi_pipe_process(env, command);
 }

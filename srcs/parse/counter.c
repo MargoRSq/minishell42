@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:09 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/28 19:57:14 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/29 13:46:16 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static int inline	count_words(t_list *tokenlst)
 		else
 		{
 			counter++;
-			token = (t_token *)(tokenlst->next)->content;
+			if (tokenlst->next)
+				token = (t_token *)(tokenlst->next)->content;
 			tokenlst = tokenlst->next;
 		}
 	}
