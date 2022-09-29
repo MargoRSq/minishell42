@@ -1,96 +1,103 @@
 #include "minishell.h"
 
-void	cmdlst_add_back(t_cmd **lst, t_cmd *new)
-{
-	t_cmd	*lst_elem;
+// void	cmdlst_add_back(t_cmd **lst, t_cmd *new)
+// {
+// 	t_cmd	*lst_elem;
 
-	if (!*lst)
-	{
-		(*lst) = new;
-		return ;
-	}
-	lst_elem = cmdlst_last(*lst);
-	lst_elem->next = new;
-}
+// 	if (!*lst)
+// 	{
+// 		(*lst) = new;
+// 		return ;
+// 	}
+// 	lst_elem = cmdlst_last(*lst);
+// 	lst_elem->next = new;
+// }
 
-void	cmdlst_clear(t_cmd **lst)
-{
-	t_cmd	*cur;
-	t_cmd	*next;
+// void	cmdlst_clear(t_cmd **lst)
+// {
+// 	t_cmd	*cur;
+// 	t_cmd	*next;
 
-	if (!lst || !(*lst))
-		return ;
-	cur = (*lst);
-	next = cur;
-	while (cur)
-	{
-		next = cur->next;
-		// free(cur->value);
-		// free(cur->key);
-		free(cur);
-		cur = next;
-	}
-	*lst = NULL;
-}
-t_cmd	*cmdlst_last(t_cmd *lst)
+// 	if (!lst || !(*lst))
+// 		return ;
+// 	cur = (*lst);
+// 	next = cur;
+// 	while (cur)
+// 	{
+// 		next = cur->next;
+// 		// free(cur->value);
+// 		// free(cur->key);
+// 		free(cur);
+// 		cur = next;
+// 	}
+// 	*lst = NULL;
+// }
+// t_cmd	*cmdlst_last(t_cmd *lst)
+// {
+// 	if (!lst)
+// 		return (NULL);
+// 	while (lst->next)
+// 		lst = lst->next;
+// 	return (lst);
+// }
+
+
+static	t_file	*new_redir(t_list *tokenlst, t_token_type code)
 {
-	if (!lst)
+	t_file	*file;
+	t_token	*token;
+	char	*name;
+
+	file = (t_file *)malloc(sizeof(t_file));
+	if (!file)
+		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+	token = (t_token *)tokenlst->content;
+	name = ft_substr(token->start, 0, (size_t)token->len);
+	if (!name)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	file->name = name;
+	file->type = code;
+	return (file);
 }
 
-static void fill_params(t_token *tokens, t_cmd *cmd)
+static void fill_params(t_list *tokenlst, t_cmd *cmd)
 {
-	int		i;
-	int		j;
 	int		k;
-	int		is_cmd;
-	t_token	*tmp;
-	t_token	*arg;
+	t_token	*token;
+	t_cmd	*curr_cmd;
 
-	i = -1;
-	j = -1;
 	k = -1;
-	is_cmd = 0;
-	tmp = tokens;
-	while (tmp && tmp->code != lpipe)
+	token = (t_token *)tokenlst->content;
+	curr_cmd = (t_cmd *)cmd;
+	while (tokenlst && ((t_token *)(tokenlst->content))->code != lpipe)
 	{
-		arg = tmp->next;
-		if (tmp->code == r_in || tmp->code == r_out || tmp->code == r_append
-			|| tmp->code == r_heredoc)
+		token = (t_token *)tokenlst->content;
+		if (token->code == r_in || token->code == r_out || token->code == r_append
+			|| token->code == r_heredoc)
 		{
-			if (tmp->code == r_in || tmp->code == r_heredoc)
-				cmd->fns_in[++i] = (t_file){ .name=ft_substr(arg->start, 0, (size_t)arg->len),
-											.type=r_in};
-			else if (tmp->code == r_out)
-				cmd->fns_out[++j] = (t_file){ .name=ft_substr(arg->start, 0, (size_t)arg->len),
-											.type=r_out};
-			else if (tmp->code == r_append)
-				cmd->fns_out[++j] = (t_file){ .name=ft_substr(arg->start, 0, (size_t)arg->len),
-											.type=r_append};
-			if (tmp->next && tmp->next->next)
-				tmp = tmp->next->next;
+			if (token->code == r_in || token->code == r_heredoc)
+				ft_lstadd_back(&curr_cmd->fns_in, ft_lstnew(new_redir(tokenlst->next, token->code)));
+			else if (token->code == r_out || token->code == r_append)
+				ft_lstadd_back(&curr_cmd->fns_out, ft_lstnew(new_redir(tokenlst->next, token->code)));
+			if (tokenlst->next && tokenlst->next->next)
+			{
+				token = (t_token *)(tokenlst->next->next->content);
+				tokenlst = tokenlst->next->next;
+			}
 			else
 				break;
 		}
 		else
 		{
-			if (!is_cmd)
-			{
-				is_cmd = 1;
-				cmd->name = ft_substr(tmp->start, 0, (size_t)tmp->len);
-				cmd->argv[++k] = ft_substr(tmp->start, 0, (size_t)tmp->len);
-			}
-			else
-				cmd->argv[++k] = ft_substr(tmp->start, 0, (size_t)tmp->len);
-		tmp = tmp->next;
+			curr_cmd->argv[++k] = ft_substr(token->start, 0, (size_t)token->len);
+			if (!curr_cmd->argv[k])
+				return ;
+			tokenlst = tokenlst->next;
 		}
 	}
 }
 
-t_cmd	*cmdlst_new(t_token *tokens)
+t_cmd	*cmdlst_new(t_list *tokens)
 {
 	t_cmd	*elem;
 	t_count	counter;
@@ -102,30 +109,30 @@ t_cmd	*cmdlst_new(t_token *tokens)
 	// printf("in=%d out=%d words=%d\n", counter.in, counter.out, counter.words);
 	elem->argv = (char **)malloc(sizeof(char *) * (counter.words + 1));
 	elem->argv[counter.words] = NULL;
-	elem->fns_in = (t_file *)malloc(sizeof(t_file) * (counter.in + 1));
-	elem->fns_out = (t_file *)malloc(sizeof(t_file) * (counter.out + 1));
+	elem->fns_in = NULL;
+	elem->fns_out = NULL;
 	fill_params(tokens, elem);
-	elem->next = NULL;
+	// elem->next = NULL;
 	elem->counter = counter;
 	return (elem);
 }
 
-void	cmdlst_print(t_cmd *lst)
-{
-	t_cmd	*tmp;
+// void	cmdlst_print(t_cmd *lst)
+// {
+// 	t_cmd	*tmp;
 
-	tmp = lst;
-	if (!tmp)
-		return ;
-	while (tmp != NULL)
-	{
-		printf("{cmd=%s, args=%d, in=%d, out=%d} ",
-			tmp->name, tmp->counter.words, tmp->counter.in, tmp->counter.out);
-		tmp = tmp->next;
-		if (tmp == NULL)
-		{
-			printf("\n");
-			return ;
-		}
-	}
-}
+// 	tmp = lst;
+// 	if (!tmp)
+// 		return ;
+// 	while (tmp != NULL)
+// 	{
+// 		printf("{cmd=%s, args=%d, in=%d, out=%d} ",
+// 			tmp->name, tmp->counter.words, tmp->counter.in, tmp->counter.out);
+// 		tmp = tmp->next;
+// 		if (tmp == NULL)
+// 		{
+// 			printf("\n");
+// 			return ;
+// 		}
+// 	}
+// }

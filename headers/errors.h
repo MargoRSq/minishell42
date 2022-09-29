@@ -19,6 +19,9 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 # define MSG_ERR_SYNATX			"minishell: Syntax error\n"
 # define MSG_ERR_EXECVE			"minishell: EXECVE error .\n"
 
+# define MSG_SYSCALL_ERR_GETCWD
+# define MSG_SYSCALL_ERR_CHDIR
+
 # define MSG_ERR_CMD_TMR\
 	"minishell: parse error\n"
 # define MSG_ERR_CMD_USQ\

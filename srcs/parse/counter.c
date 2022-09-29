@@ -6,62 +6,66 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:09 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/26 14:17:38 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/28 19:57:14 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int inline	count_redirs(t_token *tokens, int token_code)
+
+static int inline	count_redirs(t_list *tokenlst, t_token_type token_code)
 {
 	int		counter;
-	t_token	*tmp;
+	t_token	*token;
 
 	counter = 0;
-	tmp = tokens;
-	while (tmp && tmp->code != lpipe)
+	token = (t_token *)(tokenlst->content);
+	while (tokenlst && ((t_token *)(tokenlst->content))->code != lpipe)
 	{
-		if (tmp->code == token_code)
+		token = (t_token *)(tokenlst->content);
+		if (token->code == token_code)
 		{
 			counter++;
-			if (tmp->next && tmp->next->next)
-				tmp = tmp->next->next;
+			if (tokenlst->next && tokenlst->next->next)
+				token = (t_token *)(tokenlst->next->next->content);
 			else
 				break ;
 		}
 		else
-			tmp = tmp->next;
+			tokenlst = tokenlst->next;
 	}
 	return (counter);
 }
 
-static int inline	count_words(t_token *tokens)
+static int inline	count_words(t_list *tokenlst)
 {
 	int		counter;
-	t_token	*tmp;
+	t_token	*token;
 
 	counter = 0;
-	tmp = tokens;
-	while (tmp && tmp->code != lpipe)
+	token = (t_token *)(tokenlst->content);
+	while (tokenlst && ((t_token *)(tokenlst->content))->code != lpipe)
 	{
-		if (tmp->code == r_out || tmp->code == r_append || tmp->code == r_in
-			|| tmp->code == r_heredoc)
+		token = (t_token *)(tokenlst->content);
+		if (token->code == r_out || token->code == r_append || token->code == r_in
+			|| token->code == r_heredoc)
 		{
-			if (tmp->next && tmp->next->next)
-				tmp = tmp->next->next;
+			if (tokenlst->next && tokenlst->next->next)
+				token = (t_token *)(tokenlst->next->next)->content;
 			else
 				break ;
 		}
 		else
 		{
 			counter++;
-			tmp = tmp->next;
+			token = (t_token *)(tokenlst->next)->content;
+			tokenlst = tokenlst->next;
 		}
 	}
 	return (counter);
 }
 
-t_count	count_entities(t_token *tokens)
+t_count	count_entities(t_list *tokens)
 {
 	t_count	counter;
 

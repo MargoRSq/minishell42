@@ -113,5 +113,3 @@ int	heredoc(t_token *token, t_env *env)
 	}
 	return (EXIT_SUCCESS);
 }
-
-

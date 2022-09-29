@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/25 18:18:39 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/28 20:19:01 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -61,23 +62,30 @@ static char	*get_entered_line(t_env *env)
 void	start_shell(t_env **env)
 {
 	char		*line;
-	t_token		*tokens;
-	t_cmd		*cmds;
+	t_list		*tokens;
+	t_list		*cmds;
 
 	while (!g_status.interrupt)
 	{
 		line = get_entered_line(*env);
+		if (!line || !(*line))
+			continue ;
 		if (g_status.interrupt)
 			break ;
 		tokens = lex_line(line, *env);
 		if (g_status.interrupt)
 			break ;
+		// t_token *tmp = (t_token *)tokens;
 		check_tokens(tokens, *env);
 		if (g_status.interrupt)
 			break ;
+		// tmp = (t_token *)tokens;
 		cmds = create_commands(tokens);
+		// printf("%s", ((t_cmd *)cmds)->argv[0]);
+		// ft_lstiter(cmds, print_cmds);
 		if (g_status.interrupt)
 			break ;
-		execute(env, cmds);
+		// execute(env, cmds);
+		// finish(tokens, env, cmds);
 	}
 }
