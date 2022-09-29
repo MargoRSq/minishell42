@@ -13,8 +13,8 @@
                 // "args": ["5", "300000", "500", "500"],
                 // "stopOnEntry": true,
                 "preLaunchTask": "make",
+                "cwd": "${workspaceFolder}",
                 // "stopAtEntry": true,
-            // "cwd": "${workspaceFolder}",
             // "environment": [],
             // "MIMode": "gdb",
             // "setupCommands": [{

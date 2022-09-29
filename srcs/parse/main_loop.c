@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/25 18:18:39 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/29 14:09:52 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -61,12 +62,14 @@ static char	*get_entered_line(t_env *env)
 void	start_shell(t_env **env)
 {
 	char		*line;
-	t_token		*tokens;
-	t_cmd		*cmds;
+	t_list		*tokens;
+	t_list		*cmds;
 
 	while (!g_status.interrupt)
 	{
 		line = get_entered_line(*env);
+		if (!line || !(*line))
+			continue ;
 		if (g_status.interrupt)
 			break ;
 		tokens = lex_line(line, *env);

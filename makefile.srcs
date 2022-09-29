@@ -21,4 +21,7 @@ BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 EXECUTE_FILES = executor.c only_parent_process.c multi_pipe_process.c exec_first_cmd.c exec_middle_cmd.c exec_last_cmd.c
 EXECUTE = $(addprefix execute/, ${EXECUTE_FILES})
 
-SRCS = ${MAIN} ${ENV_PARSER} ${LEXER} ${PARSE} ${EXECUTE} ${BUILTIN} ${LST_UTILS}
+UTILS_FILES = lst_print.c lst.c
+UTILS = $(addprefix utils/, ${UTILS_FILES})
+
+SRCS = ${MAIN} ${ENV_PARSER} ${LEXER} ${PARSE} ${EXECUTE} ${BUILTIN} ${UTILS} ${LST_UTILS}

@@ -3,6 +3,6 @@
 void	exec_middle_cmd(t_env *env, t_cmd *cmd)
 {
 	printf("{cmd=%s, args=%d, in=%d, out=%d}\n",
-		   cmd->name, cmd->counter.words - 1, cmd->counter.in, cmd->counter.
+		   cmd->argv[0], cmd->counter.words - 1, cmd->counter.in, cmd->counter.
 		   out);
 }

@@ -1,19 +1,19 @@
 #include "minishell.h"
 
-int	cmd_len(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	int		len;
+// int	cmd_len(t_cmd *cmd)
+// {
+// 	t_cmd	*tmp;
+// 	int		len;
 
-	len = 0;
-	tmp = cmd;
-	while (tmp)
-	{
-		len++;
-		tmp = tmp->next;
-	}
-	return len;
-}
+// 	len = 0;
+// 	tmp = cmd;
+// 	while (tmp)
+// 	{
+// 		len++;
+// 		tmp = tmp->next;
+// 	}
+// 	return len;
+// }
 
 int	**make_pipe_space(int **pipes, int len)
 {
@@ -57,7 +57,7 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 	t_cmd	*tmp;
 	t_cmd	*prev;
 
-	len = cmd_len(cmd);
+	len = ft_lstsize((t_list *)cmd);
 	pipes = NULL;
 	pipes = make_pipe_space(pipes, len);
 	begin_pipes(pipes, len);
@@ -68,11 +68,11 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 
 		if (prev == NULL)
 			exec_first_cmd(*env, tmp);
-		else if (tmp->next == NULL)
+		else if (((t_list *)tmp)->next == NULL)
 			exec_last_cmd(*env, tmp);
 		else
 			exec_middle_cmd(*env, tmp);
 		prev = tmp;
-		tmp = tmp->next;
+		tmp = (t_cmd *)((t_list *)tmp)->next;
 	}
 }
