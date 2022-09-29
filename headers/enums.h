@@ -46,7 +46,9 @@ enum e_exits
 	unclosed_quote_error = 3,
 	home_error,
 	pwd_error,
-	execve_error
+	execve_error,
+	pipe_error,
+	fork_error
 };
 
 // enum e_builtins

@@ -18,6 +18,8 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 # define MSG_ERR_ENV			"minishell: ENV error .\n"
 # define MSG_ERR_SYNATX			"minishell: Syntax error\n"
 # define MSG_ERR_EXECVE			"minishell: EXECVE error .\n"
+# define MSG_SYSTEM_ERR_PIPE	"minishell: PIPE error .\n"
+# define MSG_SYSTEM_ERR_FORK	"minishell: FORK error .\n"
 
 # define MSG_SYSCALL_ERR_GETCWD
 # define MSG_SYSCALL_ERR_CHDIR

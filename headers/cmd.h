@@ -20,6 +20,7 @@ typedef struct s_cmd
 	t_list			*fns_out;
 	int				fd_in;
 	int				fd_out;
+	int				fd[2];
 	t_count			counter;
 	// struct s_cmd	*next;
 }	t_cmd;
@@ -37,6 +38,6 @@ void	execute(t_env **env, t_list *cmd);
 void	only_parent_process(t_env **env, t_cmd *cmd);
 void	multi_pipe_process(t_env **env, t_cmd *cmd);
 int		try_builtin(t_cmd *cmds, t_env **env);
-void	exec_first_cmd(t_env *env, t_cmd *cmd);
+void	exec_first_cmd(t_env *env, t_cmd *cmd, int *fd);
 void	exec_middle_cmd(t_env *env, t_cmd *cmd);
 void	exec_last_cmd(t_env *env, t_cmd *cmd);
