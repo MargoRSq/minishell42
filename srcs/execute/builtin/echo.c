@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:22:49 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/18 18:28:46 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/09/26 19:32:48 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void execute_echo(char **cmd_argv)
 	int i;
 	int flag;
 
-	i = 0;
+	i = 1;
 	flag = 0;
 
-	if (!cmd_argv[0])
+	if (!cmd_argv[1])
 	{
 		printf("\n");
 		return ;
@@ -63,5 +63,3 @@ void execute_echo(char **cmd_argv)
 	if (flag == 0)
 		printf("\n");
 }
-
-

@@ -3,8 +3,8 @@
         "algorithm": "c",
         "locale": "c",
         "sstream": "c",
-        "minishell.h": "c",
-        "errors.h": "c",
-        "__node_handle": "c"
+        "random": "c",
+        "get_next_line.h": "c",
+        "minishell.h": "c"
     }
 }

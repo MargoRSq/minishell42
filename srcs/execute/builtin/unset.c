@@ -3,43 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:22:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/19 16:08:27 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/09/26 14:59:58 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int check_valid(char *str)
-// {
-// 	if (!ft_isalpha(*str) && *str != '_')
-// 		return (1);
-// 	str++;
-// 	while (*str != '\0')
-// 	{
-// 		if (!ft_isalnum(*str) && *str != '_')
-// 			return (1);
-// 		str++;
-// 	}
-// 	return (0);
-// }
-
-void execute_unset(t_env *env, char **cmd_argv)
+void	execute_unset(t_env **env, char **cmd_argv)
 {
-	int  i;
+	int	i;
 
-	i = 0;
-	while(cmd_argv[i])
+	i = 1;
+	while (cmd_argv[i])
 	{
-		if(!check_valid_env_key(cmd_argv[i]))
-		{
-			write(STDERR_FILENO, "minishell: unset: `", 19);
-			write(STDERR_FILENO, cmd_argv[i], ft_strlen(cmd_argv[i]));
-			write(STDERR_FILENO, "': not a valid identifier\n", 27);
-		}
-		envlst_delete_elem(cmd_argv[i], &env);
+		if (!check_valid_env_key(cmd_argv[i]))
+			error_msg_return_void(MSG_ERR_UNSET_KEY, cmd_argv[i], 1, 0);
+		envlst_delete_elem(cmd_argv[i], env);
 		i++;
 	}
 }

@@ -50,7 +50,7 @@ t_env	*envlst_new(char *key, char *value)
 
 	elem = (t_env *)malloc(sizeof(t_env));
 	if (!elem)
-		return trigger_malloc_error();
+		return (error_msg_return_null(MSG_ERR_MEM, "", malloc_error, 1));
 	elem->key = key;
 	elem->value = value;
 	elem->next = NULL;
@@ -66,27 +66,69 @@ void	envlst_print(t_env *lst)
 		return ;
 	while (tmp != NULL)
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-		if (tmp == NULL)
-			return ;
+		if(ft_strcmp(tmp->value, ""))
+		{
+			printf("%s=%s\n", tmp->key, tmp->value);
+			tmp = tmp->next;
+			if (tmp == NULL)
+				return ;
+		}
 	}
 }
+
+
+// void envlst_delete_elem(char *key, t_env **lst)
+// {
+// 	t_env *tmp;
+// 	t_env *to_delete;
+
+// 	if (!lst || !(*lst))
+// 		return ;
+// 	tmp = (*lst);
+// 	if(!strcmp(key, tmp->key))
+// 	{
+// 		to_delete = tmp;
+// 		tmp = tmp->next;
+// 		free(to_delete->value);
+// 		free(to_delete->key);
+// 		free(to_delete);
+// 		return ;
+// 	}
+// 	while(tmp->next)
+// 	{
+// 		if(!strcmp(key, tmp->next->key))
+// 		{
+// 			to_delete = tmp->next;
+// 			tmp->next = tmp->next->next;
+// 			free(to_delete->value);
+// 			free(to_delete->key);
+// 			free(to_delete);
+// 			return ;
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }
+
+
 
 void envlst_delete_elem(char *key, t_env **lst)
 {
 	t_env *tmp;
+	t_env *head;
 	t_env *to_delete;
 
-	if (!lst || !(*lst))
+
+	if (!lst)
 		return ;
 	if(!strcmp(key, (*lst)->key))
 	{
 		to_delete = (*lst);
-		*lst = (*lst)->next;
+		head = (*lst)->next;
+		// *lst = (*lst)->next;
 		free(to_delete->value);
 		free(to_delete->key);
 		free(to_delete);
+		(*lst) = head;
 		return ;
 	}
 	tmp = (*lst);
@@ -124,6 +166,7 @@ char **envlst_to_arr(t_env *lst)
 {
 	char **arr;
 	t_env *tmp;
+	char *help;
 	int i;
 	int len;
 
@@ -132,15 +175,17 @@ char **envlst_to_arr(t_env *lst)
 	tmp = lst;
 	i = 0;
 	len = envlst_size(lst);
-	arr = (char **)malloc(sizeof(char *) * len);
+	arr = (char **)malloc(sizeof(char *) * (len + 1));
 	if(!arr)
 		return (NULL);
 	arr[len] = NULL;
 	while(i < len)
 	{
-		arr[i] = ft_strjoin(ft_strjoin(tmp->key, "="), tmp->value);
+		help = ft_strjoin(tmp->key, "=");
+		arr[i] = ft_strjoin(help, tmp->value);
 		i++;
 		tmp = tmp->next;
+		free(help);
 	}
 	return (arr);
 }

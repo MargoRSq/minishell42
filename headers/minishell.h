@@ -33,6 +33,6 @@ typedef struct s_status
 t_status g_status;
 
 void	init_shell(t_env *env);
-void	start_shell(t_env *env);
+void	start_shell(t_env **env);
 
 #endif

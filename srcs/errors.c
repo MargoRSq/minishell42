@@ -1,18 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/24 22:19:12 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/09/26 20:39:25 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	*trigger_malloc_error()
+void	error_msg_return_void(char *msg, char *arg, int code, short interrupt)
 {
-	g_status.interrupt = 1;
-	g_status.exit_code = malloc_error;
-	g_status.exit_msg = MSG_ERR_MEM;
-	return (NULL);
+	g_status.interrupt = interrupt;
+	printf(msg, arg);
+	g_status.exit_code = code;
 }
 
-void	*trigger_env_error()
+int	error_msg_return_int(char *msg, char *arg, int code, short interrupt)
 {
-	g_status.interrupt = 1;
-	g_status.exit_code = env_error;
-	g_status.exit_msg = MSG_ERR_ENV;
+	g_status.interrupt = interrupt;
+	printf(msg, arg);
+	g_status.exit_code = code;
+	return (-1);
+}
+
+
+void *error_msg_return_null(char *msg, char *arg, int code, short interrupt)
+{
+	g_status.interrupt = interrupt;
+	printf(msg, arg);
+	g_status.exit_code = code;
 	return (NULL);
 }
 
@@ -27,7 +47,6 @@ int		trigger_unclosed_quote_error(char q_type)
 	return (-1);
 }
 
-
 int		trigger_too_many_redirects_error()
 {
 	g_status.interrupt = 1;
@@ -36,53 +55,9 @@ int		trigger_too_many_redirects_error()
 	return (-1);
 }
 
-char		*trigger_home_error()
-{
-	g_status.interrupt = 1;
-	g_status.exit_msg = MSG_ERR_HOME;
-	g_status.exit_code = home_error;
-	return(NULL);
-}
 
-int 	trigger_pwd_error()
-{
-	g_status.interrupt = 1;
-	g_status.exit_msg = MSG_ERR_PWD;
-	g_status.exit_code = pwd_error;
-	return(-1);
-}
 
-int trigger_exit_error()
-{
-	g_status.interrupt = 1;
-	g_status.exit_msg = MSG_ERR_EXIT_NUM;
-	g_status.exit_code = 1;
-	return(-1);
-}
 
-// int error_msg_return_minus(char *msg, int code)
-// {
-// 	g_status.interrupt = 1;
-// 	g_status.exit_msg = msg;
-// 	g_status.exit_code = code;
-// 	return(-1);
-// }
-
-int error_msg_return_minus(char *msg, int code, short interrupt)
-{
-	g_status.interrupt = interrupt;
-	g_status.exit_msg = msg;
-	g_status.exit_code = code;
-	return(-1);
-}
-
-void	error_msg_return_void(char *msg, int code, short interrupt)
-{
-	g_status.interrupt = interrupt;
-	g_status.exit_msg = msg;
-	// printf(msg, arg);
-	g_status.exit_code = code;
-}
 
 char	*error_msg_return_charz(char *msg, int code, short interrupt)
 {

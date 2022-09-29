@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:28:23 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/21 17:18:02 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/28 14:18:17 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void execute_pwd(t_env *env)
 
 	pwd = get_cur_dir(env);
 	if(!pwd)
-		trigger_pwd_error();
+		return(error_msg_return_void(MSG_ERR_PWD, "", 1, 1));
 	write(STDOUT_FILENO, pwd, ft_strlen(pwd));
 	write(STDOUT_FILENO, "\n", 1);
 }

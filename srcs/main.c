@@ -29,7 +29,7 @@ int main(int ac, char **av, char **envp)
 //	  envlst_print(env);
 
 	init_shell(env);
-	start_shell(env);
+	start_shell(&env);
 
 	return (exit_with_message());
 }

@@ -60,23 +60,23 @@ char	*get_cmd(t_env *env, char *cmd)
 	return (NULL);
 }
 
-void	only_parent_process(t_env *env, t_cmd *cmd)
+void	only_parent_process(t_env **env, t_cmd *cmd)
 {
 	int		fd;
 
-	if (cmd->name)
+	if (cmd->argv[0])
 	{
-		if (check_builtin(cmd->name))
+		if (check_builtin(cmd->argv[0]))
 			try_builtin(cmd, env);
 		else
 		{
 			fd = fork();
 			if (fd == 0)
 			{
-				execve(get_cmd(env, cmd->name), cmd->argv,
-					   envlst_to_arr(env));
+				execve(get_cmd(*env, cmd->argv[0]), cmd->argv,
+					   envlst_to_arr(*env));
 //				printf("error: %s\n", strerror(errno));
-				error_msg_return_void(MSG_ERR_EXECVE, execve_error, 0);
+				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);
 //				printf("here\n");//this message we can't see after fatal in
 //				execve!
 

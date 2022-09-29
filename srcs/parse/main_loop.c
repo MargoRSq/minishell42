@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/25 18:18:39 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/29 14:09:52 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -39,11 +40,11 @@ static char	*launch_readline(t_env *env)
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
 	if (!prefix)
-		return (trigger_malloc_error());
+		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
 	tmp = prefix;
 	prefix = ft_strjoin(tmp, DOLLAR);
 	if (!prefix)
-		return (trigger_malloc_error());
+		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
 	free(tmp);
 	line = readline(prefix);
 	free(prefix);
@@ -60,23 +61,25 @@ static char	*get_entered_line(t_env *env)
 	return (entered_line);
 }
 
-void	start_shell(t_env *env)
+void	start_shell(t_env **env)
 {
 	char		*line;
-	t_token		*tokens;
-	t_cmd		*cmds;
+	t_list		*tokens;
+	t_list		*cmds;
 
 
 
 	while (!g_status.interrupt)
 	{
-		line = get_entered_line(env);
+		line = get_entered_line(*env);
+		if (!line || !(*line))
+			continue ;
 		if (g_status.interrupt)
 			break ;
-		tokens = lex_line(line, env);
+		tokens = lex_line(line, *env);
 		if (g_status.interrupt)
 			break ;
-		check_tokens(tokens, env);
+		check_tokens(tokens, *env);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);
