@@ -1,6 +1,6 @@
 MAIN	= main.c errors.c
 
-LST_UTILS_FIELS = cmdlst.c envlst.c tokenlst.c
+LST_UTILS_FIELS = cmdlst.c envlst.c 
 LST_UTILS = $(addprefix lists_utils/,	${LST_UTILS_FIELS})
 
 ENV_PARSER_FILES = parse.c utils.c

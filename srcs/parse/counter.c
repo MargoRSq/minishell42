@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:09 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/29 13:46:16 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/29 16:04:54 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int inline	count_redirs(t_list *tokenlst, t_token_type token_code)
 	t_token	*token;
 
 	counter = 0;
-	token = (t_token *)(tokenlst->content);
 	while (tokenlst && ((t_token *)(tokenlst->content))->code != lpipe)
 	{
 		token = (t_token *)(tokenlst->content);
@@ -27,7 +26,7 @@ static int inline	count_redirs(t_list *tokenlst, t_token_type token_code)
 		{
 			counter++;
 			if (tokenlst->next && tokenlst->next->next)
-				token = (t_token *)(tokenlst->next->next->content);
+				tokenlst = tokenlst->next->next;
 			else
 				break ;
 		}
@@ -43,25 +42,20 @@ static int inline	count_words(t_list *tokenlst)
 	t_token	*token;
 
 	counter = 0;
-	token = (t_token *)(tokenlst->content);
 	while (tokenlst && ((t_token *)(tokenlst->content))->code != lpipe)
 	{
 		token = (t_token *)(tokenlst->content);
-		if (token->code == r_out || token->code == r_append || token->code == r_in
-			|| token->code == r_heredoc)
+		if (token->code == r_out || token->code == r_append
+			|| token->code == r_in || token->code == r_heredoc)
 		{
 			if (tokenlst->next && tokenlst->next->next)
-				token = (t_token *)(tokenlst->next->next)->content;
+				tokenlst = tokenlst->next;
 			else
 				break ;
 		}
 		else
-		{
 			counter++;
-			if (tokenlst->next)
-				token = (t_token *)(tokenlst->next)->content;
-			tokenlst = tokenlst->next;
-		}
+		tokenlst = tokenlst->next;
 	}
 	return (counter);
 }
