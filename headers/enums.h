@@ -44,8 +44,12 @@ enum e_exits
 	malloc_error = 1,
 	env_error = 2,
 	unclosed_quote_error = 3,
-	home_error,
-	pwd_error,
+	oldpwd_error = 1,
+	chdir_error = 1,
+	home_error = 4,
+	cwd_error = 5,
+	env_arg_error =6,
+	key_error = 7,
 	execve_error
 };
 

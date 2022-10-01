@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avoltorb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 18:58:37 by avoltorb          #+#    #+#             */
-/*   Updated: 2021/10/15 18:58:53 by avoltorb         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:15:32 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_tolower(char *str)
 {
-	int i = -1;
+	int	i = -1;
 	while (str[++i])
 	{
 		if (str[i] >= 65 && str[i] <= 90)

@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-void execute_pwd(t_env *env)
+void	execute_pwd(t_env *env)
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = get_cur_dir(env);
-	if(!pwd)
-		return(error_msg_return_void(MSG_ERR_PWD, "", 1, 1));
+	if (!pwd)
+		return (error_msg_return_void(MSG_SYSCALL_ERR_GETCWD, NULL, cwd_error, 1));
 	write(STDOUT_FILENO, pwd, ft_strlen(pwd));
 	write(STDOUT_FILENO, "\n", 1);
 }

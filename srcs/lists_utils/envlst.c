@@ -50,7 +50,7 @@ t_env	*envlst_new(char *key, char *value)
 
 	elem = (t_env *)malloc(sizeof(t_env));
 	if (!elem)
-		return (error_msg_return_null(MSG_ERR_MEM, "", malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	elem->key = key;
 	elem->value = value;
 	return (elem);

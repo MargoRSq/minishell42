@@ -107,15 +107,15 @@ void	do_export_argv(t_list *envlst, char **cmd_argv)
 		if (!equal_sign(cmd_argv[i]))
 		{
 			if (!check_valid_env_key(cmd_argv[i]))
-				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], 1, 0);
+				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0);
 			else
-				return ; // exit code (0);
+				return ; // exit code(0);
 		}
 		else
 		{
 			key_value = ft_split(cmd_argv[i], '=');
 			if (!check_valid_env_key(key_value[0]) || (key_value[1] && !check_valid_env_value(key_value[1])))
-				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], 1, 0);
+				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0);
 			else
 				change_or_append(envlst, key_value[0], key_value[1]);
 		}

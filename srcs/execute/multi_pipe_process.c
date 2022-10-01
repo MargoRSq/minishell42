@@ -21,7 +21,7 @@ int	**make_pipe_space(int **pipes, int len)
 
 	pipes = malloc(sizeof(int *) * (len - 1));
 	if (!pipes)
-		return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error,
+		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error,
 											1));
 //		trigger_malloc_error();//need to clarify!
 	i = 0;
@@ -29,7 +29,7 @@ int	**make_pipe_space(int **pipes, int len)
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
-			return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error,
+			return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error,
 										 1));
 		i++;
 	}

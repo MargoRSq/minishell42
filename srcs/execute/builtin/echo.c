@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:22:49 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/26 19:32:48 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:20:05 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ static int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-void execute_echo(char **cmd_argv)
+void	execute_echo(char **cmd_argv)
 {
-	int i;
-	int flag;
+	int	i;
+	int	flag;
 
 	i = 1;
 	flag = 0;
-
 	if (!cmd_argv[1])
 	{
 		printf("\n");

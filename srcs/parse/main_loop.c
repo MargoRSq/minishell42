@@ -36,11 +36,11 @@ static char	*launch_readline(t_env *env)
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
 	if (!prefix)
-		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	tmp = prefix;
 	prefix = ft_strjoin(tmp, DOLLAR);
 	if (!prefix)
-		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	free(tmp);
 	line = readline(prefix);
 	free(prefix);

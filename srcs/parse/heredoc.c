@@ -32,11 +32,11 @@ static char	*create_tmp_filename(t_env *env)
 	try = NULL;
 	filename_prefix = create_tmp_filename_prefix(env);
 	if (!filename_prefix)
-		return (error_msg_return_charz(MSG_ERR_MEM, env_error, 1));
+		return (error_msg_return_charz(MSG_SYSCALL_ERR_MEM, env_error, 1));
 	i = -1;
 	index = ft_itoa(++i);
 	if (!index)
-		return NULL;
+		return (NULL);
 	try = ft_strjoin(filename_prefix, index);
 	while (access(try, F_OK) > -1)
 	{
@@ -105,7 +105,7 @@ int	heredoc(t_token *token, t_env *env)
 	// signal_handler_heredoc();
 	filename = create_tmp_filename(env);
 	if (!filename)
-		return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	if (launch_heredoc(filename, token))
 	{
 		free(filename);
