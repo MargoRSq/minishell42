@@ -54,7 +54,7 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 //	int		i;
 	t_cmd	*tmp;
 	t_cmd	*prev;
-	int		fd[2];
+	int		fd1[2];
 	int		fd_tmp;
 
 //	len = ft_lstsize((t_list *)cmd);
@@ -65,10 +65,10 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 	prev = NULL;
 	while(tmp != NULL)
 	{
-		if (pipe(fd) == -1)
+		if (pipe(fd1) == -1)
 			error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
 		if (prev == NULL)
-			exec_first_cmd(*env, tmp, *fd);
+			exec_first_cmd(*env, tmp, fd1);
 		else if (((t_list *)tmp)->next == NULL)
 			exec_last_cmd(*env, tmp);
 		else
