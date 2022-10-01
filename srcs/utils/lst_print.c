@@ -18,4 +18,32 @@ void	print_cmds(void *vcmds)
 	printf("{cmd=%s} ", cmd->argv);
 }
 
-// void	prin
+void	print_env(void *venv)
+{
+	t_env	*env;
+
+	env = (t_env *)(venv);
+	if (ft_strcmp (env->value, ""))
+		printf("%s=%s\n", env->key, env->value);
+}
+
+// // void	prin
+
+// void	envlst_print(t_list *envlst)
+// {
+// 	t_env	*tmp;
+
+// 	tmp = (t_env *)(envlst->content);
+// 	if (!tmp)
+// 		return ;
+// 	while (envlst != NULL)
+// 	{
+// 		if (ft_strcmp (tmp->value, ""))
+// 		{
+// 			printf("%s=%s\n", tmp->key, tmp->value);
+// 			envlst = envlst->next;
+// 			if (envlst == NULL)
+// 				return ;
+// 		}
+// 	}
+// }

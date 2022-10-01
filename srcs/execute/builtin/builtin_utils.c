@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 13:12:19 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/26 20:37:37 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:48:26 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	check_valid_env_value(char *str)
 	return (1);
 }
 
-void append_env_var(t_env *env, char *new_key, char *new_value)
+void	append_env_var(t_list *envlst, char *new_key, char *new_value)
 {
-	t_env 		*new_elem;
+	t_list	*new_elem;
 
-	if(!new_value)
+	if (!new_value)
 		new_value = ft_strdup("");
-	new_elem = envlst_new(new_key, new_value);
+	new_elem = ft_lstnew(envlst_new(new_key, new_value));
 	if (!new_elem)
-		return(error_msg_return_void(MSG_ERR_MEM, "", malloc_error, 1)); 
-	envlst_add_back(&env, new_elem);
+		return (error_msg_return_void(MSG_ERR_MEM, "", malloc_error, 1));
+	ft_lstadd_back(&envlst, new_elem);
 }

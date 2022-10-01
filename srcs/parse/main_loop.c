@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/29 14:09:52 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/29 21:42:45 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-void	init_shell(t_env *env)
+void	init_shell(t_list *envlst)
 {
 	char	*cur_level;
 
-	env = env;
-	cur_level = get_env_value("SHLVL", env);
+	cur_level = get_env_value("SHLVL", envlst);
 	if (cur_level)
 		g_status.shell_level = ft_atoi(cur_level) + 1;
 	else
@@ -59,7 +57,7 @@ static char	*get_entered_line(t_env *env)
 	return (entered_line);
 }
 
-void	start_shell(t_env **env)
+void	start_shell(t_list **env)
 {
 	char		*line;
 	t_list		*tokens;

@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/26 19:49:31 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:26:05 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ void	print_arr_prefix(char **arr, int size)
 	}
 }
 
-void	print_sorted_env(t_env *env)
+void	print_sorted_env(t_list *envlst)
 {
 	char	**arr;
 	int		size;
 	int		i;
 
 	i = 0;
-	size = envlst_size(env);
-	arr = envlst_to_arr(env);
+	size = ft_lstsize(envlst);
+	arr = envlst_to_arr(envlst);
 	arr = sort_arr(arr, size);
 	print_arr_prefix(arr, size);
 }
@@ -78,12 +78,12 @@ int	equal_sign(char *token)
 	return (0);
 }
 
-void	change_or_append(t_env *env, char *new_key, char *new_value)
+void	change_or_append(t_list *envlst, char *new_key, char *new_value)
 {
 	t_env	*tmp;
 
-	tmp = env;
-	while (tmp)
+	tmp = (t_env *)(envlst->content);
+	while (envlst)
 	{
 		if (!ft_strcmp(new_key, tmp->key))
 		{
@@ -91,14 +91,12 @@ void	change_or_append(t_env *env, char *new_key, char *new_value)
 			tmp->value = ft_strdup(new_value);
 			return ;
 		}
-		tmp = tmp->next;
+		envlst = envlst->next;
 	}
-	append_env_var(env,  new_key, new_value);
-	// if(!append_env_var(env,  new_key, new_value))
-	// 	return;	
+	append_env_var(envlst, new_key, new_value);
 }
 
-void	do_export_argv(t_env *env, char **cmd_argv)
+void	do_export_argv(t_list *envlst, char **cmd_argv)
 {
 	int		i;
 	char	**key_value;
@@ -119,16 +117,16 @@ void	do_export_argv(t_env *env, char **cmd_argv)
 			if (!check_valid_env_key(key_value[0]) || (key_value[1] && !check_valid_env_value(key_value[1])))
 				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], 1, 0);
 			else
-				change_or_append(env, key_value[0], key_value[1]);
+				change_or_append(envlst, key_value[0], key_value[1]);
 		}
 		i++;
 	}
 }
 
-void	execute_export(t_env *env, char **cmd_argv)
+void	execute_export(t_list *envlst, char **cmd_argv)
 {
 	if (!cmd_argv[1])
-		print_sorted_env(env);
+		print_sorted_env(envlst);
 	else
-		do_export_argv(env, cmd_argv);
+		do_export_argv(envlst, cmd_argv);
 }

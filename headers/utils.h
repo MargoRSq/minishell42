@@ -7,3 +7,4 @@
 
 void	print_tokens(void *vtokens);
 void	print_cmds(void *vcmds);
+void	print_env(void *venv);
