@@ -1,37 +1,48 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <errno.h>
 
 int main(void)
 {
-	int fd[2];
-	if (pipe(fd) == -1)
+	int fd1[2];
+	int fd2[2];
+
+	if (pipe(fd1) == -1)
 		perror("pipe failed\n");
 	int pid1 = fork();
 	if (pid1 == 0)
 	{
 		printf("child1\n");
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(fd1[1], STDOUT_FILENO);
+		close(fd1[0]);
+		close(fd1[1]);
 		execlp("ls", "ls", "-la", NULL);
 	}
+	close(fd1[1]);
+	pipe(fd2);
 	int pid2 = fork();
 	if (pid2 == 0)
 	{
 		printf("child2\n");
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		execlp("wc", "wc", "-l", NULL);
+		dup2(fd1[0], STDIN_FILENO);
+		dup2(fd2[1], STDOUT_FILENO);
+		close(fd1[0]);
+		close(fd2[1]);
+		execlp("cat", "cat", "-n", NULL);
 	}
-	close(fd[0]);//recommended to close all pipes fd after
-	close(fd[1]);//finishing all work to continue the parent proc
-	waitpid(pid1, NULL, 0);//waiting for all children proc
-	waitpid(pid2, NULL, 0);
+	close(fd1[0]);//recommended to close all pipes fd after
+	close(fd2[1]);//finishing all work to continue the parent proc
+	int pid3 = fork();
+	if (pid3 == 0)
+	{
+		printf("child3\n");
+		dup2(fd2[0], STDIN_FILENO);
+		close(fd2[0]);
+		execlp("cat", "cat", "-n", NULL);
+	}
+	while (wait(0) != -1)//waiting for all children proc
+		;
 	printf("parent finish\n");
 
 	return (0);

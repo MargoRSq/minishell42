@@ -20,7 +20,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fcf57af9-c015-4dbb-8d82-3a65cb50e183" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipe_tmp.c" beforeDir="false" afterPath="$PROJECT_DIR$/pipe_tmp.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/execlp_two_pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/execlp_two_proc.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +142,7 @@
       <option name="presentableId" value="Default" />
       <updated>1664189782964</updated>
       <workItem from="1664189784247" duration="12132000" />
-      <workItem from="1664623215513" duration="2859000" />
+      <workItem from="1664623215513" duration="8790000" />
     </task>
     <servers />
   </component>
