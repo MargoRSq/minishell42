@@ -3,7 +3,7 @@
 
 // typedef int	(*t_bldin_func)(t_env **, char **);
 
-int try_builtin(t_cmd *cmds, t_env **env)
+int	try_builtin(t_cmd *cmds, t_env **env)
 {
 	// const t_bldin_func	a_bldin_f[] = {execute_cd, execute_echo, execute_pwd, \
 	// 	execute_unset, execute_exit, execute_export, \

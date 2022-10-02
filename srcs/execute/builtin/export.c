@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/29 18:26:05 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:28:58 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,24 +78,6 @@ int	equal_sign(char *token)
 	return (0);
 }
 
-void	change_or_append(t_list *envlst, char *new_key, char *new_value)
-{
-	t_env	*tmp;
-
-	tmp = (t_env *)(envlst->content);
-	while (envlst)
-	{
-		if (!ft_strcmp(new_key, tmp->key))
-		{
-			free(tmp->value);
-			tmp->value = ft_strdup(new_value);
-			return ;
-		}
-		envlst = envlst->next;
-	}
-	append_env_var(envlst, new_key, new_value);
-}
-
 void	do_export_argv(t_list *envlst, char **cmd_argv)
 {
 	int		i;
@@ -109,7 +91,7 @@ void	do_export_argv(t_list *envlst, char **cmd_argv)
 			if (!check_valid_env_key(cmd_argv[i]))
 				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0);
 			else
-				return ; // exit code(0);
+				return; // exit code(0);
 		}
 		else
 		{

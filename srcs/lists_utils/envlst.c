@@ -1,20 +1,5 @@
 #include "minishell.h"
 
-// void	envlst_add_back(t_env **lst, t_env *new)
-// {
-// 	t_env	*lst_elem;
-
-// 	if (!new)
-// 		return ;
-// 	if (!*lst)
-// 	{
-// 		(*lst) = new;
-// 		return ;
-// 	}
-// 	lst_elem = envlst_last(*lst);
-// 	lst_elem->next = new;
-// }
-
 void	envlst_clear(t_env **lst)
 {
 	t_env	*cur;
@@ -35,77 +20,59 @@ void	envlst_clear(t_env **lst)
 	*lst = NULL;
 }
 
-// t_env	*envlst_last(t_env *lst)
-// {
-// 	if (!lst)
-// 		return (NULL);
-// 	while (lst->next)
-// 		lst = lst->next;
-// 	return (lst);
-// }
-
 t_env	*envlst_new(char *key, char *value)
 {
 	t_env	*elem;
 
 	elem = (t_env *)malloc(sizeof(t_env));
 	if (!elem)
-		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
+				malloc_error, 1));
 	elem->key = key;
 	elem->value = value;
 	return (elem);
 }
 
-// void	envlst_print(t_list *envlst)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = (t_env *)(envlst->content);
-// 	if (!tmp)
-// 		return ;
-// 	while (envlst != NULL)
-// 	{
-// 		if (ft_strcmp (tmp->value, ""))
-// 		{
-// 			printf("%s=%s\n", tmp->key, tmp->value);
-// 			envlst = envlst->next;
-// 			if (envlst == NULL)
-// 				return ;
-// 		}
-// 	}
-// }
-
-void	envlst_delete_elem(char *key, t_env **lst)
+void	*envlst_delete_elem(void *content)
 {
-	t_env	*tmp;
-	t_env	*head;
 	t_env	*to_delete;
 
-	if (!lst)
+	to_delete = (t_env *)(content);
+	free(to_delete->value);
+	free(to_delete->key);
+	free(to_delete);
+}
+
+void	envlst_delete_one(char *key, t_list **envlst)
+{
+	t_env	*tmp;
+	t_list	*head;
+	t_list	*tmp_lst;
+	t_list	*to_delete;
+
+	if (!envlst)
 		return ;
-	if (!strcmp(key, (*lst)->key))
+	tmp = (t_env *)((*envlst)->content);
+	if (!strcmp(key, tmp->key))
 	{
-		to_delete = (*lst);
-		head = (*lst)->next;
-		free(to_delete->value);
-		free(to_delete->key);
-		free(to_delete);
-		(*lst) = head;
+		to_delete = (*envlst);
+		head = (*envlst)->next;
+		ft_lstdelone(to_delete, envlst_delete_elem);
+		(*envlst) = head;
 		return ;
 	}
-	tmp = (*lst);
-	while (tmp->next)
+	tmp_lst = (*envlst);
+	while (tmp_lst->next)
 	{
-		if (!strcmp(key, tmp->next->key))
+		tmp = (t_env *)(tmp_lst->next->content);
+		if (!strcmp(key, tmp->key))
 		{
-			to_delete = tmp->next;
-			tmp->next = tmp->next->next;
-			free(to_delete->value);
-			free(to_delete->key);
-			free(to_delete);
+			to_delete = tmp_lst->next;
+			tmp_lst->next = tmp_lst->next->next;
+			ft_lstdelone(to_delete, envlst_delete_elem);
 			return ;
 		}
-		tmp = tmp->next;
+		tmp_lst = tmp_lst->next;
 	}
 }
 

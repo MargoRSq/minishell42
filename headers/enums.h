@@ -40,16 +40,16 @@ typedef enum e_tokens
 
 enum e_exits
 {
-	all_ok = 0,
-	malloc_error = 1,
-	env_error = 2,
-	unclosed_quote_error = 3,
-	oldpwd_error = 1,
-	chdir_error = 1,
-	home_error = 4,
-	cwd_error = 5,
-	env_arg_error =6,
-	key_error = 7,
+	all_ok,
+	malloc_error,
+	env_error,
+	unclosed_quote_error,
+	oldpwd_error,
+	chdir_error,
+	home_error,
+	cwd_error,
+	env_arg_error,
+	key_error,
 	execve_error
 };
 

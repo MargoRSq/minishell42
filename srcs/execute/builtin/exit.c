@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:07:23 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/09/28 21:06:12 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:45:39 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	count_arg(char **arg)
 	return (i);
 }
 
-void	execute_exit(t_env *env, char **cmd_argv)
+void	execute_exit(t_env *envlst, char **cmd_argv)
 {
 	int	i;
 	int	len_arr;

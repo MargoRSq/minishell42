@@ -50,7 +50,7 @@ static	t_file	*new_redir(t_list *tokenlst, t_token_type code)
 
 	file = (t_file *)malloc(sizeof(t_file));
 	if (!file)
-		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	token = (t_token *)tokenlst->content;
 	name = ft_substr(token->start, 0, (size_t)token->len);
 	if (!name)

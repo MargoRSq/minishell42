@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:48:55 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/29 21:32:50 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:28:52 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	execute_env(t_list *envlst, char **cmd_argv)
 {
 	if (cmd_argv[1])
-		return (error_msg_return_void(MSG_ERR_ENV_ARGS, cmd_argv[1], 127, 0));
+		return (error_msg_return_void(MSG_ERR_ENV_ARGS, cmd_argv[1],
+				env_arg_error, 0));
 	if (envlst == NULL)
-		error_msg_return_void(MSG_ERR_ENV, "", 2, 1);
+		error_msg_return_void(MSG_ERR_ENV, NULL, env_error, 1);
 	ft_lstiter(envlst, print_env);
-	// envlst_print(envlst);
 }
