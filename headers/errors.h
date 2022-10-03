@@ -11,6 +11,7 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
 # define MSG_ERR_MEM			"minishell: Memory allocation failed\n"
+# define MSG_ERR_RL_FD			"minishell: Readline history file opening failed\n"
 # define MSG_ERR_PWD			"minishell: No pwd value\n"
 # define MSG_ERR_CD				"minishell: cd: %s: "
 # define MSG_ERR_HOME			"minishell: cd: HOME not set\n"

@@ -4,13 +4,15 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-#include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <signal.h>
+#include <termios.h>
 
-#include "readline/readline.h"
-#include "readline/history.h"
+#include "libft.h"
+#include "../libs/libreadline/include/readline/readline.h"
+#include "../libs/libreadline/include/readline/history.h"
 
 #include "enums.h"
 #include "env.h"
@@ -28,7 +30,7 @@ typedef struct s_status
 	char		*exit_msg;
 	short		interrupt;
 	short		shell_level;
-
+	short		rl_fd;
 }	t_status;
 
 t_status g_status;
