@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/02 15:44:58 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/03 12:03:10 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	init_shell(t_list *envlst)
 	read_history(HISTORY_FILE);
 }
 
-static char	*launch_readline(t_env *env)
+static char	*launch_readline(t_list *envlst)
 {
 	char	*tmp;
 	char	*prefix;
 	char	*line;
 	char	*pwd;
 
-	pwd = get_cur_dir(env);
+	pwd = get_cur_dir(envlst);
 	if (!pwd)
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
@@ -47,17 +47,17 @@ static char	*launch_readline(t_env *env)
 	return (line);
 }
 
-static char	*get_entered_line(t_env *env)
+static char	*get_entered_line(t_list *envlst)
 {
 	char	*entered_line;
 
-	entered_line = launch_readline(env);
+	entered_line = launch_readline(envlst);
 	add_history(entered_line);
 	write_history(HISTORY_FILE);
 	return (entered_line);
 }
 
-void	start_shell(t_list **env)
+void	start_shell(t_list **envlst)
 {
 	char		*line;
 	t_list		*tokens;
@@ -65,20 +65,20 @@ void	start_shell(t_list **env)
 
 	while (!g_status.interrupt)
 	{
-		line = get_entered_line(*env);
+		line = get_entered_line(*envlst);
 		if (!line || !(*line))
 			continue ;
 		if (g_status.interrupt)
 			break ;
-		tokens = lex_line(line, *env);
+		tokens = lex_line(line, *envlst);
 		if (g_status.interrupt)
 			break ;
-		check_tokens(tokens, *env);
+		check_tokens(tokens, *envlst);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);
 		if (g_status.interrupt)
 			break ;
-		execute(env, cmds);
+		execute(envlst, cmds);
 	}
 }

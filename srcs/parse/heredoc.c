@@ -7,12 +7,12 @@ static void	ft_close_file(int fd, char *name)
 		// ft_print_error(name, strerror(errno));
 }
 
-static char	*create_tmp_filename_prefix(t_env *env)
+static char	*create_tmp_filename_prefix(t_list *envlst)
 {
 	char	*filename_prefix;
 	char	*pwd;
 
-	pwd = get_cur_dir(env);
+	pwd = get_cur_dir(envlst);
 	if (!pwd)
 		return (NULL);
 	filename_prefix = ft_strjoin(pwd, TMP_FILE_PREFIX);
@@ -21,7 +21,7 @@ static char	*create_tmp_filename_prefix(t_env *env)
 	return (filename_prefix);
 }
 
-static char	*create_tmp_filename(t_env *env)
+static char	*create_tmp_filename(t_list *envlst)
 {
 	char	*filename_prefix;
 	char	*value_tmp;
@@ -30,7 +30,7 @@ static char	*create_tmp_filename(t_env *env)
 	char	*try;
 
 	try = NULL;
-	filename_prefix = create_tmp_filename_prefix(env);
+	filename_prefix = create_tmp_filename_prefix(envlst);
 	if (!filename_prefix)
 		return (error_msg_return_charz(MSG_SYSCALL_ERR_MEM, env_error, 1));
 	i = -1;
@@ -98,12 +98,12 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	return (EXIT_SUCCESS);
 }
 
-int	heredoc(t_token *token, t_env *env)
+int	heredoc(t_token *token, t_list *envlst)
 {
 	char		*filename;
 
 	// signal_handler_heredoc();
-	filename = create_tmp_filename(env);
+	filename = create_tmp_filename(envlst);
 	if (!filename)
 		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	if (launch_heredoc(filename, token))

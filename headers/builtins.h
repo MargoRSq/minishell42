@@ -5,7 +5,7 @@ void	execute_env(t_list *envlst, char **cmd_argv);
 void 	execute_pwd(t_list *envlst);
 void 	execute_unset(t_list **envlst, char **cmd_argv);
 void 	execute_cd(t_list *envlst, char **cmd_argv);
-void 	execute_exit(t_env *envlst, char **cmd_argv);
+void 	execute_exit(char **cmd_argv);
 void	execute_export(t_list *envlst, char **cmd_argv);
 
 char *get_cur_dir(t_list *envlst);

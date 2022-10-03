@@ -29,14 +29,11 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	init_status();
 	envlst = parse_envp(envp);
-	execute_env(envlst, arr);
-
+	// execute_env(envlst, arr);
 	// all works 
-
-
-
 	// ft_lstiter(env, print_env);
-	// init_shell(envlst);
-	// start_shell(&envlst);
+	
+	init_shell(envlst);
+	start_shell(&envlst);
 	return (exit_with_message());
 }

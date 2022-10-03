@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_creator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:23:57 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/28 13:41:37 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/03 12:09:19 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tmp	create_tmp_token(int len, int code, char *line)
 	return (tkn);
 }
 
-t_token	*unpack_tmp_token(t_tmp tkn, t_env *env)
+t_token	*unpack_tmp_token(t_tmp tkn, t_list *envlst)
 {
 	int		i;
 	int		final_len;
@@ -36,10 +36,10 @@ t_token	*unpack_tmp_token(t_tmp tkn, t_env *env)
 
 	if (tkn.type < 2)
 	{
-		final_len = count_final_len(tkn.str, tkn.len, tkn.type, env);
+		final_len = count_final_len(tkn.str, tkn.len, tkn.type, envlst);
 		// printf("%d\n", final_len);
 		lns = (t_len){.len = tkn.len, .final_len = final_len};
-		new_start = unpack(tkn.str, lns, tkn.type, env);
+		new_start = unpack(tkn.str, lns, tkn.type, envlst);
 		// printf("%s\n", new_start);
 		return (tokenlst_new(new_start, final_len, word));
 	}

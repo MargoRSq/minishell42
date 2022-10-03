@@ -11,7 +11,7 @@ static int	check_access(t_token *word_token)
 	return (result);
 }
 
-void	check_tokens(t_list *tokenlst, t_env *env)
+void	check_tokens(t_list *tokenlst, t_list *envlst)
 {
 	t_token	*token;
 
@@ -30,7 +30,7 @@ void	check_tokens(t_list *tokenlst, t_env *env)
 			else if (((t_token *)tokenlst->next->content)->code != word)
 				return error_msg_return_void(MSG_ERR_REDIR_PARSE, NULL, 127, 1);
 			else if (token->code == r_heredoc)
-				heredoc(tokenlst->next->content, env);
+				heredoc(tokenlst->next->content, envlst);
 			// else if (check_access(tokenlst->next->content) == -1)
 			// 	return error_msg_return_void(MSG_ERR_FILE_NEXISTS, NULL, 127,
 			// 								 1);

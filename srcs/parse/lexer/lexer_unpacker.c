@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 
-char	*fetch_envstr(char *str, int pos, t_env *env)
+char	*fetch_envstr(char *str, int pos, t_list *envlst)
 {
 	int		key_len;
 	int		i;
@@ -13,23 +13,23 @@ char	*fetch_envstr(char *str, int pos, t_env *env)
 	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
 		key_len++;
 	key = ft_substr(str, 0, key_len);
-	value = get_env_value(key, env);
+	value = get_env_value(key, envlst);
 	return (value);
 }
 
-int	ft_envcpy(char *start, int pos, char *new_start, t_env *env)
+int	ft_envcpy(char *start, int pos, char *new_start, t_list *envlst)
 {
 	int		elen;
 	char	*evar;
 
-	evar = fetch_envstr(start, pos, env);
+	evar = fetch_envstr(start, pos, envlst);
 	elen = ft_strlen(evar);
 	if (elen)
 		ft_strlcpy(new_start, evar, elen + 1);
 	return (elen);
 }
 
-static void	fill_new_str(int tmp, int len, t_cpy cpy, t_env *env)
+static void	fill_new_str(int tmp, int len, t_cpy cpy, t_list *envlst)
 {
 	if (cpy.tp == 0)
 	{
@@ -45,7 +45,7 @@ static void	fill_new_str(int tmp, int len, t_cpy cpy, t_env *env)
 	else if (cpy.tp == 1)
 	{
 		tmp = ft_envcpy(&cpy.src[(*cpy.ir) + 1], (*cpy.jr),
-				&cpy.dst[(*cpy.jr)], env);
+				&cpy.dst[(*cpy.jr)], envlst);
 		(*cpy.jr) += tmp;
 		(*cpy.ir)++;
 		while ((*cpy.ir) < len && cpy.src[(*cpy.ir)] != ' '
@@ -56,7 +56,7 @@ static void	fill_new_str(int tmp, int len, t_cpy cpy, t_env *env)
 		cpy.dst[(*cpy.jr)++] = cpy.src[(*cpy.ir)++];
 }
 
-char	*unpack(char *str, t_len lns, short is_dq, t_env *env)
+char	*unpack(char *str, t_len lns, short is_dq, t_list *envlst)
 {
 	int		i;
 	int		j;
@@ -79,7 +79,7 @@ char	*unpack(char *str, t_len lns, short is_dq, t_env *env)
 			cpy = (t_cpy){.dst = new, .src = str, .ir = &i, .jr = &j, .tp = 1};
 		else
 			cpy = (t_cpy){.dst = new, .src = str, .ir = &i, .jr = &j, .tp = 2};
-		fill_new_str(tmp, lns.len, cpy, env);
+		fill_new_str(tmp, lns.len, cpy, envlst);
 	}
 	return (new);
 }

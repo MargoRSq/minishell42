@@ -49,7 +49,7 @@ void	begin_pipes(int **pipes, int len)
 	}
 }
 
-void	multi_pipe_process(t_env **env, t_cmd *cmd)
+void	multi_pipe_process(t_list **envlst, t_cmd *cmd)
 {
 	int		len;
 	int 	**pipes;
@@ -67,11 +67,11 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 	{
 
 		if (prev == NULL)
-			exec_first_cmd(*env, tmp);
+			exec_first_cmd(*envlst, tmp);
 		else if (((t_list *)tmp)->next == NULL)
-			exec_last_cmd(*env, tmp);
+			exec_last_cmd(*envlst, tmp);
 		else
-			exec_middle_cmd(*env, tmp);
+			exec_middle_cmd(*envlst, tmp);
 		prev = tmp;
 		tmp = (t_cmd *)((t_list *)tmp)->next;
 	}
