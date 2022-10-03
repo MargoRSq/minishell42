@@ -4,12 +4,13 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+#include "readline/readline.h"
+#include "readline/history.h"
 
 #include "enums.h"
 #include "env.h"

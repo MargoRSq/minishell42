@@ -1,4 +1,4 @@
-MAIN	= main.c errors.c
+MAIN	= main.c errors.c loop.c 
 
 LST_UTILS_FIELS = cmdlst.c envlst.c 
 LST_UTILS = $(addprefix lists_utils/,	${LST_UTILS_FIELS})
@@ -6,7 +6,7 @@ LST_UTILS = $(addprefix lists_utils/,	${LST_UTILS_FIELS})
 ENV_PARSER_FILES = parse.c utils.c
 ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 
-PARSE_FILES = main_loop.c get_next_line.c get_next_line_utils.c \
+PARSE_FILES = get_next_line.c get_next_line_utils.c \
 			  heredoc.c heredoc_signals.c counter.c commands.c
 PARSE = $(addprefix parse/, ${PARSE_FILES})
 
@@ -21,7 +21,7 @@ BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 EXECUTE_FILES = executor.c only_parent_process.c multi_pipe_process.c exec_first_cmd.c exec_middle_cmd.c exec_last_cmd.c
 EXECUTE = $(addprefix execute/, ${EXECUTE_FILES})
 
-UTILS_FILES = lst_print.c lst.c
+UTILS_FILES = lst_print.c lst.c signal.c
 UTILS = $(addprefix utils/, ${UTILS_FILES})
 
 SRCS = ${MAIN} ${ENV_PARSER} ${LEXER} ${PARSE} ${EXECUTE} ${BUILTIN} ${UTILS} ${LST_UTILS}
