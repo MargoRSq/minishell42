@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/03 12:03:10 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/03 15:27:10 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void	start_shell(t_list **envlst)
 			break ;
 		execute(envlst, cmds);
 	}
+	clean_all(envlst, cmds, tokens);
 }

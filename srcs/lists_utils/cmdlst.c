@@ -41,7 +41,6 @@
 // 	return (lst);
 // }
 
-
 static	t_file	*new_redir(t_list *tokenlst, t_token_type code)
 {
 	t_file	*file;

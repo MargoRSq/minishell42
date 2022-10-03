@@ -14,3 +14,5 @@ int check_valid_env_value(char *str);
 void	change_or_append(t_list *envlst, char *new_key, char *new_value);
 
 void free_arr(char **arr);
+
+void clean_all(t_list **envlst, t_list *cmdlst, t_list *tokenlst);

@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:07:23 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/03 12:25:42 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/03 15:28:38 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

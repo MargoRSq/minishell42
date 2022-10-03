@@ -1,25 +1,5 @@
 #include "minishell.h"
 
-void	envlst_clear(t_env **lst)
-{
-	t_env	*cur;
-	t_env	*next;
-
-	if (!lst || !(*lst))
-		return ;
-	cur = (*lst);
-	next = cur;
-	while (cur)
-	{
-		next = cur->next;
-		free(cur->value);
-		free(cur->key);
-		free(cur);
-		cur = next;
-	}
-	*lst = NULL;
-}
-
 t_env	*envlst_new(char *key, char *value)
 {
 	t_env	*elem;
@@ -31,16 +11,6 @@ t_env	*envlst_new(char *key, char *value)
 	elem->key = key;
 	elem->value = value;
 	return (elem);
-}
-
-void	*envlst_delete_elem(void *content)
-{
-	t_env	*to_delete;
-
-	to_delete = (t_env *)(content);
-	free(to_delete->value);
-	free(to_delete->key);
-	free(to_delete);
 }
 
 void	envlst_delete_one(char *key, t_list **envlst)
