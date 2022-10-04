@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:32 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/20 14:35:33 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/04 14:46:51 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int inline	counter_skip_unpacked_env(char *str, t_env *env)
 
 	i = -1;
 	len = 0;
-	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
+	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' '&& str[i] != '$')
+		len++;
+	if (len == 0 && str[i] == '$')
 		len++;
 	var_key = ft_substr(str, 0, len);
-	var_value = get_env_value(var_key, env);
+	var_value = get_value(var_key, env);
 	if (ft_strlen(var_value))
 		return (ft_strlen(var_value));
 	return (0);
@@ -65,8 +67,11 @@ inline int	skipper_str_with_env(char *str, int *iptr, int len, t_env *env)
 	tmp = counter_skip_unpacked_env(&str[*(iptr) + 1], env);
 	result += tmp;
 	(*iptr)++;
+	if (str[*(iptr)] == '$')
+		(*iptr)++;
 	while (*(iptr) < len && str[*(iptr)] != '\'' && str[*(iptr)] != '\"'
-		&& str[*(iptr)] != ' ' && str[*(iptr)] != '$')
+		&& str[*(iptr)] != ' ' 
+		&& (str[*(iptr)] != '$'))
 		(*iptr)++;
 	return (result);
 }

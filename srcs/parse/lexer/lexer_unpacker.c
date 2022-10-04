@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+char	*get_value(char *key, t_env *env)
+{
+	char	*value;
+
+	value = NULL;
+	if (ft_strcmp(key, "$") == 0)
+	{
+		value = (char *)malloc(sizeof(char) * 3);
+		ft_strlcpy(value, "$$", 3);
+	}
+	else if (ft_strcmp(key, "?") == 0)
+		value = ft_itoa(g_status.exit_code);
+	else
+		value = get_env_value(key, env);
+	return (value);
+}
 
 char	*fetch_envstr(char *str, int pos, t_env *env)
 {
@@ -10,10 +26,14 @@ char	*fetch_envstr(char *str, int pos, t_env *env)
 
 	key_len = 0;
 	i = -1;
-	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
+	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' 
+		&& (str[i] != '$'))
 		key_len++;
-	key = ft_substr(str, 0, key_len);
-	value = get_env_value(key, env);
+	if (key_len == 0 && str[i] == '$')
+		key = ft_substr("$", 0, 1);
+	else
+		key = ft_substr(str, 0, key_len);
+	value = get_value(key, env);	
 	return (value);
 }
 

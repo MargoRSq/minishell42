@@ -60,3 +60,4 @@ int			count_final_len(char *str, int len, short is_dq, t_env *env);
 void	check_tokens(t_list *token, t_env *env);
 int		heredoc(t_token *token, t_env *env);
 void	signal_handler_heredoc(void);
+char	*get_value(char *key, t_env *env);
