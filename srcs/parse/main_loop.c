@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/03 20:38:29 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/04 18:55:00 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*launch_readline(t_list *envlst)
 	char	*line;
 	char	*pwd;
 
-	pwd = get_cur_dir(envlst);
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
@@ -80,7 +80,8 @@ void	start_shell(t_list **envlst)
 		if (g_status.interrupt)
 			break ;
 		execute(envlst, cmds);
-		clean_tokens_cmds(cmds, tokens);
+		free(line);
+		// clean_tokens_cmds(cmds, tokens);
 	}
 	ft_lstclear(envlst, envlst_delete_elem);
 }

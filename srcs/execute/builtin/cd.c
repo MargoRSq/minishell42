@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/02 16:28:38 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/04 18:46:32 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*form_path_to_go(char **cmd_argv, t_list *envlst)
 		path = ft_strdup(cmd_argv[1]);
 	else
 	{
-		tmp = ft_strjoin(get_cur_dir(envlst), "/");
+		tmp = ft_strjoin(getcwd(NULL, 0), "/");
 		if (!tmp)
 			return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
 					malloc_error, 1));
@@ -83,6 +83,7 @@ static const char	*go_cd_argv(char **cmd_argv, t_list *envlst)
 		return (error_msg_return_null(MSG_SYSCALL_ERR_GETCWD, NULL,
 				cwd_error, 1));
 	}
+	free(path_to_go);
 	return (new_path);
 }
 
@@ -91,7 +92,7 @@ void	execute_cd(t_list *envlst, char **cmd_argv)
 	char		*pwd_to_change;
 	const char	*new_path;
 
-	pwd_to_change = get_cur_dir(envlst);
+	pwd_to_change = getcwd(NULL, 0);
 	if (!pwd_to_change)
 		return (error_msg_return_void(MSG_SYSCALL_ERR_GETCWD, NULL,
 				cwd_error, 1));
@@ -105,4 +106,5 @@ void	execute_cd(t_list *envlst, char **cmd_argv)
 		return ;
 	change_or_append(envlst, ft_strdup("OLDPWD"), ft_strdup(pwd_to_change));
 	change_or_append(envlst, ft_strdup("PWD"), ft_strdup(new_path));
+	free((void *)new_path);
 }

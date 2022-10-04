@@ -12,7 +12,7 @@ static char	*create_tmp_filename_prefix(t_list *envlst)
 	char	*filename_prefix;
 	char	*pwd;
 
-	pwd = get_cur_dir(envlst);
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (NULL);
 	filename_prefix = ft_strjoin(pwd, TMP_FILE_PREFIX);

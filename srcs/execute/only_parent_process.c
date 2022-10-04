@@ -26,7 +26,7 @@ char	*get_path(t_list *envlst)
 	result = NULL;
 	ways = get_env_value("PATH", envlst);
 	ways_with_dot = ft_strjoin(ways, ":");
-	cur_dir = get_cur_dir(envlst);
+	cur_dir = getcwd(NULL, 0);
 	result = ft_strjoin(ways_with_dot, cur_dir);
 	free(ways);
 	free(ways_with_dot);

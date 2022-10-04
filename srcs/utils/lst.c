@@ -10,7 +10,6 @@ t_token	*tokenlst_new(char *start, int len, int code)
 	elem->start = start;
 	elem->code = code;
 	elem->len = len;
-	// elem->next = NULL;
 	return (elem);
 }
 
@@ -19,8 +18,6 @@ void	tokenlst_delete_elem(void *content)
 	t_token	*to_delete;
 
 	to_delete = (t_token *)(content);
-	// free(to_delete->code);
-	// free(to_delete->len);
 	free(to_delete->start);
 	free(to_delete);
 }
@@ -28,12 +25,16 @@ void	tokenlst_delete_elem(void *content)
 void	cmdlst_delete_elem(void *content)
 {
 	t_cmd	*to_delete;
+	int		i;
 
 	to_delete = (t_cmd *)(content);
+	i = 0;
+	while (to_delete->argv[i])
+	{
+		free(to_delete->argv[i]);
+		i++;
+	}
 	free(to_delete->argv);
-	// free(to_delete->counter);
-	// free(to_delete->fd_in);
-	// free(to_delete->fd_out);
 	free(to_delete->fns_in);
 	free(to_delete->fns_out);
 	free(to_delete);
@@ -49,7 +50,7 @@ void	envlst_delete_elem(void *content)
 	free(to_delete);
 }
 
-void clean_tokens_cmds(t_list *cmdlst, t_list *tokenlst)
+void	clean_tokens_cmds(t_list *cmdlst, t_list *tokenlst)
 {
 	ft_lstclear(&cmdlst, cmdlst_delete_elem);
 	ft_lstclear(&tokenlst, tokenlst_delete_elem);

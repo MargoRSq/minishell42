@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:28:23 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/02 16:26:42 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/04 18:46:16 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	execute_pwd(t_list *envlst)
 {
 	char	*pwd;
 
-	pwd = get_cur_dir(envlst);
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (error_msg_return_void(MSG_SYSCALL_ERR_GETCWD, NULL,
 				cwd_error, 1));

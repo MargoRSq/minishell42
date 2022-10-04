@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 13:12:19 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/03 21:49:06 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/04 18:46:57 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_cur_dir(t_list *envlst)
-{
-	char	*cwd;
+// char	*get_cur_dir(t_list *envlst)
+// {
+// 	char	*cwd;
 
-	cwd = get_env_value("PWD", envlst);
-	if (!cwd)
-		cwd = getcwd(NULL, 0);
-	return (cwd);
-}
+// 	cwd = get_env_value("PWD", envlst);
+// 	if (!cwd)
+// 		cwd = getcwd(NULL, 0);
+// 	return (cwd);
+// }
 
 int	check_valid_env_key(char *str)
 {
@@ -54,10 +54,6 @@ static void	append_env_var(t_list *envlst, char *new_key, char *new_value)
 	if (!new_value)
 		new_value = ft_strdup("");
 	new_elem = ft_lstnew(envlst_new(new_key, new_value));
-	if(new_key)
-		free(new_key);
-	if(new_value)
-		free(new_value);
 	if (!new_elem)
 		return (error_msg_return_void(MSG_SYSCALL_ERR_MEM, NULL,
 				malloc_error, 1));

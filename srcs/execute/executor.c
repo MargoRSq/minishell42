@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 // typedef int	(*t_bldin_func)(t_env **, char **);
 
 int	try_builtin(t_cmd *cmds, t_list **envlst)
