@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/02 16:28:58 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/04 19:16:51 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	do_export_argv(t_list *envlst, char **cmd_argv)
 		}
 		else
 		{
-			key_value = ft_split(cmd_argv[i], '=');
+			key_value = ft_split(cmd_argv[i], '='); // leaks
 			if (!check_valid_env_key(key_value[0]) || (key_value[1] && !check_valid_env_value(key_value[1])))
 				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0);
 			else

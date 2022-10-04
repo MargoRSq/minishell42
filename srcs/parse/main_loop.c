@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/04 18:55:00 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:23:57 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char	*launch_readline(t_list *envlst)
 	free(tmp);
 	line = readline(prefix);
 	free(prefix);
+	free(pwd);
 	return (line);
 }
 
@@ -81,7 +82,7 @@ void	start_shell(t_list **envlst)
 			break ;
 		execute(envlst, cmds);
 		free(line);
-		// clean_tokens_cmds(cmds, tokens);
+		clean_tokens_cmds(cmds, tokens);
 	}
 	ft_lstclear(envlst, envlst_delete_elem);
 }
