@@ -57,17 +57,17 @@ static int	get_next_line_heredoc(char *stop, int fd)
 	len_limiter = ft_strlen(stop);
 	while (1)
 	{
-		signal_handler_heredoc();
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(STDIN_FILENO);
-		if (!line)
-			return (EXIT_SUCCESS);
+		if (line == NULL)
+			exit(0);
 		if (ft_strcmp(line, stop) == 0)
 		{
 			free(line);
 			break ;
 		}
 		ft_putstr_fd(line, fd);
+		ft_putchar_fd('\n', fd);
 		free(line);
 	}
 	return (EXIT_SUCCESS);
@@ -79,6 +79,7 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	char	*stop;
 	int		fd;
 
+	signal_handler(sig_heredoc);
 	fd = open(path_tmp, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd == -1)
 	{
@@ -95,6 +96,7 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	free(stop);
 	infile->start = path_tmp;
 	infile->len = ft_strlen(path_tmp);
+	signal_handler(sig_loop);
 	return (EXIT_SUCCESS);
 }
 
@@ -102,7 +104,6 @@ int	heredoc(t_token *token, t_env *env)
 {
 	char		*filename;
 
-	// signal_handler_heredoc();
 	filename = create_tmp_filename(env);
 	if (!filename)
 		return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error, 1));

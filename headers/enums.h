@@ -49,6 +49,14 @@ enum e_exits
 	execve_error
 };
 
+typedef enum e_signals
+{
+	sig_loop,
+	sig_heredoc,
+	sig_child
+}	t_signal_type;
+
+
 // enum e_builtins
 // {
 // 	cd = execute_cd,

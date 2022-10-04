@@ -1,4 +1,4 @@
-# define HISTORY_FILE	".minishell_history"
+# define HISTORY_FILE		".minishell_history"
 # define TMP_FILE_PREFIX	"/.minishell_heredoc_"
 
 # define CYAN "\e[46m"
@@ -7,3 +7,5 @@
 
 void	print_tokens(void *vtokens);
 void	print_cmds(void *vcmds);
+
+void	signal_handler();
