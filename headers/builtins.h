@@ -15,4 +15,4 @@ void	change_or_append(t_list *envlst, char *new_key, char *new_value);
 
 void free_arr(char **arr);
 
-void clean_all(t_list **envlst, t_list *cmdlst, t_list *tokenlst);
+void clean_tokens_cmds(t_list *cmdlst, t_list *tokenlst);

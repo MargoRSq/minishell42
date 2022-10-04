@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 13:12:19 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/02 16:27:25 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/03 21:49:06 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ static void	append_env_var(t_list *envlst, char *new_key, char *new_value)
 	if (!new_value)
 		new_value = ft_strdup("");
 	new_elem = ft_lstnew(envlst_new(new_key, new_value));
+	if(new_key)
+		free(new_key);
+	if(new_value)
+		free(new_value);
 	if (!new_elem)
 		return (error_msg_return_void(MSG_SYSCALL_ERR_MEM, NULL,
 				malloc_error, 1));
@@ -76,6 +80,8 @@ void	change_or_append(t_list *envlst, char *new_key, char *new_value)
 			if (!tmp->value)
 				return (error_msg_return_void(MSG_SYSCALL_ERR_MEM, NULL,
 						malloc_error, 1));
+			free(new_key);
+			free(new_value);
 			return ;
 		}
 		tmp_lst = tmp_lst->next;

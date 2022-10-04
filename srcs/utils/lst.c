@@ -49,9 +49,8 @@ void	envlst_delete_elem(void *content)
 	free(to_delete);
 }
 
-void clean_all(t_list **envlst, t_list *cmdlst, t_list *tokenlst)
+void clean_tokens_cmds(t_list *cmdlst, t_list *tokenlst)
 {
-	ft_lstclear(envlst, envlst_delete_elem);
 	ft_lstclear(&cmdlst, cmdlst_delete_elem);
 	ft_lstclear(&tokenlst, tokenlst_delete_elem);
 }
