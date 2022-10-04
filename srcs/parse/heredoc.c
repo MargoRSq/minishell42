@@ -16,6 +16,7 @@ static char	*create_tmp_filename_prefix(t_list *envlst)
 	if (!pwd)
 		return (NULL);
 	filename_prefix = ft_strjoin(pwd, TMP_FILE_PREFIX);
+	free(pwd);
 	if (!filename_prefix)
 		return (NULL);
 	return (filename_prefix);

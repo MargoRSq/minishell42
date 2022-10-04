@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 13:12:19 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/04 18:46:57 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/04 22:46:10 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	change_or_append(t_list *envlst, char *new_key, char *new_value)
 				return (error_msg_return_void(MSG_SYSCALL_ERR_MEM, NULL,
 						malloc_error, 1));
 			free(new_key);
-			free(new_value);
+			if (new_value)
+				free(new_value);
 			return ;
 		}
 		tmp_lst = tmp_lst->next;

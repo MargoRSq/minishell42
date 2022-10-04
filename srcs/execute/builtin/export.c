@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/04 19:16:51 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/04 22:29:23 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,43 @@ int	equal_sign(char *token)
 	return (0);
 }
 
+char	**form_key_value(char *arg)
+{
+	char	**key_value;
+	int		i;
+	int		count;
+	int		len_arg;
+
+	if (!arg)
+		return (NULL);
+	len_arg = ft_strlen(arg);
+	key_value = (char **)malloc(sizeof(char *) * (2 + 1));
+	if (!key_value)
+		return (NULL);
+	key_value[2] = NULL;
+	while (arg[i] != '=' && arg[i])
+	{
+		i++;
+		count++;
+	}
+	key_value[0] = ft_substr((const char *) arg, 0, count - 1);
+	key_value[1] = ft_substr((const char *) arg, count, len_arg - count);
+	return (key_value);
+}
+
+void clean_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
 void	do_export_argv(t_list *envlst, char **cmd_argv)
 {
 	int		i;
@@ -89,17 +126,24 @@ void	do_export_argv(t_list *envlst, char **cmd_argv)
 		if (!equal_sign(cmd_argv[i]))
 		{
 			if (!check_valid_env_key(cmd_argv[i]))
-				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0);
+				return (error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i],
+						key_error, 0));
 			else
-				return; // exit code(0);
+				return ;
 		}
 		else
 		{
-			key_value = ft_split(cmd_argv[i], '='); // leaks
+			key_value = form_key_value(cmd_argv[i]);
 			if (!check_valid_env_key(key_value[0]) || (key_value[1] && !check_valid_env_value(key_value[1])))
-				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0);
+			{
+				clean_arr(key_value);
+				return (error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0));
+			}
 			else
+			{
 				change_or_append(envlst, key_value[0], key_value[1]);
+				free(key_value);
+			}
 		}
 		i++;
 	}

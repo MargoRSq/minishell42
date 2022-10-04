@@ -6,8 +6,8 @@ void	print_tokens(void *vtokens)
 
 	token = (t_token *)vtokens;
 	printf("{text=%s, code=%d, len=%d} ",
-		 ft_substr(token->start, 0, token->len),
-		 token->code, token->len);
+		ft_substr(token->start, 0, token->len),
+		token->code, token->len);
 }
 
 void	print_cmds(void *vcmds)

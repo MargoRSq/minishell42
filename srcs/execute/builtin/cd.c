@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/04 18:46:32 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/04 22:46:58 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,15 @@ char	*form_path_to_go(char **cmd_argv, t_list *envlst)
 {
 	char		*path;
 	char		*tmp;
+	char		*help_getcwd;
 
 	if (!ft_strcmp(cmd_argv[1], "..") || cmd_argv[1][0] == '/')
 		path = ft_strdup(cmd_argv[1]);
 	else
 	{
-		tmp = ft_strjoin(getcwd(NULL, 0), "/");
+		help_getcwd = getcwd(NULL, 0);
+		tmp = ft_strjoin(help_getcwd, "/");
+		free(help_getcwd);
 		if (!tmp)
 			return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
 					malloc_error, 1));
@@ -106,5 +109,7 @@ void	execute_cd(t_list *envlst, char **cmd_argv)
 		return ;
 	change_or_append(envlst, ft_strdup("OLDPWD"), ft_strdup(pwd_to_change));
 	change_or_append(envlst, ft_strdup("PWD"), ft_strdup(new_path));
-	free((void *)new_path);
+	if (new_path)
+		free((void *)new_path);
+	free(pwd_to_change);
 }
