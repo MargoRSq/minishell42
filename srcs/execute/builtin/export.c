@@ -6,11 +6,24 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/04 22:29:23 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:15:23 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	clean_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
 
 static char	**sort_arr(char **arr, int size)
 {
@@ -62,6 +75,7 @@ void	print_sorted_env(t_list *envlst)
 	arr = envlst_to_arr(envlst);
 	arr = sort_arr(arr, size);
 	print_arr_prefix(arr, size);
+	clean_arr(arr);
 }
 
 int	equal_sign(char *token)
@@ -85,6 +99,8 @@ char	**form_key_value(char *arg)
 	int		count;
 	int		len_arg;
 
+	i = 0;
+	count = 0;
 	if (!arg)
 		return (NULL);
 	len_arg = ft_strlen(arg);
@@ -97,22 +113,9 @@ char	**form_key_value(char *arg)
 		i++;
 		count++;
 	}
-	key_value[0] = ft_substr((const char *) arg, 0, count - 1);
-	key_value[1] = ft_substr((const char *) arg, count, len_arg - count);
+	key_value[0] = ft_substr((const char *) arg, 0, count);
+	key_value[1] = ft_substr((const char *) arg, count + 1, len_arg - count);
 	return (key_value);
-}
-
-void clean_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
 }
 
 void	do_export_argv(t_list *envlst, char **cmd_argv)
@@ -130,6 +133,8 @@ void	do_export_argv(t_list *envlst, char **cmd_argv)
 						key_error, 0));
 			else
 				return ;
+			// else
+			// 	append_key(envlst, ft_strdup(cmd_argv[i]));
 		}
 		else
 		{

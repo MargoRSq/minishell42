@@ -23,6 +23,7 @@ void	print_env(void *venv)
 	t_env	*env;
 
 	env = (t_env *)(venv);
+	// if (env->value)
 	if (ft_strcmp (env->value, ""))
 		printf("%s=%s\n", env->key, env->value);
 }

@@ -12,7 +12,7 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 # define MSG_SYSCALL_ERR_GETCWD "minishell: getcwd failed\n"
 # define MSG_SYSCALL_ERR_CHDIR	"minishell: %s: chdir failed\n"
 # define MSG_SYSCALL_ERR_MEM 	"minishell: Memory allocation failed\n"
-# define MSG_ERR_CD_OLDPWD		"minishell: cd: OLDPWD not set"
+# define MSG_ERR_CD_OLDPWD		"minishell: cd: OLDPWD not set\n"
 # define MSG_ERR_HOME			"minishell: cd: HOME not set\n"
 # define MSG_ERR_ENV			"minishell: ENV error .\n"
 # define MSG_ERR_ENV_ARGS		"minishell: %s: No such file or directory\n"
