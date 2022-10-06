@@ -13,7 +13,6 @@ int main(void)
 	int pid1 = fork();
 	if (pid1 == 0)
 	{
-		printf("child1\n");
 		dup2(fd1[1], STDOUT_FILENO);
 		close(fd1[0]);
 		close(fd1[1]);
@@ -24,22 +23,20 @@ int main(void)
 	int pid2 = fork();
 	if (pid2 == 0)
 	{
-		printf("child2\n");
 		dup2(fd1[0], STDIN_FILENO);
 		dup2(fd2[1], STDOUT_FILENO);
 		close(fd1[0]);
 		close(fd2[1]);
-		execlp("cat", "cat", "-n", NULL);
+		execlp("wc", "wc", "-l", NULL);
 	}
 	close(fd1[0]);//recommended to close all pipes fd after
 	close(fd2[1]);//finishing all work to continue the parent proc
 	int pid3 = fork();
 	if (pid3 == 0)
 	{
-		printf("child3\n");
 		dup2(fd2[0], STDIN_FILENO);
 		close(fd2[0]);
-		execlp("cat", "cat", "-n", NULL);
+		execlp("wc", "wc", "-l", NULL);
 	}
 	while (wait(0) != -1)//waiting for all children proc
 		;
