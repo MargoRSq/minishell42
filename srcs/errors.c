@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:19:12 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/09/26 20:39:25 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/09/28 19:10:44 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	error_msg_return_int(char *msg, char *arg, int code, short interrupt)
 	return (-1);
 }
 
-
-void *error_msg_return_null(char *msg, char *arg, int code, short interrupt)
+void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt)
 {
 	g_status.interrupt = interrupt;
 	printf(msg, arg);
@@ -36,7 +35,7 @@ void *error_msg_return_null(char *msg, char *arg, int code, short interrupt)
 	return (NULL);
 }
 
-int		trigger_unclosed_quote_error(char q_type)
+int	trigger_unclosed_quote_error(char q_type)
 {
 	g_status.interrupt = 1;
 	if ((int)q_type == s_quote)
@@ -47,16 +46,13 @@ int		trigger_unclosed_quote_error(char q_type)
 	return (-1);
 }
 
-int		trigger_too_many_redirects_error()
+int	trigger_too_many_redirects_error()
 {
 	g_status.interrupt = 1;
 	g_status.exit_msg = MSG_ERR_CMD_TMR;
 	g_status.exit_code = unclosed_quote_error;
 	return (-1);
 }
-
-
-
 
 
 char	*error_msg_return_charz(char *msg, int code, short interrupt)
@@ -67,10 +63,4 @@ char	*error_msg_return_charz(char *msg, int code, short interrupt)
 	return (NULL);
 }
 
-// int 	trigger_сd_error()
-// {
-// 	g_status.interrupt = 1;
-// 	g_status.exit_msg = MSG_ERR_CD;
-// 	g_status.exit_code = pwd_error;
-// 	return(-1);
-// }
+

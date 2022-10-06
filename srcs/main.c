@@ -16,19 +16,18 @@ static void	init_status()
 	g_status.interrupt = 0;
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	char *line;
-	t_env *env;
-
+	char	*line;
+	t_list	*envlst;
+	
 	if (ac != 1)
-		return 1;
+		return (1);
 
 	init_status();
-	env = parse_envp(envp);
+	envlst = parse_envp(envp);
 
-	init_shell(env);
-	start_shell(&env);
-
+	init_shell(envlst);
+	start_shell(&envlst);
 	return (exit_with_message());
 }

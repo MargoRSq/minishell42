@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:04 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/29 14:09:38 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/09/29 15:20:25 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 t_list	*create_commands(t_list *tokenlst)
 {
-	t_list	*cmds;
+	t_list	*cmdslst;
 
-	cmds = NULL;
+	cmdslst = NULL;
 	while (tokenlst)
 	{
-		ft_lstadd_back(&cmds, ft_lstnew(cmdlst_new(tokenlst)));
+		ft_lstadd_back(&cmdslst, ft_lstnew(cmdlst_new(tokenlst)));
 		while (tokenlst && ((t_token *)tokenlst->content)->code != lpipe)
 			tokenlst = tokenlst->next;
 		if (tokenlst)
@@ -27,5 +27,5 @@ t_list	*create_commands(t_list *tokenlst)
 		else
 			break ;
 	}
-	return (cmds);
+	return (cmdslst);
 }

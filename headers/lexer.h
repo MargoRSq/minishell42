@@ -40,24 +40,24 @@ void		tokenlst_clear(t_token **lst);
 void		tokenlst_print(t_token *lst);
 
 int			find_end(char *ptr);
-t_list		*lex_line(char *line, t_env *env);
+t_list		*lex_line(char *line, t_list *envlst);
 
-char		*unpack(char *str, t_len lens, short is_dq, t_env *env);
-t_token		*unpack_tmp_token(t_tmp tkn, t_env *env);
+char		*unpack(char *str, t_len lens, short is_dq, t_list *envlst);
+t_token		*unpack_tmp_token(t_tmp tkn, t_list *envlst);
 t_tmp		create_tmp_token(int len, int code, char *line);
-char		*fetch_envstr(char *str, int pos, t_env *env);
-int			ft_envcpy(char *start, int pos, char *new_start, t_env *env);
+char		*fetch_envstr(char *str, int pos, t_list *envlst);
+int			ft_envcpy(char *start, int pos, char *new_start, t_list *envlst);
 
 int	get_code(int sy, int len);
 int	get_skip_distance(char *sy, int len);
 
 int 	counter_str_single_quote(char *str);
-int counter_skip_unpacked_env(char *str, t_env *env);
+int counter_skip_unpacked_env(char *str, t_list *envlst);
 int	skipper_str_single_quote(char *str, int *iptr, short is_dq);
-int	skipper_str_with_env(char *str, int *iptr, int len, t_env *env);
-int			count_final_len(char *str, int len, short is_dq, t_env *env);
+int	skipper_str_with_env(char *str, int *iptr, int len, t_list *envlst);
+int			count_final_len(char *str, int len, short is_dq, t_list *envlst);
 
-void	check_tokens(t_list *token, t_env *env);
-int		heredoc(t_token *token, t_env *env);
+void	check_tokens(t_list *token, t_list *envlst);
+int	heredoc(t_token *token, t_list *envlst);
 void	signal_handler_heredoc(void);
 char	*get_value(char *key, t_env *env);

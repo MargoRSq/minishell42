@@ -6,11 +6,24 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/26 19:49:31 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:37:38 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	clean_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
 
 static char	**sort_arr(char **arr, int size)
 {
@@ -51,17 +64,18 @@ void	print_arr_prefix(char **arr, int size)
 	}
 }
 
-void	print_sorted_env(t_env *env)
+void	print_sorted_env(t_list *envlst)
 {
 	char	**arr;
 	int		size;
 	int		i;
 
 	i = 0;
-	size = envlst_size(env);
-	arr = envlst_to_arr(env);
+	size = ft_lstsize(envlst);
+	arr = envlst_to_arr(envlst);
 	arr = sort_arr(arr, size);
 	print_arr_prefix(arr, size);
+	clean_arr(arr);
 }
 
 int	equal_sign(char *token)
@@ -78,27 +92,33 @@ int	equal_sign(char *token)
 	return (0);
 }
 
-void	change_or_append(t_env *env, char *new_key, char *new_value)
+char	**form_key_value(char *arg)
 {
-	t_env	*tmp;
+	char	**key_value;
+	int		i;
+	int		count;
+	int		len_arg;
 
-	tmp = env;
-	while (tmp)
+	i = 0;
+	count = 0;
+	if (!arg)
+		return (NULL);
+	len_arg = ft_strlen(arg);
+	key_value = (char **)malloc(sizeof(char *) * (2 + 1));
+	if (!key_value)
+		return (NULL);
+	key_value[2] = NULL;
+	while (arg[i] != '=' && arg[i])
 	{
-		if (!ft_strcmp(new_key, tmp->key))
-		{
-			free(tmp->value);
-			tmp->value = ft_strdup(new_value);
-			return ;
-		}
-		tmp = tmp->next;
+		i++;
+		count++;
 	}
-	append_env_var(env,  new_key, new_value);
-	// if(!append_env_var(env,  new_key, new_value))
-	// 	return;	
+	key_value[0] = ft_substr((const char *) arg, 0, count);
+	key_value[1] = ft_substr((const char *) arg, count + 1, len_arg - count);
+	return (key_value);
 }
 
-void	do_export_argv(t_env *env, char **cmd_argv)
+void	do_export_argv(t_list *envlst, char **cmd_argv)
 {
 	int		i;
 	char	**key_value;
@@ -109,26 +129,33 @@ void	do_export_argv(t_env *env, char **cmd_argv)
 		if (!equal_sign(cmd_argv[i]))
 		{
 			if (!check_valid_env_key(cmd_argv[i]))
-				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], 1, 0);
+				return (error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i],
+						key_error, 0));
 			else
-				return ; // exit code (0);
+				append_key(envlst, ft_strdup(cmd_argv[i]));
 		}
 		else
 		{
-			key_value = ft_split(cmd_argv[i], '=');
+			key_value = form_key_value(cmd_argv[i]);
 			if (!check_valid_env_key(key_value[0]) || (key_value[1] && !check_valid_env_value(key_value[1])))
-				error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], 1, 0);
+			{
+				clean_arr(key_value);
+				return (error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0));
+			}
 			else
-				change_or_append(env, key_value[0], key_value[1]);
+			{
+				change_or_append(envlst, key_value[0], key_value[1]);
+				free(key_value);
+			}
 		}
 		i++;
 	}
 }
 
-void	execute_export(t_env *env, char **cmd_argv)
+void	execute_export(t_list *envlst, char **cmd_argv)
 {
 	if (!cmd_argv[1])
-		print_sorted_env(env);
+		print_sorted_env(envlst);
 	else
-		do_export_argv(env, cmd_argv);
+		do_export_argv(envlst, cmd_argv);
 }

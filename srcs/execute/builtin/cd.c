@@ -6,120 +6,125 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/26 20:28:35 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/05 17:31:30 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_old_pwd(t_env *env, char *old_path)
+static char	*go_oldpwd(t_list *envlst)
 {
-	t_env	*tmp;
+	char	*old_pwd;
+	char	*new_path;
 
-	tmp = env;
-	while (tmp)
-	{
-		if (!ft_strcmp("OLDPWD", tmp->key))
-		{
-			free(tmp->value);
-			tmp->value = ft_strdup(old_path);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	append_env_var(env, ft_strdup("OLDPWD"), ft_strdup(old_path));
-}
-
-void	update_pwd(t_env *env, const char *new_path)
-{
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		if (!ft_strcmp("PWD", tmp->key))
-		{
-			free(tmp->value);
-			tmp->value = ft_strdup(new_path);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	append_env_var(env, ft_strdup("PWD"), ft_strdup(new_path));
-}
-
-static const char	*go_oldpwd(t_env *env) //not working
-{
-	const char	*old_pwd;
-
-	old_pwd = get_env_value("OLDPWD", env);
+	old_pwd = get_env_value("OLDPWD", envlst);
 	if (!old_pwd)
-		return (NULL);
+		return (error_msg_return_null(MSG_ERR_CD_OLDPWD, NULL,
+				oldpwd_error, 0));
 	if (chdir(old_pwd) == -1)
-		return (NULL);
-	return (old_pwd);
-}
-
-static const char	*go_home(t_env *env)
-{
-	const char	*new_path;
-
-	new_path = get_env_value("HOME", env);
+		return (error_msg_return_null(MSG_SYSCALL_ERR_CHDIR, NULL,
+				chdir_error, 1));
+	new_path = getcwd(NULL, 0);
 	if (!new_path)
-	{
-		error_msg_return_void(MSG_ERR_HOME, "", 4, 1);
-		return (NULL);
-	}
-	if (chdir(new_path) == -1)
-	{
-		error_msg_return_void(MSG_ERR_HOME, "", 4, 1);
-		return (NULL);
-	}
+		return (error_msg_return_null(MSG_SYSCALL_ERR_GETCWD, NULL,
+				cwd_error, 1));
 	return (new_path);
 }
 
-static const char	*go_cd_argv(char **cmd_argv, t_env *env)
+static char	*go_home(t_list *envlst)
 {
-	char		*path_to_go;
-	const char	*new_path;
+	char	*home;
+	char	*new_path;
+
+	home = get_env_value("HOME", envlst);
+	if (!home)
+		return (error_msg_return_null(MSG_ERR_HOME, NULL, home_error, 0));
+	if (chdir(home) == -1)
+		return (error_msg_return_null(MSG_SYSCALL_ERR_CHDIR, NULL,
+				chdir_error, 1));
+	new_path = getcwd(NULL, 0);
+	if (!new_path)
+		return (error_msg_return_null(MSG_SYSCALL_ERR_GETCWD, NULL,
+				cwd_error, 1));
+	return (new_path);
+}
+
+char	*form_path_to_go(char **cmd_argv, t_list *envlst)
+{
+	char		*path;
 	char		*tmp;
+	char		*help_getcwd;
 
 	if (!ft_strcmp(cmd_argv[1], "..") || cmd_argv[1][0] == '/')
-		path_to_go = ft_strdup(cmd_argv[1]);
+		path = ft_strdup(cmd_argv[1]);
 	else
 	{
-		tmp = ft_strjoin(get_cur_dir(env), "/");
-		path_to_go = ft_strjoin(tmp, cmd_argv[1]);
+		help_getcwd = getcwd(NULL, 0);
+		if (!help_getcwd)
+			return (error_msg_return_null(MSG_SYSCALL_ERR_GETCWD, NULL,
+					cwd_error, 1));
+		tmp = ft_strjoin(help_getcwd, "/");
+		free(help_getcwd);
+		if (!tmp)
+			return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
+					malloc_error, 1));
+		path = ft_strjoin(tmp, cmd_argv[1]);
 		free(tmp);
 	}
+	if (!path)
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
+				malloc_error, 1));
+	return (path);
+}
+
+static char	*go_cd_argv(char **cmd_argv, t_list *envlst)
+{
+	char	*path_to_go;
+	char	*new_path;
+	char	*tmp;
+
+	path_to_go = form_path_to_go(cmd_argv, envlst);
+	if (!path_to_go)
+		return (NULL);
 	if (chdir(path_to_go) == -1)
 	{
-		error_msg_return_void(MSG_ERR_CD_NO, cmd_argv[1], 1, 0);
 		free(path_to_go);
-		return (NULL);
+		return (error_msg_return_null(MSG_SYSCALL_ERR_CHDIR, cmd_argv[1],
+				chdir_error, 1));
 	}
 	new_path = getcwd(NULL, 0);
+	if (!new_path)
+	{
+		free(path_to_go);
+		return (error_msg_return_null(MSG_SYSCALL_ERR_GETCWD, NULL,
+				cwd_error, 1));
+	}
 	free(path_to_go);
 	return (new_path);
 }
 
-void	execute_cd(t_env *env, char **cmd_argv)
+void	execute_cd(t_list *envlst, char **cmd_argv)
 {
-	char		*pwd_to_change;
-	const char	*new_path;
+	char	*pwd_to_change;
+	char	*new_path;
 
-	pwd_to_change = get_cur_dir(env);
-	if (!cmd_argv[1] || !ft_strcmp(cmd_argv[1], "~"))
-		new_path = go_home(env);
-	else if (!ft_strcmp(cmd_argv[1], "-"))
-		new_path = go_oldpwd(env);
-	else if (cmd_argv[1])
-		new_path = go_cd_argv(cmd_argv, env);
-	if (!new_path)
-		return ;
+	pwd_to_change = getcwd(NULL, 0);
 	if (!pwd_to_change)
-		error_msg_return_void(MSG_ERR_PWD, "", 5, 1);
-	update_old_pwd(env, pwd_to_change);
-	update_pwd(env, new_path);
+		return (error_msg_return_void(MSG_SYSCALL_ERR_GETCWD, NULL,
+				cwd_error, 1));
+	if (!cmd_argv[1] || !ft_strcmp(cmd_argv[1], "~"))
+		new_path = go_home(envlst);
+	else if (!ft_strcmp(cmd_argv[1], "-"))
+		new_path = go_oldpwd(envlst);
+	else if (cmd_argv[1])
+		new_path = go_cd_argv(cmd_argv, envlst);
+	if (!new_path)
+	{
+		free(pwd_to_change);
+		return ;
+	}
+	change_or_append(envlst, ft_strdup("OLDPWD"), ft_strdup(pwd_to_change));
+	change_or_append(envlst, ft_strdup("PWD"), ft_strdup(new_path));
+	free(new_path);
+	free(pwd_to_change);
 }
-

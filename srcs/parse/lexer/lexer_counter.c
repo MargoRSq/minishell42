@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_counter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:32 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/04 14:46:51 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/03 12:18:00 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int inline	counter_skip_unpacked_env(char *str, t_env *env)
+int inline	counter_skip_unpacked_env(char *str, t_list *envlst)
 {
 	int		i;
 	int		len;
@@ -26,7 +26,7 @@ int inline	counter_skip_unpacked_env(char *str, t_env *env)
 	if (len == 0 && str[i] == '$')
 		len++;
 	var_key = ft_substr(str, 0, len);
-	var_value = get_value(var_key, env);
+	var_value = get_env_value(var_key, envlst);
 	if (ft_strlen(var_value))
 		return (ft_strlen(var_value));
 	return (0);
@@ -58,13 +58,13 @@ inline int	skipper_str_single_quote(char *str, int *iptr, short is_dq)
 	return (result);
 }
 
-inline int	skipper_str_with_env(char *str, int *iptr, int len, t_env *env)
+inline int	skipper_str_with_env(char *str, int *iptr, int len, t_list *envlst)
 {
 	int	tmp;
 	int	result;
 
 	result = 0;
-	tmp = counter_skip_unpacked_env(&str[*(iptr) + 1], env);
+	tmp = counter_skip_unpacked_env(&str[*(iptr) + 1], envlst);
 	result += tmp;
 	(*iptr)++;
 	if (str[*(iptr)] == '$')
@@ -76,7 +76,7 @@ inline int	skipper_str_with_env(char *str, int *iptr, int len, t_env *env)
 	return (result);
 }
 
-int	count_final_len(char *str, int len, short is_dq, t_env *env)
+int	count_final_len(char *str, int len, short is_dq, t_list *envlst)
 {
 	int	i;
 	int	final_len;
@@ -88,7 +88,7 @@ int	count_final_len(char *str, int len, short is_dq, t_env *env)
 		if (str[i] == '\'')
 			final_len += skipper_str_single_quote(str, &i, is_dq);
 		else if (str[i] == '$')
-			final_len += skipper_str_with_env(str, &i, len, env);
+			final_len += skipper_str_with_env(str, &i, len, envlst);
 		else
 		{
 			i++;

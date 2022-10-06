@@ -1,5 +1,46 @@
 #include "minishell.h"
 
+// void	cmdlst_add_back(t_cmd **lst, t_cmd *new)
+// {
+// 	t_cmd	*lst_elem;
+
+// 	if (!*lst)
+// 	{
+// 		(*lst) = new;
+// 		return ;
+// 	}
+// 	lst_elem = cmdlst_last(*lst);
+// 	lst_elem->next = new;
+// }
+
+// void	cmdlst_clear(t_cmd **lst)
+// {
+// 	t_cmd	*cur;
+// 	t_cmd	*next;
+
+// 	if (!lst || !(*lst))
+// 		return ;
+// 	cur = (*lst);
+// 	next = cur;
+// 	while (cur)
+// 	{
+// 		next = cur->next;
+// 		// free(cur->value);
+// 		// free(cur->key);
+// 		free(cur);
+// 		cur = next;
+// 	}
+// 	*lst = NULL;
+// }
+// t_cmd	*cmdlst_last(t_cmd *lst)
+// {
+// 	if (!lst)
+// 		return (NULL);
+// 	while (lst->next)
+// 		lst = lst->next;
+// 	return (lst);
+// }
+
 static	t_file	*new_redir(t_list *tokenlst, t_token_type code)
 {
 	t_file	*file;
@@ -8,7 +49,7 @@ static	t_file	*new_redir(t_list *tokenlst, t_token_type code)
 
 	file = (t_file *)malloc(sizeof(t_file));
 	if (!file)
-		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	token = (t_token *)tokenlst->content;
 	name = ft_substr(token->start, 0, (size_t)token->len);
 	if (!name)
@@ -96,8 +137,8 @@ t_cmd	*cmdlst_new(t_list *tokenlst)
 
 	elem = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!elem)
-		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
-	counter = count_entities(tokenlst);
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
+	counter = count_entities(tokens);
 	elem->argv = (char **)malloc(sizeof(char *) * (counter.words + 1));
 	elem->argv[counter.words] = NULL;
 	elem->infile = fetch_last_file(tokenlst, 1);

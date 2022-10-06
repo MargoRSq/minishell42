@@ -13,7 +13,7 @@ static int	check_builtin(char *cmd)
 		return (0);
 }
 
-char	*get_path(t_env *env)
+char	*get_path(t_list *envlst)
 {
 	char	*result;
 	char	*ways;
@@ -24,9 +24,9 @@ char	*get_path(t_env *env)
 	ways_with_dot = NULL;
 	cur_dir = NULL;
 	result = NULL;
-	ways = get_env_value("PATH", env);
+	ways = get_env_value("PATH", envlst);
 	ways_with_dot = ft_strjoin(ways, ":");
-	cur_dir = get_cur_dir(env);
+	cur_dir = getcwd(NULL, 0);
 	result = ft_strjoin(ways_with_dot, cur_dir);
 	free(ways);
 	free(ways_with_dot);
@@ -34,7 +34,7 @@ char	*get_path(t_env *env)
 	return (result);
 }
 
-char	*get_cmd(t_env *env, char *cmd)
+char	*get_cmd(t_list *envlst, char *cmd)
 {
 	char	*command;
 	char	*ways;
@@ -43,7 +43,7 @@ char	*get_cmd(t_env *env, char *cmd)
 	int		i;
 
 	i = 0;
-	ways = get_path(env);
+	ways = get_path(envlst);
 //	printf("PWD: %s\n", ways);
 //	if (ways)
 		paths = ft_split(ways, ':');
@@ -60,21 +60,21 @@ char	*get_cmd(t_env *env, char *cmd)
 	return (NULL);
 }
 
-void	only_parent_process(t_env **env, t_cmd *cmd)
+void	only_parent_process(t_list **envlst, t_cmd *cmd)
 {
 	int		fd;
 
 	if (cmd->argv[0])
 	{
 		if (check_builtin(cmd->argv[0]))
-			try_builtin(cmd, env);
+			try_builtin(cmd, envlst);
 		else
 		{
 			fd = fork();
 			if (fd == 0)
 			{
-				execve(get_cmd(*env, cmd->argv[0]), cmd->argv,
-					   envlst_to_arr(*env));
+				execve(get_cmd(*envlst, cmd->argv[0]), cmd->argv,
+					   envlst_to_arr(*envlst));
 //				printf("error: %s\n", strerror(errno));
 				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);
 //				printf("here\n");//this message we can't see after fatal in

@@ -12,15 +12,15 @@ static inline int	find_equals_sign(char *str)
 	return (-1);
 }
 
-t_env	*parse_envp(char **envp)
+t_list	*parse_envp(char **envp)
 {
-	t_env	*env;
+	t_list	*envlst;
 	int		i;
 	int		eq;
 	char	*key;
 	char	*value;
 
-	env = NULL;
+	envlst = NULL;
 	i = -1;
 	eq = 0;
 	if (envp)
@@ -32,8 +32,8 @@ t_env	*parse_envp(char **envp)
 			value = ft_substr(envp[i], eq + 1, ft_strlen(envp[i]));
 			if (!key || !value || eq == -1)
 				return (NULL); // need to signal this error
-			envlst_add_back(&env, envlst_new(key, value));
+			ft_lstadd_back(&envlst, ft_lstnew(envlst_new(key, value)));
 		}
 	}
-	return (env);
+	return (envlst);
 }

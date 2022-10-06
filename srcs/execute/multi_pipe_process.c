@@ -21,7 +21,7 @@ int	**make_pipe_space(int **pipes, int len)
 
 	pipes = malloc(sizeof(int *) * (len - 1));
 	if (!pipes)
-		return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error,
+		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error,
 											1));
 //		trigger_malloc_error();//need to clarify!
 	i = 0;
@@ -29,7 +29,7 @@ int	**make_pipe_space(int **pipes, int len)
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
-			return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error,
+			return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error,
 										 1));
 		i++;
 	}
@@ -49,7 +49,7 @@ void	begin_pipes(int **pipes, int len)
 	}
 }
 
-void	multi_pipe_process(t_env **env, t_cmd *cmd)
+void	multi_pipe_process(t_list **envlst, t_cmd *cmd)
 {
 	int		len;
 	int 	**pipes;
@@ -67,11 +67,11 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 	{
 
 		if (prev == NULL)
-			exec_first_cmd(*env, tmp);
+			exec_first_cmd(*envlst, tmp);
 		else if (((t_list *)tmp)->next == NULL)
-			exec_last_cmd(*env, tmp);
+			exec_last_cmd(*envlst, tmp);
 		else
-			exec_middle_cmd(*env, tmp);
+			exec_middle_cmd(*envlst, tmp);
 		prev = tmp;
 		tmp = (t_cmd *)((t_list *)tmp)->next;
 	}
