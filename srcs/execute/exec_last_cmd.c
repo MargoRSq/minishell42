@@ -8,16 +8,12 @@ void	exec_last_cmd(t_env *env, t_cmd *cmd, t_fd *fds)
 	int pid = fork();
 	if (pid == 0)
 	{
-		write(1, "child", 6);
+		write(1, "child3", 7);
 		write(1, "\n", 1);
 		dup2(fds->fd2[0], STDIN_FILENO);
 		close(fds->fd2[0]);
-		if (check_builtin(cmd->argv[0]))
-			try_builtin(cmd, &env);
-		else
-		{
-			execve(get_cmd(env, cmd->argv[0]), cmd->argv,
-				   envlst_to_arr(env));
-		}
+		execlp("ls", "ls", NULL);
+//		execve(get_cmd(env, cmd->argv[0]), cmd->argv,
+//				   envlst_to_arr(env));
 	}
 }

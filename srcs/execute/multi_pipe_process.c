@@ -62,10 +62,12 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 //	begin_pipes(cmd, len);
 	tmp = cmd;
 	prev = NULL;
+	if (pipe(fds.fd1) == -1)
+		error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
+	if (pipe(fds.fd2) == -1)
+		error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
 	while(tmp != NULL)
 	{
-		if (pipe(fds.fd1) == -1 && pipe(fds.fd2) == -1)
-			error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
 		if (prev == NULL)
 			exec_first_cmd(*env, tmp, &fds);
 		else if (((t_list *)tmp)->next == NULL)

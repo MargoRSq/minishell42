@@ -12,19 +12,15 @@ void	exec_middle_cmd(t_env *env, t_cmd *cmd, t_fd *fds)
 		error_msg_return_void(MSG_SYSTEM_ERR_FORK, NULL, fork_error, 1);
 	else if (pid == 0)
 	{
-		write(1, "child", 6);
+		write(1, "child2", 7);
 		write(1, "\n", 1);
 		dup2(fds->fd1[0], STDIN_FILENO);
 		dup2(fds->fd2[1], STDOUT_FILENO);
 		close(fds->fd1[0]);
 		close(fds->fd2[1]);
-		if (check_builtin(cmd->argv[0]))
-			try_builtin(cmd, &env);
-		else
-		{
-			execve(get_cmd(env, cmd->argv[0]), cmd->argv,
-				   envlst_to_arr(env));
-		}
+		execlp("ls", "ls", NULL);
+//		execve(get_cmd(env, cmd->argv[0]), cmd->argv,
+//				   envlst_to_arr(env));
 	}
 	close(fds->fd1[0]);
 	close(fds->fd2[1]);

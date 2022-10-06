@@ -10,16 +10,17 @@ int main(void)
 
 	if (pipe(fd1) == -1)
 		perror("pipe failed\n");
+	if (pipe(fd2))
+		perror("pipe failed\n");
 	int pid1 = fork();
 	if (pid1 == 0)
 	{
 		dup2(fd1[1], STDOUT_FILENO);
 		close(fd1[0]);
 		close(fd1[1]);
-		execlp("ls", "ls", "-la", NULL);
+		execlp("ls", "ls", NULL);
 	}
 	close(fd1[1]);
-	pipe(fd2);
 	int pid2 = fork();
 	if (pid2 == 0)
 	{
@@ -27,7 +28,7 @@ int main(void)
 		dup2(fd2[1], STDOUT_FILENO);
 		close(fd1[0]);
 		close(fd2[1]);
-		execlp("wc", "wc", "-l", NULL);
+		execlp("ls", "ls", NULL);
 	}
 	close(fd1[0]);//recommended to close all pipes fd after
 	close(fd2[1]);//finishing all work to continue the parent proc
@@ -36,7 +37,7 @@ int main(void)
 	{
 		dup2(fd2[0], STDIN_FILENO);
 		close(fd2[0]);
-		execlp("wc", "wc", "-l", NULL);
+		execlp("ls", "ls", NULL);
 	}
 	while (wait(0) != -1)//waiting for all children proc
 		;
