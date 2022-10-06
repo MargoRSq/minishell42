@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/05 18:15:23 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:37:38 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,7 @@ void	do_export_argv(t_list *envlst, char **cmd_argv)
 				return (error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i],
 						key_error, 0));
 			else
-				return ;
-			// else
-			// 	append_key(envlst, ft_strdup(cmd_argv[i]));
+				append_key(envlst, ft_strdup(cmd_argv[i]));
 		}
 		else
 		{

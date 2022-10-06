@@ -65,11 +65,16 @@ char	**envlst_to_arr(t_list *envlst)
 	while (i < len)
 	{
 		tmp = (t_env *)(envlst->content);
-		help = ft_strjoin (tmp->key, "=");
-		arr[i] = ft_strjoin(help, tmp->value);
+		if (tmp->value)
+		{
+			help = ft_strjoin (tmp->key, "=");
+			arr[i] = ft_strjoin(help, tmp->value);
+			free(help);
+		}
+		else
+			arr[i] = ft_strdup(tmp->key);
 		i++;
 		envlst = envlst->next;
-		free(help);
 	}
 	return (arr);
 }
