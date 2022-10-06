@@ -36,8 +36,16 @@ void	cmdlst_delete_elem(void *content)
 		i++;
 	}
 	free(to_delete->argv);
-	free(to_delete->fns_in);
-	free(to_delete->fns_out);
+	if (to_delete->infile)
+	{
+		free(to_delete->infile->name);
+		free(to_delete->infile);
+	}
+	if (to_delete->outfile)
+	{
+		free(to_delete->outfile->name);
+		free(to_delete->outfile);
+	}
 	free(to_delete);
 }
 

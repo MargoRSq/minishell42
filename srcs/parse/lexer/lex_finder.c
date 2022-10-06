@@ -9,7 +9,7 @@ static int	find_symbol(char *ptr, char sy)
 	while (ptr[++distance])
 		if (ptr[distance] == sy)
 			return (distance);
-	return (trigger_unclosed_quote_error(sy));
+	return (sy);
 }
 
 static int	find_separator(char *ptr)

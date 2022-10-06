@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/03 09:25:14 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/06 19:23:16 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,52 +38,45 @@ static inline void	load_history()
 	}
 }
 
-void	init_shell(t_env *env)
+void	init_shell(t_list *envlst)
 {
 	char	*cur_level;
 
-	env = env;
-	cur_level = get_env_value("SHLVL", env);
+	cur_level = get_env_value("SHLVL", envlst);
 	if (cur_level)
 		g_status.shell_level = ft_atoi(cur_level) + 1;
 	else
 		g_status.shell_level = 1;
 	load_history();
 }
-
-static char	*launch_readline(t_env *env)
+static char	*launch_readline()
 {
 	char	*tmp;
 	char	*prefix;
 	char	*line;
 	char	*pwd;
 
-	pwd = get_cur_dir(env);
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
 	if (!prefix)
-		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	tmp = prefix;
 	prefix = ft_strjoin(tmp, DOLLAR);
 	if (!prefix)
-		return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	free(tmp);
 	line = readline(prefix);
-	if (line == NULL)
-	{
-		printf("exit\n");
-		exit(0);
-	}
 	free(prefix);
+	free(pwd);
 	return (line);
 }
-
-static char	*get_entered_line(t_env *env)
+static char	*get_entered_line()
 {
 	char	*entered_line;
 
-	entered_line = launch_readline(env);
+	entered_line = launch_readline();
 	if (ft_strlen(entered_line) > 0)
 	{
 		add_history(entered_line);
@@ -93,7 +86,7 @@ static char	*get_entered_line(t_env *env)
 	return (entered_line);
 }
 
-void	start_shell(t_env **env)
+void	start_shell(t_list **envlst)
 {
 	char		*line;
 	t_list		*tokens;
@@ -101,21 +94,23 @@ void	start_shell(t_env **env)
 
 	while (!g_status.interrupt)
 	{
-		signal_handler(sig_loop);
-		line = get_entered_line(*env);
+		line = get_entered_line();
 		if (!line || !(*line))
 			continue ;
 		if (g_status.interrupt)
 			break ;
-		tokens = lex_line(line, *env);
+		tokens = lex_line(line, *envlst);
 		if (g_status.interrupt)
 			break ;
-		check_tokens(tokens, *env);
+		check_tokens(tokens, *envlst);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);
 		if (g_status.interrupt)
 			break ;
-		execute(env, cmds);
+		execute(envlst, cmds);
+		free(line);
+		clean_tokens_cmds(cmds, tokens);
 	}
+	ft_lstclear(envlst, envlst_delete_elem);
 }

@@ -59,10 +59,3 @@ typedef enum e_signals
 	sig_heredoc,
 	sig_child
 }	t_signal_type;
-
-
-// enum e_builtins
-// {
-// 	cd = execute_cd,
-// 	echo = execute_echo
-// };

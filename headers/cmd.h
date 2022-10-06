@@ -17,10 +17,6 @@ typedef struct s_cmd
 	char			**argv;
 	t_file			*infile;
 	t_file			*outfile;
-	// t_list			*fns_in;
-	// t_list			*fns_out;
-	// int				fd_in;
-	// int				fd_out;
 	t_count			counter;
 }	t_cmd;
 
@@ -29,6 +25,7 @@ t_cmd	*cmdlst_new(t_list *tokens);
 
 t_count	count_entities(t_list *tokens);
 t_list	*create_commands(t_list *tokens);
+
 void	execute(t_list **envlst, t_list *cmd);
 void	only_parent_process(t_list **envlst, t_cmd *cmd);
 void	multi_pipe_process(t_list **envlst, t_cmd *cmd);

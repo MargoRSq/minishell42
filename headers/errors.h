@@ -1,8 +1,7 @@
 #ifndef ERROR_MSGS_H
 # define ERROR_MSGS_H
 
-int		trigger_unclosed_quote_error(char q_type);
-int		trigger_too_many_redirects_error();
+int		trigger_unclosed_quote_error(char q_type); // dasdasd
 
 void	error_msg_return_void(char *msg, char *arg, int code, short interrupt);
 void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt);
@@ -23,6 +22,8 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 	"minishell: export: `%s': not a valid identifier\n"
 # define MSG_ERR_UNSET_KEY\
 	"minishell: unset: `%s': not a valid identifier\n"
+# define MSG_ERR_RL_FD\
+	"minishell: unset: `%s': Readline file error\n"
 
 # define MSG_ERR_EXECVE			"minishell: EXECVE error .\n"
 # define MSG_ERR_CMD_TMR		"minishell: parse error\n"

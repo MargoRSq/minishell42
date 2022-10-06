@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:19:12 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/09/28 19:10:44 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/06 19:37:51 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,6 @@ int	trigger_unclosed_quote_error(char q_type)
 	g_status.exit_code = unclosed_quote_error;
 	return (-1);
 }
-
-int	trigger_too_many_redirects_error()
-{
-	g_status.interrupt = 1;
-	g_status.exit_msg = MSG_ERR_CMD_TMR;
-	g_status.exit_code = unclosed_quote_error;
-	return (-1);
-}
-
 
 char	*error_msg_return_charz(char *msg, int code, short interrupt)
 {

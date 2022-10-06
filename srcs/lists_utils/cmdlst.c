@@ -123,7 +123,7 @@ static t_file	*fetch_last_file(t_list	*tokenlst, short type)
 	{
 		file = (t_file *)malloc(sizeof(t_file));
 		if (!file)
-			return (error_msg_return_null(MSG_ERR_MEM, NULL, malloc_error, 1));
+			return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 		file->name = last->start;
 		file->type = code;
 	}
@@ -138,7 +138,7 @@ t_cmd	*cmdlst_new(t_list *tokenlst)
 	elem = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!elem)
 		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
-	counter = count_entities(tokens);
+	counter = count_entities(tokenlst);
 	elem->argv = (char **)malloc(sizeof(char *) * (counter.words + 1));
 	elem->argv[counter.words] = NULL;
 	elem->infile = fetch_last_file(tokenlst, 1);

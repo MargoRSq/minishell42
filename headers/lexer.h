@@ -28,16 +28,10 @@ typedef struct s_token
 {
 	char			*start;
 	int				len;
-	// short			after_sep;
 	t_token_type	code;
-	// struct			s_token *next;
 }	t_token;
 
-t_token		*tokenlst_last(t_token *lst);
 t_token		*tokenlst_new(char *start, int len, int code);
-void		tokenlst_add_back(t_token **lst, t_token *new_lst);
-void		tokenlst_clear(t_token **lst);
-void		tokenlst_print(t_token *lst);
 
 int			find_end(char *ptr);
 t_list		*lex_line(char *line, t_list *envlst);
@@ -48,16 +42,16 @@ t_tmp		create_tmp_token(int len, int code, char *line);
 char		*fetch_envstr(char *str, int pos, t_list *envlst);
 int			ft_envcpy(char *start, int pos, char *new_start, t_list *envlst);
 
-int	get_code(int sy, int len);
-int	get_skip_distance(char *sy, int len);
+int			get_code(int sy, int len);
+int			get_skip_distance(char *sy, int len);
 
-int 	counter_str_single_quote(char *str);
-int counter_skip_unpacked_env(char *str, t_list *envlst);
-int	skipper_str_single_quote(char *str, int *iptr, short is_dq);
-int	skipper_str_with_env(char *str, int *iptr, int len, t_list *envlst);
+int		 	counter_str_single_quote(char *str);
+int 		counter_skip_unpacked_env(char *str, t_list *envlst);
+int			skipper_str_single_quote(char *str, int *iptr, short is_dq);
+int			skipper_str_with_env(char *str, int *iptr, int len, t_list *envlst);
 int			count_final_len(char *str, int len, short is_dq, t_list *envlst);
 
-void	check_tokens(t_list *token, t_list *envlst);
-int	heredoc(t_token *token, t_list *envlst);
-void	signal_handler_heredoc(void);
-char	*get_value(char *key, t_env *env);
+void		check_tokens(t_list *token, t_list *envlst);
+int			heredoc(t_token *token, t_list *envlst);
+void		signal_handler_heredoc(void);
+char		*get_value(char *key, t_list *envlst);
