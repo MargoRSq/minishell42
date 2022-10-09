@@ -14,6 +14,10 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 # define MSG_ERR_CD_OLDPWD		"minishell: cd: OLDPWD not set\n"
 # define MSG_ERR_HOME			"minishell: cd: HOME not set\n"
 # define MSG_ERR_ENV			"minishell: ENV error .\n"
+# define MSG_ERR_SYNATX			"minishell: Syntax error\n"
+# define MSG_ERR_EXECVE			"minishell: EXECVE error .\n"
+# define MSG_SYSTEM_ERR_PIPE	"minishell: PIPE error .\n"
+# define MSG_SYSTEM_ERR_FORK	"minishell: FORK error .\n"
 # define MSG_ERR_ENV_ARGS		"minishell: %s: No such file or directory\n"
 # define MSG_ERR_EXIT_NUM\
 	"minishell: exit: %s: Numeric argument required\n"

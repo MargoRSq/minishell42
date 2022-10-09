@@ -1,62 +1,83 @@
 #include "minishell.h"
 
-int	**make_pipe_space(int **pipes, int len)
-{
-	int i;
+// int	cmd_len(t_cmd *cmd)
+// {
+// 	t_cmd	*tmp;
+// 	int		len;
 
-	pipes = malloc(sizeof(int *) * (len - 1));
-	if (!pipes)
-		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, 
-			malloc_error, 1));
-	i = 0;
-	while (i < (len - 1))
-	{
-		pipes[i] = malloc(sizeof(int) * 2);
-		if (!pipes[i])
-			return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
-				malloc_error, 1));
-		i++;
-	}
-	return (pipes);
+// 	len = 0;
+// 	tmp = cmd;
+// 	while (tmp)
+// 	{
+// 		len++;
+// 		tmp = tmp->next;
+// 	}
+// 	return len;
+// }
+
+//int	**make_pipe_space(int **pipes, int len)
+//{
+//	int i;
+//
+//	pipes = malloc(sizeof(int *) * (len - 1));
+//	if (!pipes)
+//		return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error,
+//											1));
+////		trigger_malloc_error();//need to clarify!
+//	i = 0;
+//	while (i < (len - 1))
+//	{
+//		pipes[i] = malloc(sizeof(int) * 2);
+//		if (!pipes[i])
+//			return (error_msg_return_int(MSG_ERR_MEM, NULL, malloc_error,
+//										 1));
+//		i++;
+//	}
+//	return (pipes);
+//}
+
+void	begin_pipes(t_cmd *cmd, int len)
+{
+	t_cmd	*tmp;
+
+	tmp = cmd;
+//	while(tmp)
+//	{
+//		tmp = tmp->next
+//	}
 }
 
-void	begin_pipes(int **pipes, int len)
+void	multi_pipe_process(t_env **env, t_list *cmdlst)
 {
-	int	i;
-
-	i = 0;
-	while(i < (len - 1))
-	{
-		if(pipe(pipes[i]))
-//			trigger_pipes_error();//need to feat a new func
-		i++;
-	}
-}
-
-void	multi_pipe_process(t_list **envlst, t_cmd *cmd)
-{
-	int		len;
-	int 	**pipes;
-	int		i;
+//	int		len;
+//	int 	**pipes;
+//	int		i;
 	t_cmd	*tmp;
 	t_cmd	*prev;
+	t_fd	fds;
 
-	len = ft_lstsize((t_list *)cmd);
-	pipes = NULL;
-	pipes = make_pipe_space(pipes, len);
-	begin_pipes(pipes, len);
-	tmp = cmd;
+//	len = ft_lstsize((t_list *)cmd);
+//	pipes = NULL;
+//	pipes = make_pipe_space(pipes, len);
+//	begin_pipes(cmd, len);
 	prev = NULL;
-	while(tmp != NULL)
+	if (pipe(fds.fd1) == -1)
+		error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
+	if (pipe(fds.fd2) == -1)
+		error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
+	while (cmdlst)
 	{
-
+		tmp = (t_cmd *)(cmdlst->content);
 		if (prev == NULL)
-			exec_first_cmd(*envlst, tmp);
-		else if (((t_list *)tmp)->next == NULL)
-			exec_last_cmd(*envlst, tmp);
+			exec_first_cmd(*env, tmp, &fds);
+		else if (cmdlst->next == NULL)
+			exec_last_cmd(*env, tmp, &fds);
 		else
-			exec_middle_cmd(*envlst, tmp);
+			exec_middle_cmd(*env, tmp, &fds);
 		prev = tmp;
-		tmp = (t_cmd *)((t_list *)tmp)->next;
+		cmdlst = cmdlst->next;
 	}
+	while (wait(0) != -1)
+		;
+	printf("parent finish\n");
 }

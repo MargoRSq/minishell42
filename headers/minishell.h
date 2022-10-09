@@ -4,15 +4,15 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include "libft.h"
 #include <sys/types.h>
+#include <wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <termios.h>
-
-#include "libft.h"
-#include "../libs/libreadline/include/readline/readline.h"
-#include "../libs/libreadline/include/readline/history.h"
 
 #include "enums.h"
 #include "env.h"

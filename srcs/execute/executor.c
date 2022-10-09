@@ -28,7 +28,9 @@ void	execute(t_list **envlst, t_list *cmds)
 	if (cmds->content)
 		command = (t_cmd *)(cmds->content);
 	if (next == NULL)
+		only_parent_process(env, cmds);
 		only_parent_process(envlst, command);
 	else
+		multi_pipe_process(env, cmds);
 		multi_pipe_process(envlst, command);
 }

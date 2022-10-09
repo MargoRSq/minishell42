@@ -51,6 +51,10 @@ enum e_exits
 	env_arg_error,
 	key_error,
 	execve_error
+	pwd_error,
+	execve_error,
+	pipe_error,
+	fork_error
 };
 
 typedef enum e_signals

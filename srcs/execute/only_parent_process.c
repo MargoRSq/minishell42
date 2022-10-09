@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	check_builtin(char *cmd)
+int	check_builtin(char *cmd)
 {
 	if (cmd)
 		ft_tolower(cmd);
@@ -73,13 +73,11 @@ void	only_parent_process(t_list **envlst, t_cmd *cmd)
 			fd = fork();
 			if (fd == 0)
 			{
-				execve(get_cmd(*envlst, cmd->argv[0]), cmd->argv,
-					   envlst_to_arr(*envlst));
-//				printf("error: %s\n", strerror(errno));
-				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);
-//				printf("here\n");//this message we can't see after fatal in
-//				execve!
-
+				execve(get_cmd(*env, cmd->argv[0]), cmd->argv,
+					   envlst_to_arr(*env));
+				printf("%s: command not found\n", cmd->argv[0]);//need to use
+				// func below:
+//				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);
 				exit(execve_error);
 			}
 			else
