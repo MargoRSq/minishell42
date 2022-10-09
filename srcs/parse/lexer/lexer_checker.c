@@ -10,8 +10,6 @@ static int	check_access(t_token *filename_token, t_token_type code)
 		return (-1);
 	if (code == r_in)
 		result = access(filename, F_OK | R_OK);
-	// else if (code == r_out || code == r_append)
-	// 	result = access(filename, W_OK);
 	free(filename);
 	return (result);
 }

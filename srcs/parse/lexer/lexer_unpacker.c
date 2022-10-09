@@ -28,8 +28,12 @@ char	*fetch_envstr(char *str, int pos, t_list *envlst)
 	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' 
 		&& (str[i] != '$'))
 		key_len++;
-	key = ft_substr(str, 0, key_len);
-	value = get_value(key, envlst);
+	if (key_len == 0 && str[i] == '$')
+		key = ft_strdup("$");
+	else
+		key = ft_substr(str, 0, key_len);
+	value = get_value(key, envlst);	
+	free(key);
 	return (value);
 }
 
@@ -42,6 +46,7 @@ int	ft_envcpy(char *start, int pos, char *new_start, t_list *envlst)
 	elen = ft_strlen(evar);
 	if (elen)
 		ft_strlcpy(new_start, evar, elen + 1);
+	free(evar);
 	return (elen);
 }
 
@@ -65,7 +70,7 @@ static void	fill_new_str(int tmp, int len, t_cpy cpy, t_list *envlst)
 		(*cpy.jr) += tmp;
 		(*cpy.ir)++;
 		while ((*cpy.ir) < len && cpy.src[(*cpy.ir)] != ' '
-			&& cpy.src[(*cpy.ir)] != '$' && cpy.src[(*cpy.ir)] != '\'')
+			&& cpy.src[(*cpy.ir) + 1] != '$' && cpy.src[(*cpy.ir)] != '\'')
 			(*cpy.ir)++;
 	}
 	else

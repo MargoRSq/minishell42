@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_counter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:32 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/03 12:18:00 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/09 19:03:49 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ int inline	counter_skip_unpacked_env(char *str, t_list *envlst)
 	if (len == 0 && str[i] == '$')
 		len++;
 	var_key = ft_substr(str, 0, len);
-	var_value = get_env_value(var_key, envlst);
-	if (ft_strlen(var_value))
-		return (ft_strlen(var_value));
-	return (0);
+	var_value = get_value(var_key, envlst);
+	len = ft_strlen(var_value);
+	free(var_value);
+	free(var_key);
+	return (len);
 }
 
 int	counter_str_single_quote(char *str)
@@ -58,7 +59,7 @@ inline int	skipper_str_single_quote(char *str, int *iptr, short is_dq)
 	return (result);
 }
 
-inline int	skipper_str_with_env(char *str, int *iptr, int len, t_list *envlst)
+int	skipper_str_with_env(char *str, int *iptr, int len, t_list *envlst)
 {
 	int	tmp;
 	int	result;
