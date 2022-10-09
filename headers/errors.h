@@ -11,6 +11,7 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 
 # define ERR_ARGC				"minishell: There should be no arguments\n"
 # define MSG_ERR_MEM			"minishell: Memory allocation failed\n"
+# define MSG_ERR_RL_FD			"minishell: Readline history file opening failed\n"
 # define MSG_ERR_PWD			"minishell: No pwd value\n"
 # define MSG_ERR_CD				"minishell: cd: %s: "
 # define MSG_ERR_HOME			"minishell: cd: HOME not set\n"
@@ -35,8 +36,8 @@ int		error_msg_return_int(char *msg, char *arg, int code, short interrupt);
 	"minishell: parse error: pipe at the start or at the end\n"
 # define MSG_ERR_REDIR_PARSE\
 	"minishell: parse error: wrong redir usage\n"
-# define MSG_ERR_FILE_NEXISTS\
-	"minishell: parse error: file not exists\n"
+# define MSG_ERR_FILE_FAIL\
+	"minishell: parse error: file not exists or not accessible\n"
 
 # define MSG_ERR_CMD_EEOF\
 	"minishell: Syntax error: command has escaped EOF\n"

@@ -15,7 +15,7 @@ void	print_cmds(void *vcmds)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)cmd;
-	printf("{cmd=%s} ", cmd->argv);
+	printf("{cmd=%s} ", cmd->argv[0]);
 }
 
 // void	prin

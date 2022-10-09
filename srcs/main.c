@@ -26,7 +26,6 @@ int main(int ac, char **av, char **envp)
 
 	init_status();
 	env = parse_envp(envp);
-//	  envlst_print(env);
 
 	init_shell(env);
 	start_shell(&env);

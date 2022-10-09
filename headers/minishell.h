@@ -8,10 +8,8 @@
 #include <readline/history.h>
 #include "libft.h"
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <signal.h>
 
 #include "enums.h"
 #include "env.h"
@@ -29,7 +27,7 @@ typedef struct s_status
 	char		*exit_msg;
 	short		interrupt;
 	short		shell_level;
-
+	short		rl_fd;
 }	t_status;
 
 t_status g_status;

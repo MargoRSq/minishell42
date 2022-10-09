@@ -20,22 +20,18 @@ typedef struct s_count
 
 typedef struct s_cmd
 {
-	// char			*name;
 	char			**argv;
-	t_list			*fns_in;
-	t_list			*fns_out;
-	int				fd_in;
-	int				fd_out;
+	t_file			*infile;
+	t_file			*outfile;
+	// t_list			*fns_in;
+	// t_list			*fns_out;
+	// int				fd_in;
+	// int				fd_out;
 	t_count			counter;
-	// struct s_cmd	*next;
 }	t_cmd;
 
-void	cmdlst_add_back(t_cmd **lst, t_cmd *new);
-void	cmdlst_clear(t_cmd **lst);
-t_cmd	*cmdlst_last(t_cmd *lst);
-t_cmd	*cmdlst_new(t_list *tokens);
-void	cmdlst_print(t_cmd *lst);
 
+t_cmd	*cmdlst_new(t_list *tokens);
 
 t_count	count_entities(t_list *tokens);
 t_list	*create_commands(t_list *tokens);
