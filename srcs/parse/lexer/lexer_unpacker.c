@@ -13,7 +13,7 @@ char	*get_value(char *key, t_list *envlst)
 	else if (ft_strcmp(key, "?") == 0)
 		value = ft_itoa(g_status.exit_code);
 	else
-		value = get_env_value(key, envlst);
+		value = ft_strdup(get_env_value(key, envlst));
 	return (value);
 }
 char	*fetch_envstr(char *str, int pos, t_list *envlst)
@@ -29,7 +29,7 @@ char	*fetch_envstr(char *str, int pos, t_list *envlst)
 		&& (str[i] != '$'))
 		key_len++;
 	key = ft_substr(str, 0, key_len);
-	value = get_env_value(key, envlst);
+	value = get_value(key, envlst);
 	return (value);
 }
 

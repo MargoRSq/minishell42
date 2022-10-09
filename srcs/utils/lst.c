@@ -19,7 +19,8 @@ void	tokenlst_delete_elem(void *content)
 	t_token	*to_delete;
 
 	to_delete = (t_token *)(content);
-	free(to_delete->start);
+	if (ft_strlen(to_delete->start))
+		free(to_delete->start);
 	free(to_delete);
 }
 

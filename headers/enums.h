@@ -50,9 +50,8 @@ enum e_exits
 	cwd_error,
 	env_arg_error,
 	key_error,
-	execve_error
-	pwd_error,
 	execve_error,
+	pwd_error,
 	pipe_error,
 	fork_error
 };

@@ -60,10 +60,12 @@ char	*get_cmd(t_list *envlst, char *cmd)
 	return (NULL);
 }
 
-void	only_parent_process(t_list **envlst, t_cmd *cmd)
+void	only_parent_process(t_list **envlst, t_list *cmdlst)
 {
 	int		fd;
+	t_cmd	*cmd;
 
+	cmd = cmdlst->content;
 	if (cmd->argv[0])
 	{
 		if (check_builtin(cmd->argv[0]))
@@ -73,8 +75,8 @@ void	only_parent_process(t_list **envlst, t_cmd *cmd)
 			fd = fork();
 			if (fd == 0)
 			{
-				execve(get_cmd(*env, cmd->argv[0]), cmd->argv,
-					   envlst_to_arr(*env));
+				execve(get_cmd(*envlst, cmd->argv[0]), cmd->argv,
+					   envlst_to_arr(*envlst));
 				printf("%s: command not found\n", cmd->argv[0]);//need to use
 				// func below:
 //				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);

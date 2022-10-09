@@ -1,4 +1,3 @@
-#include "mi"
 
 typedef struct s_fd
 {
@@ -32,20 +31,12 @@ t_cmd	*cmdlst_new(t_list *tokens);
 
 t_count	count_entities(t_list *tokens);
 t_list	*create_commands(t_list *tokens);
-void	execute(t_env **env, t_list *cmd);
-void	only_parent_process(t_env **env, t_cmd *cmd);
+void	execute(t_list **envlst, t_list *cmdlst);
+void	only_parent_process(t_list **envlst, t_list *cmdlst);
 int		check_builtin(char *cmd);
-char	*get_cmd(t_env *env, char *cmd);
-void	multi_pipe_process(t_env **env, t_list *cmd);
-int		try_builtin(t_cmd *cmds, t_env **env);
-void	exec_first_cmd(t_env *env, t_cmd *cmd, t_fd *fds);
-void	exec_middle_cmd(t_env *env, t_cmd *cmd, t_fd *fds);
-void	exec_last_cmd(t_env *env, t_cmd *cmd, t_fd *fds);
-
-void	execute(t_list **envlst, t_list *cmd);
-void	only_parent_process(t_list **envlst, t_cmd *cmd);
-void	multi_pipe_process(t_list **envlst, t_cmd *cmd);
-int		try_builtin(t_cmd *cmds, t_list **envlst);
-void	exec_first_cmd(t_list *envlst, t_cmd *cmd);
-void	exec_middle_cmd(t_list *envlst, t_cmd *cmd);
-void	exec_last_cmd(t_list *envlst, t_cmd *cmd);
+char	*get_cmd(t_list *envlst, char *cmd);
+void	multi_pipe_process(t_list **envlst, t_list *cmd);
+int		try_builtin(t_cmd *cmds, t_list **env);
+void	exec_first_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds);
+void	exec_middle_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds);
+void	exec_last_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds);

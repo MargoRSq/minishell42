@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	exec_first_cmd(t_env *env, t_cmd *cmd, t_fd *fds)
+void	exec_first_cmd(t_list *env, t_cmd *cmd, t_fd *fds)
 {
 	printf("{cmd=%s, args=%d, in=%d, out=%d}\n",
 		   cmd->argv[0], cmd->counter.words - 1, cmd->counter.in, cmd->counter
