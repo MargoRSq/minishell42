@@ -1,3 +1,4 @@
+#include "mi"
 
 typedef struct s_fd
 {
@@ -23,10 +24,6 @@ typedef struct s_cmd
 	char			**argv;
 	t_file			*infile;
 	t_file			*outfile;
-	// t_list			*fns_in;
-	// t_list			*fns_out;
-	// int				fd_in;
-	// int				fd_out;
 	t_count			counter;
 }	t_cmd;
 
@@ -39,7 +36,7 @@ void	execute(t_env **env, t_list *cmd);
 void	only_parent_process(t_env **env, t_cmd *cmd);
 int		check_builtin(char *cmd);
 char	*get_cmd(t_env *env, char *cmd);
-void	multi_pipe_process(t_env **env, t_cmd *cmd);
+void	multi_pipe_process(t_env **env, t_list *cmd);
 int		try_builtin(t_cmd *cmds, t_env **env);
 void	exec_first_cmd(t_env *env, t_cmd *cmd, t_fd *fds);
 void	exec_middle_cmd(t_env *env, t_cmd *cmd, t_fd *fds);

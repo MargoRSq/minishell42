@@ -34,7 +34,7 @@ void	execute(t_env **env, t_list *cmds)
 	if (cmds->content)
 		command = (t_cmd *)(cmds->content);
 	if (next == NULL)
-		only_parent_process(env, command);
+		only_parent_process(env, cmds);
 	else
-		multi_pipe_process(env, command);
+		multi_pipe_process(env, cmds);
 }

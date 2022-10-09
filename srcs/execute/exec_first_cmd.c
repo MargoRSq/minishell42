@@ -17,10 +17,9 @@ void	exec_first_cmd(t_env *env, t_cmd *cmd, t_fd *fds)
 		dup2(fds->fd1[1], STDOUT_FILENO);
 		close(fds->fd1[0]);
 		close(fds->fd1[1]);
-		exit(0);
-//		execlp("ls", "ls", NULL);
-//		execve(get_cmd(env, cmd->argv[0]), cmd->argv,
-//				   envlst_to_arr(env));
+		// execlp("ls", "ls", NULL);
+		execve(get_cmd(env, cmd->argv[0]), cmd->argv,
+				   envlst_to_arr(env));
 	}
 	close(fds->fd1[1]);
 }

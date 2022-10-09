@@ -47,7 +47,7 @@ void	begin_pipes(t_cmd *cmd, int len)
 //	}
 }
 
-void	multi_pipe_process(t_env **env, t_cmd *cmd)
+void	multi_pipe_process(t_env **env, t_list *cmdlst)
 {
 //	int		len;
 //	int 	**pipes;
@@ -60,22 +60,22 @@ void	multi_pipe_process(t_env **env, t_cmd *cmd)
 //	pipes = NULL;
 //	pipes = make_pipe_space(pipes, len);
 //	begin_pipes(cmd, len);
-	tmp = cmd;
 	prev = NULL;
 	if (pipe(fds.fd1) == -1)
 		error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
 	if (pipe(fds.fd2) == -1)
 		error_msg_return_void(MSG_SYSTEM_ERR_PIPE, NULL, pipe_error, 1);
-	while(tmp != NULL)
+	while (cmdlst)
 	{
+		tmp = (t_cmd *)(cmdlst->content);
 		if (prev == NULL)
 			exec_first_cmd(*env, tmp, &fds);
-		else if (((t_list *)tmp)->next == NULL)
+		else if (cmdlst->next == NULL)
 			exec_last_cmd(*env, tmp, &fds);
 		else
 			exec_middle_cmd(*env, tmp, &fds);
 		prev = tmp;
-		tmp = (t_cmd *)((t_list *)tmp)->next;
+		cmdlst = cmdlst->next;
 	}
 	while (wait(0) != -1)
 		;
