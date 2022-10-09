@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/06 19:23:16 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/08 15:36:56 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	start_shell(t_list **envlst)
 		if (g_status.interrupt)
 			break ;
 		tokens = lex_line(line, *envlst);
+		if (!tokens)
+			continue ;
 		if (g_status.interrupt)
 			break ;
 		check_tokens(tokens, *envlst);

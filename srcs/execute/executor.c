@@ -1,12 +1,7 @@
 #include "minishell.h"
 
-// typedef int	(*t_bldin_func)(t_env **, char **);
-
 int	try_builtin(t_cmd *cmds, t_list **envlst)
 {
-	// const t_bldin_func	a_bldin_f[] = {execute_cd, execute_echo, execute_pwd, \
-	// 	execute_unset, execute_exit, execute_export, \
-	// 	execute_pwd, execute_env };
 	if (!ft_strcmp(cmds->argv[0], "cd"))
 		execute_cd(*envlst, cmds->argv);
 	else if (!ft_strcmp(cmds->argv[0], "echo"))

@@ -1,36 +1,20 @@
 #include "minishell.h"
 
-// int	cmd_len(t_cmd *cmd)
-// {
-// 	t_cmd	*tmp;
-// 	int		len;
-
-// 	len = 0;
-// 	tmp = cmd;
-// 	while (tmp)
-// 	{
-// 		len++;
-// 		tmp = tmp->next;
-// 	}
-// 	return len;
-// }
-
 int	**make_pipe_space(int **pipes, int len)
 {
 	int i;
 
 	pipes = malloc(sizeof(int *) * (len - 1));
 	if (!pipes)
-		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error,
-											1));
-//		trigger_malloc_error();//need to clarify!
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, 
+			malloc_error, 1));
 	i = 0;
 	while (i < (len - 1))
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
-			return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error,
-										 1));
+			return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
+				malloc_error, 1));
 		i++;
 	}
 	return (pipes);
