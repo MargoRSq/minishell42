@@ -80,7 +80,6 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	char	*stop;
 	int		fd;
 
-	signal_handler(sig_heredoc);
 	fd = open(path_tmp, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd == -1)
 	{
@@ -105,7 +104,7 @@ int	heredoc(t_token *token, t_list *envlst)
 {
 	char		*filename;
 
-	// signal_handler_heredoc();
+	signal_handler(sig_heredoc);
 	filename = create_tmp_filename(envlst);
 	if (!filename)
 		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));

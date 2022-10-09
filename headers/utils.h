@@ -9,4 +9,4 @@ void	print_tokens(void *vtokens);
 void	print_cmds(void *vcmds);
 void	print_env(void *venv);
 
-void	signal_handler();
+void	signal_handler(t_signal_type code);

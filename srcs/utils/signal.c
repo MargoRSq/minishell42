@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 01:21:26 by refrain           #+#    #+#             */
-/*   Updated: 2022/10/03 08:59:41 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/09 19:38:41 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static void	ctrlc_handler(void)
 	rl_redisplay();
 }
 
-static void	slash_handler_util(int signal)
+static void	slash_handler_util(int sig)
 {
 	int		pid;
 
 	pid = waitpid(-1, NULL, WNOHANG);
-	if (signal == SIGQUIT)
+	if (sig == SIGQUIT)
 		write(1, "Quit: 3\n", 8);
-	if (signal == SIGINT)
+	if (sig == SIGINT)
 	{
 		if (!pid)
 			write(1, "\n", 1);

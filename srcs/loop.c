@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/09 16:42:29 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/09 19:40:14 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static char	*launch_readline()
 		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
 	free(tmp);
 	line = readline(prefix);
+	if (line == NULL)
+		exit(0);
 	free(prefix);
 	free(pwd);
 	return (line);
@@ -94,6 +96,7 @@ void	start_shell(t_list **envlst)
 
 	while (!g_status.interrupt)
 	{
+		signal_handler(sig_loop);
 		line = get_entered_line();
 		if (!line || !(*line))
 			continue ;
