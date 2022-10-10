@@ -19,13 +19,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c5ea902-5eb4-4d17-ae41-717421d9ed38" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/srcs/execute/exec_utils.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/errors.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/errors.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/cmd.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/cmd.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/makefile.srcs" beforeDir="false" afterPath="$PROJECT_DIR$/makefile.srcs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/execute/exec_first_cmd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execute/exec_first_cmd.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/execute/exec_last_cmd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execute/exec_last_cmd.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/execute/exec_middle_cmd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execute/exec_middle_cmd.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/execute/only_parent_process.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execute/only_parent_process.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/loop.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/loop.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +149,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1665408850446</updated>
-      <workItem from="1665408853391" duration="4332000" />
+      <workItem from="1665408853391" duration="11407000" />
     </task>
     <servers />
   </component>
