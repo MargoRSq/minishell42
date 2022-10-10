@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:19:12 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/06 19:37:51 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/10 18:32:45 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,3 @@ char	*error_msg_return_charz(char *msg, int code, short interrupt)
 	g_status.exit_code = code;
 	return (NULL);
 }
-
-

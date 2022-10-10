@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/05 17:31:30 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:29:15 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*go_oldpwd(t_list *envlst)
 				oldpwd_error, 0));
 	if (chdir(old_pwd) == -1)
 		return (error_msg_return_null(MSG_SYSCALL_ERR_CHDIR, NULL,
-				chdir_error, 1));
+				chdir_error, 0));
 	new_path = getcwd(NULL, 0);
 	if (!new_path)
 		return (error_msg_return_null(MSG_SYSCALL_ERR_GETCWD, NULL,
@@ -41,7 +41,7 @@ static char	*go_home(t_list *envlst)
 		return (error_msg_return_null(MSG_ERR_HOME, NULL, home_error, 0));
 	if (chdir(home) == -1)
 		return (error_msg_return_null(MSG_SYSCALL_ERR_CHDIR, NULL,
-				chdir_error, 1));
+				chdir_error, 0));
 	new_path = getcwd(NULL, 0);
 	if (!new_path)
 		return (error_msg_return_null(MSG_SYSCALL_ERR_GETCWD, NULL,
@@ -90,7 +90,7 @@ static char	*go_cd_argv(char **cmd_argv, t_list *envlst)
 	{
 		free(path_to_go);
 		return (error_msg_return_null(MSG_SYSCALL_ERR_CHDIR, cmd_argv[1],
-				chdir_error, 1));
+				chdir_error, 0));
 	}
 	new_path = getcwd(NULL, 0);
 	if (!new_path)

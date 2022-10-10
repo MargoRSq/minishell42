@@ -5,22 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/10 13:12:19 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/06 15:12:05 by ptoshiko         ###   ########.fr       */
+/*   Created: 2022/10/09 18:45:02 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/09 18:45:08 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// char	*get_cur_dir(t_list *envlst)
-// {
-// 	char	*cwd;
-
-// 	cwd = get_env_value("PWD", envlst);
-// 	if (!cwd)
-// 		cwd = getcwd(NULL, 0);
-// 	return (cwd);
-// }
 
 int	check_valid_env_key(char *str)
 {

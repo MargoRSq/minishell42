@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   counter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:09 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/09/29 16:04:54 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/10 17:01:19 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int inline	count_redirs(t_list *tokenlst, t_token_type token_code)
 {

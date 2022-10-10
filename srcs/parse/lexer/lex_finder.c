@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lex_finder.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 18:42:24 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/10 18:42:43 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	find_symbol(char *ptr, char sy)
@@ -5,7 +17,6 @@ static int	find_symbol(char *ptr, char sy)
 	int	distance;
 
 	distance = -1;
-	// добавить обработку не той ковычки
 	while (ptr[++distance])
 		if (ptr[distance] == sy)
 			return (distance);
@@ -32,8 +43,6 @@ static int	find_separator(char *ptr)
 
 int	find_end(char *ptr)
 {
-	int	d;
-
 	if (*ptr == s_quote)
 		return (find_symbol(ptr + 1, s_quote));
 	else if (*ptr == d_quote)

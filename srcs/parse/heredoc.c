@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-static void	ft_close_file(int fd, char *name)
+static void	ft_close_file(int fd)
 {
 	if (close(fd) == -1)
 		printf("asdas");
 		// ft_print_error(name, strerror(errno));
 }
 
-static char	*create_tmp_filename_prefix(t_list *envlst)
+static char	*create_tmp_filename_prefix(void)
 {
 	char	*filename_prefix;
 	char	*pwd;
@@ -22,16 +22,15 @@ static char	*create_tmp_filename_prefix(t_list *envlst)
 	return (filename_prefix);
 }
 
-static char	*create_tmp_filename(t_list *envlst)
+static char	*create_tmp_filename(void)
 {
 	char	*filename_prefix;
-	char	*value_tmp;
 	char	*index;
 	int		i;
 	char	*try;
 
 	try = NULL;
-	filename_prefix = create_tmp_filename_prefix(envlst);
+	filename_prefix = create_tmp_filename_prefix();
 	if (!filename_prefix)
 		return (error_msg_return_charz(MSG_SYSCALL_ERR_MEM, env_error, 1));
 	i = -1;
@@ -80,6 +79,7 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	char	*stop;
 	int		fd;
 
+	filename = NULL;
 	fd = open(path_tmp, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd == -1)
 	{
@@ -89,7 +89,7 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	stop = ft_substr(infile->start, 0, infile->len);
 	if (get_next_line_heredoc(stop, fd))
 	{
-		ft_close_file(fd, stop);
+		ft_close_file(fd);
 		free(filename);
 		return (EXIT_FAILURE);
 	}
@@ -100,14 +100,15 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	return (EXIT_SUCCESS);
 }
 
-int	heredoc(t_token *token, t_list *envlst)
+int	heredoc(t_token *token)
 {
 	char		*filename;
 
 	signal_handler(sig_heredoc);
-	filename = create_tmp_filename(envlst);
+	filename = create_tmp_filename();
 	if (!filename)
-		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL,
+			malloc_error, 1));
 	if (launch_heredoc(filename, token))
 	{
 		free(filename);

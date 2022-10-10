@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/09 19:40:14 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/10 18:44:15 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-static inline void	load_history()
+static inline void	load_history(void)
 {
-	int		res;
 	char	*line;
-	int		fd;
 
 	g_status.rl_fd = open(HISTORY_FILE, O_CREAT | O_APPEND | O_RDWR, 0664);
 	if (g_status.rl_fd < 0)
@@ -49,7 +46,8 @@ void	init_shell(t_list *envlst)
 		g_status.shell_level = 1;
 	load_history();
 }
-static char	*launch_readline()
+
+static char	*launch_readline(void)
 {
 	char	*tmp;
 	char	*prefix;
@@ -61,11 +59,13 @@ static char	*launch_readline()
 		return (NULL);
 	prefix = ft_strjoin(DEFAULT_PREFIX, pwd);
 	if (!prefix)
-		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
+				malloc_error, 1));
 	tmp = prefix;
 	prefix = ft_strjoin(tmp, DOLLAR);
 	if (!prefix)
-		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL, malloc_error, 1));
+		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
+				malloc_error, 1));
 	free(tmp);
 	line = readline(prefix);
 	if (line == NULL)
@@ -74,7 +74,8 @@ static char	*launch_readline()
 	free(pwd);
 	return (line);
 }
-static char	*get_entered_line()
+
+static char	*get_entered_line(void)
 {
 	char	*entered_line;
 
@@ -86,6 +87,16 @@ static char	*get_entered_line()
 		ft_putchar_fd('\n', g_status.rl_fd);
 	}
 	return (entered_line);
+}
+
+void	execute_and_clean(t_list **envlst, char *line, t_list *cmds,
+	t_list *tokens)
+{
+	if (g_status.interrupt)
+		return ;
+	execute(envlst, cmds);
+	free(line);
+	clean_tokens_cmds(cmds, tokens);
 }
 
 void	start_shell(t_list **envlst)
@@ -107,15 +118,11 @@ void	start_shell(t_list **envlst)
 			continue ;
 		if (g_status.interrupt)
 			break ;
-		check_tokens(tokens, *envlst);
+		check_tokens(tokens);
 		if (g_status.interrupt)
 			break ;
 		cmds = create_commands(tokens);
-		if (g_status.interrupt)
-			break ;
-		execute(envlst, cmds);
-		free(line);
-		clean_tokens_cmds(cmds, tokens);
+		execute_and_clean(envlst, line, cmds, tokens);
 	}
 	ft_lstclear(envlst, envlst_delete_elem);
 }

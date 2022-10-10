@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_unpacker.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 18:32:16 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/10 18:43:12 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*get_value(char *key, t_list *envlst)
@@ -16,33 +28,34 @@ char	*get_value(char *key, t_list *envlst)
 		value = ft_strdup(get_env_value(key, envlst));
 	return (value);
 }
-char	*fetch_envstr(char *str, int pos, t_list *envlst)
+
+char	*fetch_envstr(char *str, t_list *envlst)
 {
 	int		key_len;
 	int		i;
-	char	*key; // free
-	char	*value; //free
+	char	*key;
+	char	*value;
 
 	key_len = 0;
 	i = -1;
-	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' 
+	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' '
 		&& (str[i] != '$'))
 		key_len++;
 	if (key_len == 0 && str[i] == '$')
 		key = ft_strdup("$");
 	else
 		key = ft_substr(str, 0, key_len);
-	value = get_value(key, envlst);	
+	value = get_value(key, envlst);
 	free(key);
 	return (value);
 }
 
-int	ft_envcpy(char *start, int pos, char *new_start, t_list *envlst)
+int	ft_envcpy(char *start, char *new_start, t_list *envlst)
 {
 	int		elen;
 	char	*evar;
 
-	evar = fetch_envstr(start, pos, envlst);
+	evar = fetch_envstr(start, envlst);
 	elen = ft_strlen(evar);
 	if (elen)
 		ft_strlcpy(new_start, evar, elen + 1);
@@ -65,7 +78,7 @@ static void	fill_new_str(int tmp, int len, t_cpy cpy, t_list *envlst)
 	}
 	else if (cpy.tp == 1)
 	{
-		tmp = ft_envcpy(&cpy.src[(*cpy.ir) + 1], (*cpy.jr),
+		tmp = ft_envcpy(&cpy.src[(*cpy.ir) + 1],
 				&cpy.dst[(*cpy.jr)], envlst);
 		(*cpy.jr) += tmp;
 		(*cpy.ir)++;
@@ -85,6 +98,7 @@ char	*unpack(char *str, t_len lns, short is_dq, t_list *envlst)
 	t_cpy	cpy;
 	char	*new;
 
+	tmp = 0;
 	new = (char *)malloc(sizeof(char) * lns.final_len + 1);
 	if (!new)
 		return (NULL);

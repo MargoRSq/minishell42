@@ -1,13 +1,13 @@
-MAIN	= main.c errors.c loop.c 
+MAIN	= main.c errors.c loop.c signal.c
 
-LST_UTILS_FIELS = cmdlst.c envlst.c 
+LST_UTILS_FIELS = envlst.c new_cmd.c new_env_redir_token.c clean_list.c lst_print.c 
 LST_UTILS = $(addprefix lists_utils/,	${LST_UTILS_FIELS})
 
 ENV_PARSER_FILES = parse.c utils.c
 ENV_PARSER = $(addprefix env/,	${ENV_PARSER_FILES})
 
 PARSE_FILES = get_next_line.c get_next_line_utils.c \
-			  heredoc.c heredoc_signals.c counter.c commands.c
+			  heredoc.c counter.c commands.c
 PARSE = $(addprefix parse/, ${PARSE_FILES})
 
 LEXER_FILES = lexer_checker.c lexer_creator.c \
@@ -15,13 +15,10 @@ LEXER_FILES = lexer_checker.c lexer_creator.c \
 			  lex_finder.c lexer.c 
 LEXER = $(addprefix parse/lexer/, ${LEXER_FILES})
 
-BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c export.c builtin_utils.c
+BUILTIN_FILES = pwd.c env.c echo.c unset.c cd.c exit.c export.c export_utils.c builtin_utils.c
 BUILTIN = $(addprefix execute/builtin/, ${BUILTIN_FILES})
 
 EXECUTE_FILES = executor.c only_parent_process.c multi_pipe_process.c exec_first_cmd.c exec_middle_cmd.c exec_last_cmd.c
 EXECUTE = $(addprefix execute/, ${EXECUTE_FILES})
 
-UTILS_FILES = lst_print.c lst.c signal.c
-UTILS = $(addprefix utils/, ${UTILS_FILES})
-
-SRCS = ${MAIN} ${ENV_PARSER} ${LEXER} ${PARSE} ${EXECUTE} ${BUILTIN} ${UTILS} ${LST_UTILS}
+SRCS = ${MAIN} ${ENV_PARSER} ${LEXER} ${PARSE} ${EXECUTE} ${BUILTIN} ${LST_UTILS}

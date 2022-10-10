@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_creator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:23:57 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/03 12:09:19 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/10 16:41:57 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_tmp	create_tmp_token(int len, int code, char *line)
 
 t_token	*unpack_tmp_token(t_tmp tkn, t_list *envlst)
 {
-	int		i;
 	int		final_len;
 	char	*new_start;
 	t_len	lns;
@@ -37,10 +36,8 @@ t_token	*unpack_tmp_token(t_tmp tkn, t_list *envlst)
 	if (tkn.type < 2)
 	{
 		final_len = count_final_len(tkn.str, tkn.len, tkn.type, envlst);
-		// printf("%d\n", final_len);
 		lns = (t_len){.len = tkn.len, .final_len = final_len};
 		new_start = unpack(tkn.str, lns, tkn.type, envlst);
-		// printf("%s\n", new_start);
 		return (tokenlst_new(new_start, final_len, word));
 	}
 	else if (tkn.type == 2)

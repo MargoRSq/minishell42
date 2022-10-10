@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 18:52:17 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/10 18:52:55 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef UTILS_H
+# define UTILS_H
 # define HISTORY_FILE		".minishell_history"
 # define TMP_FILE_PREFIX	"/.minishell_heredoc_"
 
@@ -10,3 +24,5 @@ void	print_cmds(void *vcmds);
 void	print_env(void *venv);
 
 void	signal_handler(t_signal_type code);
+
+#endif

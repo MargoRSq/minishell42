@@ -6,91 +6,11 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/06 15:37:38 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/09 21:04:42 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	clean_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
-static char	**sort_arr(char **arr, int size)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size - i - 1)
-		{
-			if (ft_strcmp(arr[j], arr[j + 1]) > 0)
-			{
-				tmp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-	return (arr);
-}
-
-void	print_arr_prefix(char **arr, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		write(STDOUT_FILENO, "declare -x ", 11);
-		write(STDOUT_FILENO, arr[i], ft_strlen(arr[i]));
-		write(STDOUT_FILENO, "\n", 1);
-		i++;
-	}
-}
-
-void	print_sorted_env(t_list *envlst)
-{
-	char	**arr;
-	int		size;
-	int		i;
-
-	i = 0;
-	size = ft_lstsize(envlst);
-	arr = envlst_to_arr(envlst);
-	arr = sort_arr(arr, size);
-	print_arr_prefix(arr, size);
-	clean_arr(arr);
-}
-
-int	equal_sign(char *token)
-{
-	int	i;
-
-	i = 0;
-	while (token[i] != '\0')
-	{
-		if (token[i] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 char	**form_key_value(char *arg)
 {
@@ -118,6 +38,22 @@ char	**form_key_value(char *arg)
 	return (key_value);
 }
 
+void	add_key_value(char *argv, char	**key_value, t_list *envlst)
+{
+	if (!check_valid_env_key(key_value[0]) || (key_value[1] && \
+				!check_valid_env_value(key_value[1])))
+	{
+		clean_arr(key_value);
+		return (error_msg_return_void(MSG_ERR_EXPORT_KEY, argv,
+				key_error, 0));
+	}
+	else
+	{
+		change_or_append(envlst, key_value[0], key_value[1]);
+		free(key_value);
+	}
+}
+
 void	do_export_argv(t_list *envlst, char **cmd_argv)
 {
 	int		i;
@@ -137,16 +73,7 @@ void	do_export_argv(t_list *envlst, char **cmd_argv)
 		else
 		{
 			key_value = form_key_value(cmd_argv[i]);
-			if (!check_valid_env_key(key_value[0]) || (key_value[1] && !check_valid_env_value(key_value[1])))
-			{
-				clean_arr(key_value);
-				return (error_msg_return_void(MSG_ERR_EXPORT_KEY, cmd_argv[i], key_error, 0));
-			}
-			else
-			{
-				change_or_append(envlst, key_value[0], key_value[1]);
-				free(key_value);
-			}
+			add_key_value(cmd_argv[i], key_value, envlst);
 		}
 		i++;
 	}

@@ -23,7 +23,7 @@ INC_LIBS		+= -lreadline
 
 CC			= cc
 
-CFLAGS		= #-fsanitize=address -g # -Wall -Wextra -Werror
+CFLAGS		= #-Wall -Wextra -Werror
 
 OPTFLAGS	= -MMD -MP -g
 

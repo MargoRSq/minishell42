@@ -1,3 +1,5 @@
+#ifndef ENUMS_H
+# define ENUMS_H
 
 typedef enum e_controls
 {
@@ -62,3 +64,5 @@ typedef enum e_signals
 	sig_heredoc,
 	sig_child
 }	t_signal_type;
+
+#endif

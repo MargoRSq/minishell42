@@ -1,18 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/09 18:44:15 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/10 17:03:52 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-t_token	*tokenlst_new(char *start, int len, int code)
-{
-	t_token	*elem;
-
-	elem = (t_token *)malloc(sizeof(t_token));
-	if (!elem)
-		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
-				malloc_error, 1));
-	elem->start = start;
-	elem->code = code;
-	elem->len = len;
-	return (elem);
-}
 
 void	tokenlst_delete_elem(void *content)
 {
@@ -74,7 +72,6 @@ static void	unlink_heredoc_tmp(t_list *tokenlst)
 		tok_tmp = tok_tmp->next;
 	}
 }
-
 
 void	clean_tokens_cmds(t_list *cmdlst, t_list *tokenlst)
 {

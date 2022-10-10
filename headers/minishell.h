@@ -1,28 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 18:51:38 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/10 18:52:10 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft.h"
-#include <sys/types.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "libft.h"
+# include <sys/types.h>
 // #include <wait.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 // #include <signal.h>
-#include <termios.h>
+# include <termios.h>
 
-#include "enums.h"
-#include "env.h"
-#include "lexer.h"
-#include "errors.h"
-#include "utils.h"
-#include "builtins.h"
-#include "cmd.h"
-#include "get_next_line.h"
-
+# include "enums.h"
+# include "env.h"
+# include "lexer.h"
+# include "errors.h"
+# include "utils.h"
+# include "builtins.h"
+# include "cmd.h"
+# include "get_next_line.h"
 
 typedef struct s_status
 {
@@ -33,7 +44,7 @@ typedef struct s_status
 	short		rl_fd;
 }	t_status;
 
-t_status g_status;
+t_status	g_status;
 
 void	init_shell(t_list *envlst);
 void	start_shell(t_list **envlst);

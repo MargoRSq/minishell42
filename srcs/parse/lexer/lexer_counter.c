@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_counter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:32 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/09 19:03:49 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/10 16:39:42 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int inline	counter_skip_unpacked_env(char *str, t_list *envlst)
 
 	i = -1;
 	len = 0;
-	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' '&& str[i] != '$')
+	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
 		len++;
 	if (len == 0 && str[i] == '$')
 		len++;
@@ -71,7 +71,7 @@ int	skipper_str_with_env(char *str, int *iptr, int len, t_list *envlst)
 	if (str[*(iptr)] == '$')
 		(*iptr)++;
 	while (*(iptr) < len && str[*(iptr)] != '\'' && str[*(iptr)] != '\"'
-		&& str[*(iptr)] != ' ' 
+		&& str[*(iptr)] != ' '
 		&& (str[*(iptr)] != '$'))
 		(*iptr)++;
 	return (result);

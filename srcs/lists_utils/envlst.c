@@ -1,16 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   envlst.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 15:50:41 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/10 16:28:02 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_env	*envlst_new(char *key, char *value)
+static void	delete_one(t_list *tmp_lst, char *key)
 {
-	t_env	*elem;
+	t_env	*tmp;
+	t_list	*to_delete;
 
-	elem = (t_env *)malloc(sizeof(t_env));
-	if (!elem)
-		return (error_msg_return_null(MSG_SYSCALL_ERR_MEM, NULL,
-				malloc_error, 1));
-	elem->key = key;
-	elem->value = value;
-	return (elem);
+	while (tmp_lst->next)
+	{
+		tmp = (t_env *)(tmp_lst->next->content);
+		if (!strcmp(key, tmp->key))
+		{
+			to_delete = tmp_lst->next;
+			tmp_lst->next = tmp_lst->next->next;
+			ft_lstdelone(to_delete, envlst_delete_elem);
+			return ;
+		}
+		tmp_lst = tmp_lst->next;
+	}
 }
 
 void	envlst_delete_one(char *key, t_list **envlst)
@@ -32,25 +50,29 @@ void	envlst_delete_one(char *key, t_list **envlst)
 		return ;
 	}
 	tmp_lst = (*envlst);
-	while (tmp_lst->next)
+	delete_one(tmp_lst, key);
+}
+
+static char	*make_str(t_env *tmp)
+{
+	char	*line;
+	char	*help;
+
+	if (tmp->value)
 	{
-		tmp = (t_env *)(tmp_lst->next->content);
-		if (!strcmp(key, tmp->key))
-		{
-			to_delete = tmp_lst->next;
-			tmp_lst->next = tmp_lst->next->next;
-			ft_lstdelone(to_delete, envlst_delete_elem);
-			return ;
-		}
-		tmp_lst = tmp_lst->next;
+		help = ft_strjoin (tmp->key, "=");
+		line = ft_strjoin(help, tmp->value);
+		free(help);
 	}
+	else
+		line = ft_strdup(tmp->key);
+	return (line);
 }
 
 char	**envlst_to_arr(t_list *envlst)
 {
 	char	**arr;
 	t_env	*tmp;
-	char	*help;
 	int		i;
 	int		len;
 
@@ -65,14 +87,7 @@ char	**envlst_to_arr(t_list *envlst)
 	while (i < len)
 	{
 		tmp = (t_env *)(envlst->content);
-		if (tmp->value)
-		{
-			help = ft_strjoin (tmp->key, "=");
-			arr[i] = ft_strjoin(help, tmp->value);
-			free(help);
-		}
-		else
-			arr[i] = ft_strdup(tmp->key);
+		arr[i] = make_str(tmp);
 		i++;
 		envlst = envlst->next;
 	}
