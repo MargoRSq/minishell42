@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:14 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/09 19:40:14 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/10 16:19:48 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	init_shell(t_list *envlst)
 
 	cur_level = get_env_value("SHLVL", envlst);
 	if (cur_level)
+	{
 		g_status.shell_level = ft_atoi(cur_level) + 1;
+		change_or_append(envlst, ft_strdup("SHLVL"), ft_itoa(g_status.shell_level));
+	}
 	else
 		g_status.shell_level = 1;
 	load_history();

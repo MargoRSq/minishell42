@@ -19,7 +19,7 @@ void	tokenlst_delete_elem(void *content)
 	t_token	*to_delete;
 
 	to_delete = (t_token *)(content);
-	if (to_delete->code == word)
+	if (to_delete->code == word && ft_strlen(to_delete->start))
 		free(to_delete->start);
 	free(to_delete);
 }
@@ -30,23 +30,14 @@ void	cmdlst_delete_elem(void *content)
 	int		i;
 
 	to_delete = (t_cmd *)(content);
-	i = 0;
-	while (to_delete->argv[i])
-	{
+	i = -1;
+	while (to_delete->argv[++i])
 		free(to_delete->argv[i]);
-		i++;
-	}
 	free(to_delete->argv);
 	if (to_delete->infile)
-	{
-		free(to_delete->infile->name);
 		free(to_delete->infile);
-	}
 	if (to_delete->outfile)
-	{
-		free(to_delete->outfile->name);
 		free(to_delete->outfile);
-	}
 	free(to_delete);
 }
 
@@ -78,6 +69,6 @@ static void	unlink_heredoc_tmp(t_list *tokenlst)
 void	clean_tokens_cmds(t_list *cmdlst, t_list *tokenlst)
 {
 	unlink_heredoc_tmp(tokenlst);
-	ft_lstclear(&cmdlst, cmdlst_delete_elem);
 	ft_lstclear(&tokenlst, tokenlst_delete_elem);
+	ft_lstclear(&cmdlst, cmdlst_delete_elem);
 }

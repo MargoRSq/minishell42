@@ -18,9 +18,9 @@ static void	init_status()
 
 int	main(int ac, char **av, char **envp)
 {
-	char	*line;
 	t_list	*envlst;
 	
+	(void)av;
 	if (ac != 1)
 		return (1);
 
