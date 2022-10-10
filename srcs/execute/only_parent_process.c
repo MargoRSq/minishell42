@@ -75,12 +75,11 @@ void	only_parent_process(t_list **envlst, t_list *cmdlst)
 			fd = fork();
 			if (fd == 0)
 			{
+				printf("tyt->>>>%s\n",cmd->argv[0]);
 				execve(get_cmd(*envlst, cmd->argv[0]), cmd->argv,
 					   envlst_to_arr(*envlst));
-				printf("%s: command not found\n", cmd->argv[0]);//need to use
-				// func below:
-//				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);
-				exit(execve_error);
+				return (error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
+											  execve_error, 0));
 			}
 			else
 				wait(0);

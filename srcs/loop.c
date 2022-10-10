@@ -44,7 +44,10 @@ void	init_shell(t_list *envlst)
 
 	cur_level = get_env_value("SHLVL", envlst);
 	if (cur_level)
+	{
 		g_status.shell_level = ft_atoi(cur_level) + 1;
+		change_or_append(envlst, ft_strdup("SHLVL"), ft_itoa(g_status.shell_level));
+	}
 	else
 		g_status.shell_level = 1;
 	load_history();
@@ -115,7 +118,7 @@ void	start_shell(t_list **envlst)
 			break ;
 		execute(envlst, cmds);
 		free(line);
-		clean_tokens_cmds(cmds, tokens);
+//		clean_tokens_cmds(cmds, tokens);
 	}
 	ft_lstclear(envlst, envlst_delete_elem);
 }
