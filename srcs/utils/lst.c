@@ -75,7 +75,6 @@ static void	unlink_heredoc_tmp(t_list *tokenlst)
 	}
 }
 
-
 void	clean_tokens_cmds(t_list *cmdlst, t_list *tokenlst)
 {
 	unlink_heredoc_tmp(tokenlst);
