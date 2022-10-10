@@ -41,7 +41,10 @@ void	init_shell(t_list *envlst)
 
 	cur_level = get_env_value("SHLVL", envlst);
 	if (cur_level)
+	{
 		g_status.shell_level = ft_atoi(cur_level) + 1;
+		change_or_append(envlst, ft_strdup("SHLVL"), ft_itoa(g_status.shell_level));
+	}
 	else
 		g_status.shell_level = 1;
 	load_history();
