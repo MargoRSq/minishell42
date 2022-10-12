@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_checker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:00:28 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/10 17:00:39 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:58:23 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_access(t_token *filename_token, t_token_type code)
 	int		result;
 	char	*filename;
 
-	result = -1;
+	result = 1;
 	filename = ft_substr(filename_token->start, 0, filename_token->len);
 	if (!filename)
 		return (-1);
@@ -50,7 +50,7 @@ void	check_tokens(t_list *tokenlst)
 				heredoc(tokenlst->next->content);
 			else if (check_access(tokenlst->next->content, token->code) == -1)
 				return (error_msg_return_void(MSG_ERR_FILE_NEXISTS, NULL, 127,
-						1));
+						0));
 		}
 		tokenlst = tokenlst->next;
 	}
