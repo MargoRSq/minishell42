@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enums.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/12 18:39:24 by ptoshiko          #+#    #+#             */
+/*   Updated: 2022/10/12 18:39:56 by ptoshiko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ENUMS_H
 # define ENUMS_H
 
 typedef enum e_controls
 {
 	d_quote			= (int)'"',
-	s_quote         = (int)'\'',
+	s_quote			= (int)'\'',
 	l_corner		= (int)'<',
-	r_corner	    = (int)'>',
-	o_parenth	    = (int)'(',
-	c_parenth	    = (int)')',
+	r_corner		= (int)'>',
+	o_parenth		= (int)'(',
+	c_parenth		= (int)')',
 	escape			= (int)'\\',
 	slash			= (int)'/',
 	pipes			= (int)'|',
 	colon			= (int)':',
-	equal		    = (int)'=',
+	equal			= (int)'=',
 	question		= (int)'?',
 	dollar			= (int)'$',
 	ampersand		= (int)'&',
