@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:51:38 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/10 18:52:10 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 19:14:40 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_status
 
 t_status	g_status;
 
-void	init_shell(t_list *envlst);
 void	start_shell(t_list **envlst);
 
 #endif

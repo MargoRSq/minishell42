@@ -1,11 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/12 19:03:20 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/10/12 19:04:42 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	ft_close_file(int fd)
-{
-	if (close(fd) == -1)
-		printf("asdas");
-		// ft_print_error(name, strerror(errno));
-}
+#include "minishell.h"
 
 static char	*create_tmp_filename_prefix(void)
 {
@@ -89,7 +94,7 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 	stop = ft_substr(infile->start, 0, infile->len);
 	if (get_next_line_heredoc(stop, fd))
 	{
-		ft_close_file(fd);
+		close(fd);
 		free(filename);
 		return (EXIT_FAILURE);
 	}
@@ -108,7 +113,7 @@ int	heredoc(t_token *token)
 	filename = create_tmp_filename();
 	if (!filename)
 		return (error_msg_return_int(MSG_SYSCALL_ERR_MEM, NULL,
-			malloc_error, 1));
+				malloc_error, 1));
 	if (launch_heredoc(filename, token))
 	{
 		free(filename);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_first_cmd.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/12 18:43:03 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/10/12 18:43:20 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	bin_run_multi(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
@@ -10,7 +22,7 @@ void	bin_run_multi(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
 		execve(bin, cmd->argv, envlst_to_arr(envlst));
 	replace_fds_finish(cmd, fds);
 	error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
-						  execve_error, 0);
+		execve_error, 0);
 	if (fl % 2 != 0)
 		dup2(STDERR_FILENO, fds->fd1[0]);
 	else

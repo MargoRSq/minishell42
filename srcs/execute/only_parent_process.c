@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   only_parent_process.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/12 18:42:01 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/10/12 18:42:55 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	check_builtin(char *cmd)
 {
 	if (cmd)
 		ft_tolower(cmd);
-	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
-			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") ||
-			!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") ||
-			!ft_strcmp(cmd, "exit"))
+	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit"))
 		return (1);
 	else
 		return (0);
@@ -43,9 +55,7 @@ char	*get_cmd(t_list *envlst, char *cmd)
 
 	i = 0;
 	ways = get_path(envlst);
-//	printf("PWD: %s\n", ways);
-//	if (ways)
-		paths = ft_split(ways, ':');
+	paths = ft_split(ways, ':');
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
@@ -77,7 +87,7 @@ void	bin_run(t_list **envlst, t_list *cmdlst, t_fd *fds)
 		{
 			replace_fds_finish(cmd, fds);
 			return (error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
-				execve_error, 0));
+					execve_error, 0));
 		}
 	}
 	else

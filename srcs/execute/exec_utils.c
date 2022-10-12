@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/12 18:40:07 by svyatoslav        #+#    #+#             */
+/*   Updated: 2022/10/12 19:18:19 by svyatoslav       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	replace_fds_start(t_cmd *cmd, t_fd *fds)
@@ -12,8 +24,8 @@ void	replace_fds_start(t_cmd *cmd, t_fd *fds)
 	{
 		if (cmd->outfile->type == r_out)
 		{
-			fds->out_fd = open(cmd->outfile->name, O_RDWR | O_CREAT, \
-			S_IWUSR | S_IRUSR);
+			fds->out_fd = open(cmd->outfile->name, O_RDWR | O_CREAT,
+					S_IWUSR | S_IRUSR);
 		}
 		else
 			fds->out_fd = open(cmd->outfile->name, O_RDWR | O_APPEND);
