@@ -28,7 +28,6 @@ char	*get_path(t_list *envlst)
 	ways_with_dot = ft_strjoin(ways, ":");
 	cur_dir = getcwd(NULL, 0);
 	result = ft_strjoin(ways_with_dot, cur_dir);
-	free(ways);
 	free(ways_with_dot);
 	free(cur_dir);
 	return (result);
@@ -60,33 +59,53 @@ char	*get_cmd(t_list *envlst, char *cmd)
 	return (NULL);
 }
 
+void	bin_run(t_list **envlst, t_list *cmdlst)
+{
+	int 	fd;
+	char	*bin;
+	t_cmd	*cmd;
+
+	cmd = cmdlst->content;
+	fd = fork();
+	if (fd == 0)
+	{
+		bin = get_cmd(*envlst, cmd->argv[0]);
+		if (bin)
+			execve(bin, cmd->argv, envlst_to_arr(*envlst));
+		else
+		{
+			return (error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
+										  execve_error, 0));
+		}
+	}
+	else
+		wait(0);
+}
+
 void	only_parent_process(t_list **envlst, t_list *cmdlst)
 {
-	int		fd;
 	t_cmd	*cmd;
+	int		in_fd;
+	int		out_fd;
 
 	cmd = cmdlst->content;
 	if (cmd->argv[0])
 	{
+		if (cmd->infile)
+		{
+			in_fd = open(cmd->infile->name, O_RDONLY);
+			dup2(in_fd, STDIN_FILENO);
+		}
+		if (cmd->outfile)
+		{
+			printf("here->>>\n");
+			out_fd = open(cmd->outfile->name, O_RDWR | O_CREAT,
+						  S_IWUSR | S_IRUSR);
+			dup2(out_fd, STDOUT_FILENO);
+		}
 		if (check_builtin(cmd->argv[0]))
 			try_builtin(cmd, envlst);
 		else
-		{
-			fd = fork();
-			if (fd == 0)
-			{
-				execve(get_cmd(*envlst, cmd->argv[0]), cmd->argv,
-					   envlst_to_arr(*envlst));
-				printf("%s: command not found\n", cmd->argv[0]);//need to use
-				// func below:
-//				error_msg_return_void(MSG_ERR_EXECVE, NULL, execve_error, 0);
-				exit(execve_error);
-			}
-			else
-				wait(0);
-		}
+			bin_run(envlst, cmdlst);
 	}
-
-
-
 }
