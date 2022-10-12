@@ -1,11 +1,10 @@
 #include "minishell.h"
 
-void	multi_pipe_process(t_list **envlst, t_list *cmdlst)
+void	multi_pipe_process(t_list **envlst, t_list *cmdlst, t_fd *fds)
 {
-	t_cmd	*tmp;
-	t_cmd	*prev;
-	t_fd	fds;
-	int		i;
+	t_cmd		*tmp;
+	t_cmd		*prev;
+	int			i;
 
 	prev = NULL;
 	i = 0;
@@ -13,11 +12,11 @@ void	multi_pipe_process(t_list **envlst, t_list *cmdlst)
 	{
 		tmp = (t_cmd *)(cmdlst->content);
 		if (prev == NULL)
-			exec_first_cmd(*envlst, tmp, &fds);
+			exec_first_cmd(*envlst, tmp, fds);
 		else if (cmdlst->next == NULL)
-			exec_last_cmd(*envlst, tmp, &fds, i);
+			exec_last_cmd(*envlst, tmp, fds, i);
 		else
-			exec_middle_cmd(*envlst, tmp, &fds, i);
+			exec_middle_cmd(*envlst, tmp, fds, i);
 		prev = tmp;
 		cmdlst = cmdlst->next;
 	}

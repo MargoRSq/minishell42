@@ -33,14 +33,12 @@ int	try_builtin(t_cmd *cmd, t_list **envlst)
 
 void	execute(t_list **envlst, t_list *cmdlst)
 {
-	t_cmd	*command;
 	t_list	*next;
+	t_fd	fds;
 
 	next = cmdlst->next;
-	if (cmdlst->content)
-		command = (t_cmd *)(cmdlst->content);
 	if (next == NULL)
-		only_parent_process(envlst, cmdlst);
+		only_parent_process(envlst, cmdlst, &fds);
 	else
-		multi_pipe_process(envlst, cmdlst);
+		multi_pipe_process(envlst, cmdlst, &fds);
 }
