@@ -18,7 +18,7 @@ INC_LIBS_DIR	= -L$(dir ${LIBFT})
 INC_LIBS		=  -lft
 
 INC_HEADERS		+= -I${LIBREADLINE}/include
-INC_LIBS_DIR	+= -L${LIBREADLINE}/lib
+INC_LIBS_DIR	+= -L${LIBREADLINE}/libm1
 INC_LIBS		+= -lreadline
 
 CC			= cc
