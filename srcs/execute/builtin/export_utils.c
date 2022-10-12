@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:47:43 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/10 16:53:43 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 20:17:00 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ void	print_sorted_env(t_list *envlst)
 {
 	char	**arr;
 	int		size;
-	int		i;
 
-	i = 0;
 	size = ft_lstsize(envlst);
 	arr = envlst_to_arr(envlst);
 	arr = sort_arr(arr, size);

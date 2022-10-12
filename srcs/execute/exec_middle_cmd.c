@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:43:27 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/12 19:02:45 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/12 20:16:52 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	run_in_child(t_run *run, int *read, int *write)
 
 void	exec_middle_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
 {
-	int		pid;
 	t_run	run;
 
 	run = (t_run){.cmd = cmd, .envlst = envlst, .fds = fds, .flag = fl};

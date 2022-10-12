@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 19:03:20 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/12 19:04:42 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/12 20:16:46 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ static char	*create_tmp_filename(void)
 static int	get_next_line_heredoc(char *stop, int fd)
 {
 	char	*line;
-	int		len_limiter;
 
-	len_limiter = ft_strlen(stop);
 	while (1)
 	{
 		ft_putstr_fd("heredoc> ", 1);

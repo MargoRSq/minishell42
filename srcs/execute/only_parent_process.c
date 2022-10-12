@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:42:01 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/12 18:42:55 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/12 20:16:22 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	*get_cmd(t_list *envlst, char *cmd)
 	int		i;
 
 	i = 0;
+	if (*cmd == '/')
+		return (cmd);
 	ways = get_path(envlst);
 	paths = ft_split(ways, ':');
 	while (paths[i])
