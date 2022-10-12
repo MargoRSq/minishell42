@@ -6,24 +6,11 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:42:01 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/12 20:16:22 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/12 21:35:07 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	check_builtin(char *cmd)
-{
-	if (cmd)
-		ft_tolower(cmd);
-	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd")
-		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export")
-		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env")
-		|| !ft_strcmp(cmd, "exit"))
-		return (1);
-	else
-		return (0);
-}
 
 char	*get_path(t_list *envlst)
 {
@@ -45,6 +32,19 @@ char	*get_path(t_list *envlst)
 	return (result);
 }
 
+static char	*is_absolute_executable(char *cmd)
+{
+	if (*cmd == '/')
+	{
+		if (!access(cmd, X_OK))
+			return (cmd);
+		else
+			return (NULL);
+	}
+	else
+		return (NULL);
+}
+
 char	*get_cmd(t_list *envlst, char *cmd)
 {
 	char	*command;
@@ -54,7 +54,7 @@ char	*get_cmd(t_list *envlst, char *cmd)
 	int		i;
 
 	i = 0;
-	if (*cmd == '/')
+	if (is_absolute_executable(cmd))
 		return (cmd);
 	ways = get_path(envlst);
 	paths = ft_split(ways, ':');
@@ -88,8 +88,9 @@ void	bin_run(t_list **envlst, t_list *cmdlst, t_fd *fds)
 		else
 		{
 			replace_fds_finish(cmd, fds);
-			return (error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
-					execve_error, 0));
+			error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
+				execve_error, 0);
+			exit(execve_error);
 		}
 	}
 	else

@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:34:21 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/12 18:46:19 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 21:31:51 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_builtin(char *cmd)
+{
+	if (cmd)
+		ft_tolower(cmd);
+	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit"))
+		return (1);
+	else
+		return (0);
+}
 
 int	try_builtin(t_cmd *cmd, t_list **envlst)
 {
