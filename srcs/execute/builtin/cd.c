@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/10 18:29:15 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:51:15 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*go_home(t_list *envlst)
 	return (new_path);
 }
 
-char	*form_path_to_go(char **cmd_argv, t_list *envlst)
+char	*form_path_to_go(char **cmd_argv)
 {
 	char		*path;
 	char		*tmp;
@@ -77,13 +77,12 @@ char	*form_path_to_go(char **cmd_argv, t_list *envlst)
 	return (path);
 }
 
-static char	*go_cd_argv(char **cmd_argv, t_list *envlst)
+static char	*go_cd_argv(char **cmd_argv)
 {
 	char	*path_to_go;
 	char	*new_path;
-	char	*tmp;
 
-	path_to_go = form_path_to_go(cmd_argv, envlst);
+	path_to_go = form_path_to_go(cmd_argv);
 	if (!path_to_go)
 		return (NULL);
 	if (chdir(path_to_go) == -1)
@@ -108,6 +107,7 @@ void	execute_cd(t_list *envlst, char **cmd_argv)
 	char	*pwd_to_change;
 	char	*new_path;
 
+	new_path = NULL;
 	pwd_to_change = getcwd(NULL, 0);
 	if (!pwd_to_change)
 		return (error_msg_return_void(MSG_SYSCALL_ERR_GETCWD, NULL,
@@ -117,7 +117,7 @@ void	execute_cd(t_list *envlst, char **cmd_argv)
 	else if (!ft_strcmp(cmd_argv[1], "-"))
 		new_path = go_oldpwd(envlst);
 	else if (cmd_argv[1])
-		new_path = go_cd_argv(cmd_argv, envlst);
+		new_path = go_cd_argv(cmd_argv);
 	if (!new_path)
 	{
 		free(pwd_to_change);

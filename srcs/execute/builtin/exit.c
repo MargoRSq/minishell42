@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:07:23 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/03 15:28:38 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/12 18:52:05 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	execute_exit(char **cmd_argv)
 	{
 		while (ft_isdigit(cmd_argv[1][i]))
 			i++;
-		if ((size_t)i != ft_strlen(cmd_argv[1]))
+		if (i != ft_strlen(cmd_argv[1]))
 			return (error_msg_return_void(MSG_ERR_EXIT_NUM,
 					cmd_argv[1], 255, 1));
 		else if (len_arr == 2)

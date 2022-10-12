@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:36:41 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/10 18:47:10 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:46:42 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	execute_echo(char **cmd_argv);
 void	execute_env(t_list *envlst, char **cmd_argv);
-void	execute_pwd(t_list *envlst);
+void	execute_pwd(void);
 void	execute_unset(t_list **envlst, char **cmd_argv);
 void	execute_cd(t_list *envlst, char **cmd_argv);
 void	execute_exit(char **cmd_argv);

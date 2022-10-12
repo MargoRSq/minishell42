@@ -6,34 +6,11 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:22:49 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/09/28 17:20:05 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:47:20 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	unsigned char	*arr1;
-	unsigned char	*arr2;
-	int				i;
-
-	arr1 = (unsigned char *)s1;
-	arr2 = (unsigned char *)s2;
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (n != 0)
-	{
-		if (arr1[i] != arr2[i])
-			return (arr1[i] - arr2[i]);
-		if (arr1[i] == '\0' || arr2[i] == '\0')
-			return (0);
-		i++;
-		n--;
-	}
-	return (0);
-}
 
 void	execute_echo(char **cmd_argv)
 {

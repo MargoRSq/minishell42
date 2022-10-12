@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:28:23 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/04 19:24:45 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/12 18:45:43 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_pwd(t_list *envlst)
+void	execute_pwd(void)
 {
 	char	*pwd;
 

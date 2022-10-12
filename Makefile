@@ -24,7 +24,7 @@ INC_LIBS		+= -lreadline
 
 CC			= cc
 
-CFLAGS		= #-Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 
 OPTFLAGS	= -MMD -MP -g
 

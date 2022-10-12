@@ -6,7 +6,7 @@
 /*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:34:21 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/10 18:34:28 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:46:19 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	try_builtin(t_cmd *cmd, t_list **envlst)
 	else if (!ft_strcmp(cmd->argv[0], "echo"))
 		execute_echo(cmd->argv);
 	else if (!ft_strcmp(cmd->argv[0], "pwd"))
-		execute_pwd(*envlst);
+		execute_pwd();
 	else if (!ft_strcmp(cmd->argv[0], "env"))
 		execute_env(*envlst, cmd->argv);
 	else if (!ft_strcmp(cmd->argv[0], "unset"))

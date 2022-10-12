@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:49:02 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/12 16:26:26 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/12 18:53:36 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	find_file(short type, t_list *tokenlst,
 	t_token	*token;
 
 	token = (tokenlst->content);
-	if ((token->code == r_in) && type == 1
-		|| (token->code == r_out || token->code == r_append) && type == 0)
+	if (((token->code == r_in) && type == 1)
+		|| ((token->code == r_out || token->code == r_append) && type == 0))
 	{
 		*last = (t_token *)(tokenlst->next->content);
 		*code = ((t_token *)(tokenlst->content))->code;
