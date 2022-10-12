@@ -84,36 +84,28 @@ void	bin_run(t_list **envlst, t_list *cmdlst)
 
 void	only_parent_process(t_list **envlst, t_list *cmdlst)
 {
-	int		fd;
 	t_cmd	*cmd;
-	char	*bin;
+	int		in_fd;
+	int		out_fd;
 
 	cmd = cmdlst->content;
 	if (cmd->argv[0])
 	{
+		if (cmd->infile)
+		{
+			in_fd = open(cmd->infile->name, O_RDONLY);
+			dup2(in_fd, STDIN_FILENO);
+		}
+		if (cmd->outfile)
+		{
+			printf("here->>>\n");
+			out_fd = open(cmd->outfile->name, O_RDWR | O_CREAT,
+						  S_IWUSR | S_IRUSR);
+			dup2(out_fd, STDOUT_FILENO);
+		}
 		if (check_builtin(cmd->argv[0]))
 			try_builtin(cmd, envlst);
 		else
-		{
 			bin_run(envlst, cmdlst);
-//			fd = fork();
-//			if (fd == 0)
-//			{
-//				printf("tyt->>>>%s\n",cmd->argv[0]);
-//				bin = get_cmd(*envlst, cmd->argv[0]);
-//				if (bin)
-//					execve(bin, cmd->argv,envlst_to_arr(*envlst));
-//				else
-//				{
-//					return (error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
-//												  execve_error, 0));
-//				}
-//			}
-//			else
-//				wait(0);
-		}
 	}
-
-
-
 }
