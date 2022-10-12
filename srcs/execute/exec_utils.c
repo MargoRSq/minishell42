@@ -10,8 +10,13 @@ void	replace_fds_start(t_cmd *cmd, t_fd *fds)
 	}
 	if (cmd->outfile)
 	{
-		fds->out_fd = open(cmd->outfile->name, O_RDWR | O_CREAT,
-					  S_IWUSR | S_IRUSR);
+		if (cmd->outfile->type == r_out)
+		{
+			fds->out_fd = open(cmd->outfile->name, O_RDWR | O_CREAT, \
+			S_IWUSR | S_IRUSR);
+		}
+		else
+			fds->out_fd = open(cmd->outfile->name, O_RDWR | O_APPEND);
 		fds->out_tmp = dup(STDOUT_FILENO);
 		dup2(fds->out_fd, STDOUT_FILENO);
 	}

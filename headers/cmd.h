@@ -23,14 +23,6 @@ typedef struct s_fd
 	int		out_tmp;
 }	t_fd;
 
-typedef struct s_rpl_fd
-{
-	int		in_fd;
-	int		out_fd;
-	int		in_tmp;
-	int		out_tmp;
-}	t_rpl_fd;
-
 typedef struct s_file
 {
 	char			*name;
