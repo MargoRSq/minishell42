@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 01:21:26 by refrain           #+#    #+#             */
-/*   Updated: 2022/10/09 19:38:41 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 16:37:04 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,15 @@ static void	ctrlc_handler(void)
 {
 	rl_on_new_line();
 	printf("\n");
-	rl_replace_line("", 1);
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-static void	slash_handler_util(int sig)
+static void	ihniwiid(int sig)
 {
-	int		pid;
-
-	pid = waitpid(-1, NULL, WNOHANG);
 	if (sig == SIGQUIT)
 		write(1, "Quit: 3\n", 8);
-	if (sig == SIGINT)
-	{
-		if (!pid)
-			write(1, "\n", 1);
-		if (pid)
-		{
-			rl_on_new_line();
-			write(1, "\n", 1);
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-		}
-	}	
 }
 
 static void	heredoc_handler(int sig)
@@ -71,8 +55,8 @@ void	signal_handler(t_signal_type code)
 	}
 	else if (code == sig_child)
 	{
-		signal(SIGQUIT, (void *)slash_handler_util);
-		signal(SIGINT, (void *)slash_handler_util);
+		signal(SIGQUIT, (void *)ihniwiid);
+		signal(SIGINT, (void *)ctrlc_handler);
 	}
 	else if (code == sig_heredoc)
 	{
