@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:47:35 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/12 18:58:29 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 17:18:09 by ptoshiko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_fd
 	int		in_tmp;
 	int		out_tmp;
 }	t_fd;
-
 
 typedef struct s_file
 {
@@ -52,7 +51,6 @@ typedef struct s_run
 	t_fd	*fds;
 	int		flag;
 }	t_run;
-
 
 t_cmd	*cmdlst_new(t_list *tokens);
 

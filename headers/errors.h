@@ -1,7 +1,7 @@
 #ifndef ERROR_MSGS_H
 # define ERROR_MSGS_H
 
-int		trigger_unclosed_quote_error(char q_type); // dasdasd
+int		trigger_unclosed_quote_error(char q_type);
 
 void	error_msg_return_void(char *msg, char *arg, int code, short interrupt);
 void	*error_msg_return_null(char *msg, char *arg, int code, short interrupt);
