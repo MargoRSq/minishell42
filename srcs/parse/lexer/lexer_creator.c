@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_creator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:23:57 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/10 16:41:57 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:59:33 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_token	*unpack_tmp_token(t_tmp tkn, t_list *envlst)
 		return (tokenlst_new(new_start, final_len, word));
 	}
 	else if (tkn.type == 2)
-		return (tokenlst_new(tkn.str, tkn.len, word));
+		return (tokenlst_new(tkn.str, tkn.len, s_quote_str));
 	else
 		return (tokenlst_new(tkn.str, tkn.len, tkn.tmp_code));
 }
