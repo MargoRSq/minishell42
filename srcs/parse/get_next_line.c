@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 11:05:46 by avoltorb          #+#    #+#             */
-/*   Updated: 2022/10/09 17:11:52 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 15:10:40 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_next_line(char *cache)
 		if (!next_line)
 			return (NULL);
 		ft_gnl_strcpy(next_line, cache, nidx - 1);
-		next_line[nidx] = '\0';
+		next_line[nidx - 1] = '\0';
 	}
 	return (next_line);
 }

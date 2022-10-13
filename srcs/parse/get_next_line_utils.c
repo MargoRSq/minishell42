@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 11:05:51 by avoltorb          #+#    #+#             */
-/*   Updated: 2022/09/25 15:09:33 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 15:13:30 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ char	*ft_gnl_strjoin(char *cache, char *buf)
 	str = (char *)malloc(sizeof(char) * (clen + blen + 1));
 	if (!str)
 		return (NULL);
+	str[clen + blen] = '\0';
 	ft_gnl_strcpy(str, cache, clen);
-	ft_gnl_strcpy(&str[clen], buf, blen + 1);
+	ft_gnl_strcpy(&str[clen], buf, blen);
 	free(cache);
 	return (str);
 }
