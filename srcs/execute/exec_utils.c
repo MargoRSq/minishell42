@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:40:07 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/13 16:55:53 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 16:59:09 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	replace_fds_start(t_cmd *cmd, t_fd *fds)
 	{
 		if (cmd->outfile->type == r_out)
 		{
-			fds->out_fd = open(cmd->outfile->name, O_RDWR | O_CREAT,
-					S_IWUSR | S_IRUSR);
+			fds->out_fd = open(cmd->outfile->name, O_WRONLY | O_TRUNC 
+					| O_CREAT, 0664);
 		}
 		else
 			fds->out_fd = open(cmd->outfile->name, O_WRONLY | O_APPEND
