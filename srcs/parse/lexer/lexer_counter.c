@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_counter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:32 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/10 16:39:42 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:19:14 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int inline	counter_skip_unpacked_env(char *str, t_list *envlst)
 
 	i = -1;
 	len = 0;
-	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$')
+	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' ' && str[i] != '$'
+		&& str[i])
 		len++;
 	if (len == 0 && str[i] == '$')
 		len++;

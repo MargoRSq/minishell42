@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_unpacker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:32:16 by ptoshiko          #+#    #+#             */
-/*   Updated: 2022/10/10 18:43:12 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:19:43 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*fetch_envstr(char *str, t_list *envlst)
 	key_len = 0;
 	i = -1;
 	while (str[++i] != '\'' && str[i] != '\"' && str[i] != ' '
-		&& (str[i] != '$'))
+		&& (str[i] != '$') && str[i])
 		key_len++;
 	if (key_len == 0 && str[i] == '$')
 		key = ft_strdup("$");
