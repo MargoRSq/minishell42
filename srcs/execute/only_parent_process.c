@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:42:01 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/13 16:19:33 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 16:40:28 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ void	bin_run(t_list **envlst, t_list *cmdlst, t_fd *fds)
 	t_cmd	*cmd;
 
 	cmd = cmdlst->content;
-	bin = get_cmd(*envlst, cmd->argv[0]);
 	fd = fork();
 	if (fd == 0)
 	{
 		replace_fds_start(cmd, fds);
+		bin = get_cmd(*envlst, cmd->argv[0]);
 		if (!bin || !execve(bin, cmd->argv, envlst_to_arr(*envlst)))
 		{
 			replace_fds_finish(cmd, fds);
