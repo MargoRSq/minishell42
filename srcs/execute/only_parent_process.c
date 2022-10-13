@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:42:01 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/13 16:00:31 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 16:19:33 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ char	*get_cmd(t_list *envlst, char *cmd)
 	char	*tmp;
 	int		i;
 
-	i = 0;
+	i = -1;
 	if (is_absolute_executable(cmd))
 		return (cmd);
 	ways = get_path(envlst);
+	if (!ways || ft_strlen(cmd) == 0)
+		return (NULL);
 	paths = ft_split(ways, ':');
-	while (paths[i])
+	while (paths[++i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		command = ft_strjoin(tmp, cmd);
@@ -66,7 +68,6 @@ char	*get_cmd(t_list *envlst, char *cmd)
 		if (!access(command, X_OK))
 			return (command);
 		free(command);
-		i++;
 	}
 	return (NULL);
 }
@@ -78,11 +79,11 @@ void	bin_run(t_list **envlst, t_list *cmdlst, t_fd *fds)
 	t_cmd	*cmd;
 
 	cmd = cmdlst->content;
+	bin = get_cmd(*envlst, cmd->argv[0]);
 	fd = fork();
 	if (fd == 0)
 	{
 		replace_fds_start(cmd, fds);
-		bin = get_cmd(*envlst, cmd->argv[0]);
 		if (!bin || !execve(bin, cmd->argv, envlst_to_arr(*envlst)))
 		{
 			replace_fds_finish(cmd, fds);
