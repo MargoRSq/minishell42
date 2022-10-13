@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:41:46 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/13 14:57:18 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/13 15:49:56 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	exec_last_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
 			close(fds->fd2[0]);
 			bin_run_multi(envlst, cmd, fds, fl);
 		}
+		close(fds->fd2[0]);
 	}
 	else
 	{
@@ -35,6 +36,7 @@ void	exec_last_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
 			close(fds->fd1[0]);
 			bin_run_multi(envlst, cmd, fds, fl);
 		}
+		close(fds->fd1[0]);
 	}
 	wait(0);
 }
