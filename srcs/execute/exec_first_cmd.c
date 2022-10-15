@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:43:03 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/13 15:42:26 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/15 14:34:49 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	bin_run_multi(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
 		dup2(STDOUT_FILENO, fds->fd1[0]);
 	else
 		dup2(STDOUT_FILENO, fds->fd2[0]);
-	exit(execve_error);
+	exit(1);
 }
 
 void	exec_first_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds)

@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:42:01 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/13 16:40:28 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/15 14:32:53 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	bin_run(t_list **envlst, t_list *cmdlst, t_fd *fds)
 			replace_fds_finish(cmd, fds);
 			error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
 				execve_error, 0);
-			exit(execve_error);
+			exit(1);
 		}
 	}
 	else
-		wait(0);
+		waitpid(-1, &g_status.exit_code, 0);
 }
 
 void	only_parent_process(t_list **envlst, t_list *cmdlst, t_fd *fds)

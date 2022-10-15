@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:41:46 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/13 15:49:56 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/15 13:30:50 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	exec_last_cmd(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
 		}
 		close(fds->fd1[0]);
 	}
-	wait(0);
+	waitpid(-1, &g_status.exit_code, 0);
 }
