@@ -6,7 +6,7 @@
 /*   By: svyatoslav <svyatoslav@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 19:03:20 by svyatoslav        #+#    #+#             */
-/*   Updated: 2022/10/12 20:16:46 by svyatoslav       ###   ########.fr       */
+/*   Updated: 2022/10/15 13:06:04 by svyatoslav       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,12 @@ static int	get_next_line_heredoc(char *stop, int fd)
 	return (EXIT_SUCCESS);
 }
 
-static int	launch_heredoc(char *path_tmp, t_token *infile)
+static int	launch_heredoc(char *filename, t_token *infile)
 {
-	char	*filename;
 	char	*stop;
 	int		fd;
 
-	filename = NULL;
-	fd = open(path_tmp, O_CREAT | O_RDWR | O_APPEND, 0644);
+	fd = open(filename, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		free(filename);
@@ -97,8 +95,8 @@ static int	launch_heredoc(char *path_tmp, t_token *infile)
 		return (EXIT_FAILURE);
 	}
 	free(stop);
-	infile->start = path_tmp;
-	infile->len = ft_strlen(path_tmp);
+	infile->start = filename;
+	infile->len = ft_strlen(filename);
 	signal_handler(sig_loop);
 	return (EXIT_SUCCESS);
 }
