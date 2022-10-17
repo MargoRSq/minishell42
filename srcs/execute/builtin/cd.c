@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:50:57 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/12 18:51:15 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:57:05 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,5 @@ void	execute_cd(t_list *envlst, char **cmd_argv)
 	change_or_append(envlst, ft_strdup("PWD"), ft_strdup(new_path));
 	free(new_path);
 	free(pwd_to_change);
+	g_status.exit_code = 0;
 }

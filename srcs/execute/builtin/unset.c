@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:22:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/02 12:36:18 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/17 15:07:41 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void	execute_unset(t_list **envlst, char **cmd_argv)
 		envlst_delete_one(cmd_argv[i], envlst);
 		i++;
 	}
+	g_status.exit_code = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:48:55 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/02 16:28:52 by angelinamaz      ###   ########.fr       */
+/*   Updated: 2022/10/17 14:59:17 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	execute_env(t_list *envlst, char **cmd_argv)
 	if (envlst == NULL)
 		error_msg_return_void(MSG_ERR_ENV, NULL, env_error, 1);
 	ft_lstiter(envlst, print_env);
+	g_status.exit_code = 0;
 }

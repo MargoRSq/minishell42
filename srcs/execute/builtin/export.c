@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptoshiko <ptoshiko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angelinamazurova <angelinamazurova@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 13:08:05 by angelinamaz       #+#    #+#             */
-/*   Updated: 2022/10/09 21:04:42 by ptoshiko         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:06:15 by angelinamaz      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	execute_export(t_list *envlst, char **cmd_argv)
 		print_sorted_env(envlst);
 	else
 		do_export_argv(envlst, cmd_argv);
+	g_status.exit_code = 0;
 }
