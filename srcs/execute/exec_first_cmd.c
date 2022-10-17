@@ -17,16 +17,21 @@ void	bin_run_multi(t_list *envlst, t_cmd *cmd, t_fd *fds, int fl)
 	char	*bin;
 
 	replace_fds_start(cmd, fds);
-	bin = get_cmd(envlst, cmd->argv[0]);
-	if (bin)
-		execve(bin, cmd->argv, envlst_to_arr(envlst));
-	replace_fds_finish(cmd, fds);
-	error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
-		execve_error, 0);
-	if (fl % 2 != 0)
-		dup2(STDOUT_FILENO, fds->fd1[0]);
+	if (check_builtin(cmd->argv[0]))
+		try_builtin(cmd, &envlst);
 	else
-		dup2(STDOUT_FILENO, fds->fd2[0]);
+	{
+		bin = get_cmd(envlst, cmd->argv[0]);
+		if (bin)
+			execve(bin, cmd->argv, envlst_to_arr(envlst));
+		error_msg_return_void(MSG_ERR_CMD_NF, cmd->argv[0],
+			execve_error, 0);
+		if (fl % 2 != 0)
+			dup2(STDOUT_FILENO, fds->fd1[0]);
+		else
+			dup2(STDOUT_FILENO, fds->fd2[0]);
+	}
+	replace_fds_finish(cmd, fds);
 	exit(1);
 }
 

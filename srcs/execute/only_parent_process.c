@@ -103,13 +103,11 @@ void	only_parent_process(t_list **envlst, t_list *cmdlst, t_fd *fds)
 	cmd = cmdlst->content;
 	if (cmd->argv[0])
 	{
+		replace_fds_start(cmd, fds);
 		if (check_builtin(cmd->argv[0]))
-		{
-			replace_fds_start(cmd, fds);
 			try_builtin(cmd, envlst);
-			replace_fds_finish(cmd, fds);
-		}
 		else
 			bin_run(envlst, cmdlst, fds);
+		replace_fds_finish(cmd, fds);
 	}
 }
